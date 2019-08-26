@@ -1,0 +1,38 @@
+@import '../../styles/mixin.scss';
+.settingsLeftWrap{
+  width: 60%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+  padding: 5%;
+}
+.settingsRightWrap{
+  position: relative;
+  width: 40%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+  padding: 5%;
+}
+.settingsLeftTopTitle{
+  height: vw(60);
+  line-height: vw(60);
+  font-size: vw(45);
+}
+.settingsTextArea{
+  width: 100%;
+  height: vw(270);
+  padding: 0 5% ;
+  box-sizing: border-box;
+  border: 3px solid purple;
+  line-height: vw(240);
+  outline: none;
+  font-size: vw(50);
+}
+.settingsBackBtn{
+  position: absolute;
+
+}
+.bottomTextAreaMargin{
+  margin-top: vw(100);
+}

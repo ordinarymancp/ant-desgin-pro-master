@@ -1,0 +1,112 @@
+@import '../../styles/mixin.scss';
+.sharpGreen:before{
+  content:"";
+  width:0;
+  border-bottom:vw(30) solid transparent;
+  border-top:vw(30) solid transparent;
+  border-right:vw(20) solid #6c6;
+  position:absolute;
+  left:vw(-20);
+  top:0px;
+}
+
+.sharpGreen{
+  cursor: pointer;
+  width:vw(200);
+  height:vw(60);
+  background:#6c6;
+  display: inline-block;
+  position: absolute;
+  word-break: break-all;
+  line-height: vw(60);
+  color:#FFFFFF;
+  font-size: vw(20);
+  text-align: center;
+}
+
+.sharpGreen:after{
+  content:"";
+  width:0px;
+  border-bottom:vw(30) solid transparent;
+  border-top:vw(30) solid transparent;
+  border-left-width:vw(20);
+  border-left-style: solid;
+  border-left-color:#6c6;
+  position:absolute;
+  right:vw(-20);
+  top:0px;
+}
+.sharpBlue:before{
+  content:"";
+  width:0;
+  border-bottom:vw(30) solid transparent;
+  border-top:vw(30) solid transparent;
+  border-right:vw(20) solid #1890ff;
+  position:absolute;
+  left:vw(-20);
+  top:0px;
+}
+
+.sharpBlue{
+  cursor: pointer;
+  width:vw(200);
+  height:vw(60);
+  background:#1890ff;
+  display: inline-block;
+  position: absolute;
+  word-break: break-all;
+  line-height: vw(60);
+  color:#FFFFFF;
+  font-size: vw(20);
+  text-align: center;
+}
+
+.sharpBlue:after{
+  content:"";
+  width:0px;
+  border-bottom:vw(30) solid transparent;
+  border-top:vw(30) solid transparent;
+  border-left-width:vw(20);
+  border-left-style: solid;
+  border-left-color:#1890ff;
+  position:absolute;
+  right:vw(-20);
+  top:0px;
+}
+.sharpPurple:before{
+  content:"";
+  width:0;
+  border-bottom:vw(30) solid transparent;
+  border-top:vw(30) solid transparent;
+  border-right:vw(20) solid blueviolet;
+  position:absolute;
+  left:vw(-20);
+  top:0px;
+}
+
+.sharpPurple{
+  cursor: pointer;
+  width:vw(200);
+  height:vw(60);
+  background:blueviolet;
+  display: inline-block;
+  position: absolute;
+  word-break: break-all;
+  line-height: vw(60);
+  color:#FFFFFF;
+  font-size: vw(20);
+  text-align: center;
+}
+
+.sharpPurple:after{
+  content:"";
+  width:0px;
+  border-bottom:vw(30) solid transparent;
+  border-top:vw(30) solid transparent;
+  border-left-width:vw(20);
+  border-left-style: solid;
+  border-left-color:blueviolet;
+  position:absolute;
+  right:vw(-20);
+  top:0px;
+}

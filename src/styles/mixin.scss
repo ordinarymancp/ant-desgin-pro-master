@@ -1,0 +1,6 @@
+$vw_fontsize: 256;
+$vw_base: 1920;
+@function vw($px) {
+    @return ($px / $vw_base) * 100vw;
+}
+$vw_design: 1920;

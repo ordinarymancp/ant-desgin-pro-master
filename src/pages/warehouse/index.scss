@@ -1,0 +1,45 @@
+@import '../../styles/mixin.scss';
+.sharpContainer{
+  float: right;
+  width: vw(600);
+  height: vw(600);
+  position: relative;
+  margin-right: vw(20);
+  top: 50%;
+  margin-top: vw(-300);
+}
+
+.sharpContainer .center{
+  top:vw(200);
+  left:vw(300);
+}
+
+.sharpContainer .top{
+  top:vw(20);
+  left:vw(300);
+}
+
+.sharpContainer .topLeft{
+  top:vw(110);
+  left:vw(140);
+}
+
+.sharpContainer .topRight{
+  top:vw(110);
+  left:vw(460);
+}
+
+.sharpContainer .bottom{
+  top:vw(380);
+  left:vw(300);
+}
+
+.sharpContainer .bottomLeft{
+  top:vw(290);
+  left:vw(140);
+}
+
+.sharpContainer .bottomRight{
+  top:vw(290);
+  left:vw(460);
+}

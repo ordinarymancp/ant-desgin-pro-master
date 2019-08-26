@@ -1,0 +1,41 @@
+@import '../../styles/mixin.scss';
+.h1Title {
+  width: 100%;
+  height: vw(180);
+  text-align: center;
+  font-size: vw(50);
+  line-height: vw(180);
+  float: left;
+  overflow: hidden;
+}
+.contentWrap {
+  box-sizing: border-box;
+  padding: 0 15%;
+  width: 100%;
+  height: 100%;
+}
+.searchWrap {
+  width: 100%;
+  height: vw(300);
+}
+.searchRightButtonWrap{
+  width: 33%;
+  float: left;
+  justify-content: space-between;
+  display: flex;
+}
+.searchLeftInput {
+  width: 40%;
+  margin-right: 10%;
+  float: left;
+  margin-top: vw(100);
+}
+.resultWrap{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.menuItemHeight{
+  height: vw(60);
+}
