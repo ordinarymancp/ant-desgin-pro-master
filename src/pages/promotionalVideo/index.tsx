@@ -9,7 +9,7 @@ import 'videojs-contrib-hls';
 import 'video.js/dist/video-js.css';
 import { Modal, notification, List, Empty, Radio, Icon } from 'antd';
 import styles from './index.scss';
-import VideoButton from "@/components/VideoButton";
+import VideoButton from '@/components/VideoButton';
 // @ts-ignore
 @connect(({ global }) => ({
   global,
@@ -43,16 +43,16 @@ class promotionalVideo extends React.Component {
         // })
       } else {
         const videoFileStream = 'http://vjs.zencdn.net/v/oceans.mp4';
-        this.videoReload(videoFileStream)
+        this.videoReload(videoFileStream);
       }
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
-      const defaultVideo = { name: '宣传视频', path: 'http://vjs.zencdn.net/v/oceans.mp4  ' }
+      const defaultVideo = { name: '宣传视频', path: 'http://vjs.zencdn.net/v/oceans.mp4  ' };
       this.setState({
         // eslint-disable-next-line react/no-unused-state
         videoList: [defaultVideo, ...videoList],
-      })
+      });
     }
   }
   // 视频重置
@@ -73,7 +73,7 @@ class promotionalVideo extends React.Component {
     });
     this.player1.load();
     this.player1.play();
-  }
+  };
 
   showModal = () => {
     this.setState({
@@ -91,7 +91,7 @@ class promotionalVideo extends React.Component {
       this.videoReload(checkedPath);
       notification.open({
         message: '切换成功',
-        icon: <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a"/>,
+        icon: <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />,
         onClick: () => {
           console.log('Notification Clicked!');
         },
@@ -99,7 +99,7 @@ class promotionalVideo extends React.Component {
     } else {
       this.setState({
         visible: false,
-      })
+      });
     }
   };
 
@@ -109,7 +109,7 @@ class promotionalVideo extends React.Component {
     });
   };
 
-  onChange = (e: { target: { value: any; }; }) => {
+  onChange = (e: { target: { value: any } }) => {
     this.setState({
       checkedPath: e.target.value,
     });
@@ -129,19 +129,14 @@ class promotionalVideo extends React.Component {
           <div className={styles.leftBottomOverBorder}></div>
           <div className={styles.bottomBorder}></div>
           <div className={styles.bottomOverBorder}></div>
-          <video
-            id="myVideo1"
-            className="video-js"
-          >
-            <p className="vjs-no-js">
-              您的浏览器不支持HTML5，请升级浏览器。
-            </p>
+          <video id="myVideo1" className="video-js">
+            <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
             <track kind="captions" />
           </video>
         </div>
         <div style={{ width: '15%', height: '100%', float: 'left' }}>
           <div className={styles.antProSettingDrawerHandle} onClick={this.showModal}>
-            <Icon type="setting" style={{ color: 'white' }}/>
+            <Icon type="setting" style={{ color: 'white' }} />
           </div>
           <Modal
             title="选择云视频"
@@ -149,30 +144,33 @@ class promotionalVideo extends React.Component {
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-            <div style={{width: '100%'}}>
-              {videoList.length > 0 ?
+            <div style={{ width: '100%' }}>
+              {videoList.length > 0 ? (
                 // @ts-ignore
-                <Radio.Group value={checkedPath} onChange={this.onChange}>
-                <List
-                  itemLayout="horizontal"
-                  dataSource={videoList}
-                  renderItem={(item) => (
-                    <List.Item
-                      extra={
-                        // @ts-ignore
-                        <Radio name="videos" value={item.path} style={{ marginLeft: '50px'}}/>
-                      }
-                    >
-                      <List.Item.Meta
-                        // @ts-ignore
-                        title={item.name}
-                        // @ts-ignore
-                        description={`视频地址:${item.path}`}
-                      />
-                    </List.Item>
-                  )}
-                /></Radio.Group> : <Empty />
-              }
+                <Radio.Group value={checkedPath} onChange={this.onChange} style={{ width: '100%' }}>
+                  <List
+                    itemLayout="horizontal"
+                    dataSource={videoList}
+                    renderItem={item => (
+                      <List.Item
+                        extra={
+                          // @ts-ignore
+                          <Radio name="videos" value={item.path} style={{ float: 'right' }} />
+                        }
+                      >
+                        <List.Item.Meta
+                          // @ts-ignore
+                          title={item.name}
+                          // @ts-ignore
+                          description={`视频地址:${item.path}`}
+                        />
+                      </List.Item>
+                    )}
+                  />
+                </Radio.Group>
+              ) : (
+                <Empty />
+              )}
             </div>
           </Modal>
         </div>
@@ -180,6 +178,4 @@ class promotionalVideo extends React.Component {
     );
   }
 }
-export default connect(({ global }: ConnectState) => ({
-
-}))(promotionalVideo);
+export default connect(({ global }: ConnectState) => ({}))(promotionalVideo);
