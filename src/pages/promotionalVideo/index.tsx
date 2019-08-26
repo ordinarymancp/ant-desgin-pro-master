@@ -24,6 +24,7 @@ class promotionalVideo extends React.Component {
     videoPath: '',
     videoList: [],
     visible: false,
+    isplay: true,
   };
 
   // eslint-disable-next-line react/sort-comp
@@ -75,6 +76,21 @@ class promotionalVideo extends React.Component {
     this.player1.play();
   };
 
+  videoPlay = () => {
+    const { isplay } = this.state;
+    if (isplay) {
+      this.player1.pause();
+      this.setState({
+        isplay: false,
+      });
+    } else {
+      this.player1.play();
+      this.setState({
+        isplay: true,
+      });
+    }
+  };
+
   showModal = () => {
     this.setState({
       visible: true,
@@ -87,6 +103,7 @@ class promotionalVideo extends React.Component {
       this.setState({
         visible: false,
         videoPath: checkedPath,
+        isplay: true,
       });
       this.videoReload(checkedPath);
       notification.open({
@@ -116,10 +133,9 @@ class promotionalVideo extends React.Component {
   };
 
   render() {
-    const { videoList, checkedPath } = this.state;
+    const { videoList, checkedPath, isplay } = this.state;
     return (
       <div>
-        {/*<VideoButton/>*/}
         <div style={{ width: '1000px', margin: '20px  auto', position: 'relative' }}>
           <div className={styles.leftTopBorder}></div>
           <div className={styles.leftTopOverBorder}></div>
@@ -129,15 +145,27 @@ class promotionalVideo extends React.Component {
           <div className={styles.leftBottomOverBorder}></div>
           <div className={styles.bottomBorder}></div>
           <div className={styles.bottomOverBorder}></div>
+          <div style={{ position: 'absolute', top: '230px', left: '-75px', zIndex: '999' }}>
+            <VideoButton icon={'fullscreen'} />
+          </div>
+          <div
+            style={{ position: 'absolute', top: '330px', left: '-75px', zIndex: '999' }}
+            onClick={this.videoPlay}
+          >
+            <VideoButton icon={!isplay ? 'caret-right' : 'pause'} />
+          </div>
+          <div style={{ position: 'absolute', top: '430px', left: '-75px', zIndex: '999' }}>
+            <VideoButton icon={'setting'} handleClick={this.showModal} />
+          </div>
           <video id="myVideo1" className="video-js">
             <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
             <track kind="captions" />
           </video>
         </div>
         <div style={{ width: '15%', height: '100%', float: 'left' }}>
-          <div className={styles.antProSettingDrawerHandle} onClick={this.showModal}>
-            <Icon type="setting" style={{ color: 'white' }} />
-          </div>
+          {/*<div className={styles.antProSettingDrawerHandle} onClick={this.showModal}>*/}
+          {/*  <Icon type="setting" style={{ color: 'white' }} />*/}
+          {/*</div>*/}
           <Modal
             title="选择云视频"
             visible={this.state.visible}

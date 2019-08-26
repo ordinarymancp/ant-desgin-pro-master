@@ -1,5 +1,5 @@
 @import '~antd/es/style/themes/default.less';
-html{
+html {
   @media screen and (max-width: 2560px) {
     font-size: 512px;
   }
@@ -48,7 +48,67 @@ html{
   min-height: 100vh;
   background: rgba(15, 10, 11, 0.8) !important;
 }
-.overview{
+.pie {
+  position: relative;
+  margin: 0px auto;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  list-style: none;
+  overflow: hidden;
+  transform: rotate(0deg); /*针对mac safari浏览器兼容*/
+}
+.slice {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  transform-origin: 0% 100%;
+}
+.slice-1 {
+  transform: rotate(-36deg) skewY(-54deg);
+  background: #05facf;
+}
+.slice-2 {
+  transform: rotate(-72deg) skewY(-54deg);
+  background: #05facf;
+}
+.slice-3 {
+  transform: rotate(-108deg) skewY(-54deg);
+  background: transparent;
+}
+.slice-4 {
+  transform: rotate(-144deg) skewY(-54deg);
+  background: transparent;
+}
+.slice-5 {
+  transform: rotate(-180deg) skewY(-54deg);
+  background: #05facf;
+}
+.slice-6 {
+  transform: rotate(-216deg) skewY(-54deg);
+  background: transparent;
+}
+.slice-7 {
+  transform: rotate(-252deg) skewY(-54deg);
+  background: transparent;
+}
+.slice-8 {
+  transform: rotate(-288deg) skewY(-54deg);
+  background: #05facf;
+}
+.slice-9 {
+  transform: rotate(-324deg) skewY(-54deg);
+  background: transparent;
+}
+.slice-10 {
+  transform: rotate(-360deg) skewY(-54deg);
+  background: transparent;
+}
+.overview {
   position: fixed;
   left: 0;
   top: 64px;
