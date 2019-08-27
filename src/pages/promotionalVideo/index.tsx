@@ -36,8 +36,8 @@ class promotionalVideo extends React.Component {
 
   componentDidMount(): void {
     if (localStorage.getItem('settings')) {
-      const settingsValue = JSON.parse(localStorage.getItem('settings') as string);
-      const { videoPath } = settingsValue;
+      const settingsValue = JSON.parse(localStorage.getItem('settings') as string) || {};
+      // const { videoPath } = settingsValue;
       if (this.state.videoPath !== '') {
         // this.setState({
         //   videoPath: window.URL.createObjectURL(videoPath),
@@ -46,6 +46,8 @@ class promotionalVideo extends React.Component {
         const videoFileStream = 'http://vjs.zencdn.net/v/oceans.mp4';
         this.videoReload(videoFileStream);
       }
+    } else {
+      this.videoReload('http://vjs.zencdn.net/v/oceans.mp4');
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
@@ -74,6 +76,9 @@ class promotionalVideo extends React.Component {
     });
     this.player1.load();
     this.player1.play();
+    if (this.state.checkedPath) {
+      this.player1.on('click', this.videoPlay);
+    }
   };
 
   videoPlay = () => {
@@ -120,6 +125,10 @@ class promotionalVideo extends React.Component {
     }
   };
 
+  fullscreen = () => {
+    this.player1.requestFullscreen();
+  };
+
   handleCancel = (e: any) => {
     this.setState({
       visible: false,
@@ -137,16 +146,16 @@ class promotionalVideo extends React.Component {
     return (
       <div>
         <div style={{ width: '1000px', margin: '20px  auto', position: 'relative' }}>
-          <div className={styles.leftTopBorder}></div>
-          <div className={styles.leftTopOverBorder}></div>
-          <div className={styles.topBorder}></div>
-          <div className={styles.topOverBorder}></div>
-          <div className={styles.leftBottomBorder}></div>
-          <div className={styles.leftBottomOverBorder}></div>
-          <div className={styles.bottomBorder}></div>
-          <div className={styles.bottomOverBorder}></div>
+          <div className={styles.leftTopBorder} />
+          <div className={styles.leftTopOverBorder} />
+          <div className={styles.topBorder} />
+          <div className={styles.topOverBorder} />
+          <div className={styles.leftBottomBorder} />
+          <div className={styles.leftBottomOverBorder} />
+          <div className={styles.bottomBorder} />
+          <div className={styles.bottomOverBorder} />
           <div style={{ position: 'absolute', top: '230px', left: '-75px', zIndex: '999' }}>
-            <VideoButton icon={'fullscreen'} />
+            <VideoButton icon="fullscreen" handleClick={this.fullscreen} />
           </div>
           <div
             style={{ position: 'absolute', top: '330px', left: '-75px', zIndex: '999' }}
@@ -155,7 +164,7 @@ class promotionalVideo extends React.Component {
             <VideoButton icon={!isplay ? 'caret-right' : 'pause'} />
           </div>
           <div style={{ position: 'absolute', top: '430px', left: '-75px', zIndex: '999' }}>
-            <VideoButton icon={'setting'} handleClick={this.showModal} />
+            <VideoButton icon="setting" handleClick={this.showModal} />
           </div>
           <video id="myVideo1" className="video-js">
             <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
@@ -163,9 +172,6 @@ class promotionalVideo extends React.Component {
           </video>
         </div>
         <div style={{ width: '15%', height: '100%', float: 'left' }}>
-          {/*<div className={styles.antProSettingDrawerHandle} onClick={this.showModal}>*/}
-          {/*  <Icon type="setting" style={{ color: 'white' }} />*/}
-          {/*</div>*/}
           <Modal
             title="选择云视频"
             visible={this.state.visible}

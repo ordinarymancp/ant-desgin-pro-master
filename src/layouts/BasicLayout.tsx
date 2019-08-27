@@ -19,7 +19,7 @@ import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState, Dispatch } from '@/models/connect';
 // import { isAntDesignPro } from '@/utils/utils';
 import logo from '../assets/logo.svg';
-import FullScreenWelcome from "@/components/FullScreenWelcome";
+import FullScreenWelcome from '@/components/FullScreenWelcome';
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
@@ -97,7 +97,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   return (
     <ProLayout
       logo={logo}
-      onCollapse={handleMenuCollapse}
+      // onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl) {
           return defaultDom;
@@ -129,7 +129,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       {...props}
       {...settings}
     >
-      <FullScreenWelcome hidden={welcomeHidden}/>
+      <FullScreenWelcome hidden={welcomeHidden} />
       {children}
     </ProLayout>
   );
