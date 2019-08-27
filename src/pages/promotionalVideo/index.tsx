@@ -57,6 +57,7 @@ class promotionalVideo extends React.Component {
         videoList: [defaultVideo, ...videoList],
       });
     }
+    this.player1.on('click', this.videoPlay);
   }
   // 视频重置
 
@@ -76,9 +77,6 @@ class promotionalVideo extends React.Component {
     });
     this.player1.load();
     this.player1.play();
-    if (this.state.checkedPath) {
-      this.player1.on('click', this.videoPlay);
-    }
   };
 
   videoPlay = () => {
