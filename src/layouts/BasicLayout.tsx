@@ -96,7 +96,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   // @ts-ignore
   return (
     <ProLayout
-      logo={logo}
+      logo={false}
       // onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl) {
