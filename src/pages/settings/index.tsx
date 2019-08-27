@@ -98,7 +98,7 @@ class settings extends React.Component {
 
   render() {
     return (
-      <div className="overview">
+      <div className="overview" style={{ padding: '20px' }}>
         <Tabs tabPosition="left" style={{ height: 220, color: 'rgba(255, 255, 255, 0.65)' }}>
           <TabPane tab="首页编辑" key="首页编辑">
             <div style={{ width: '80%', marginLeft: '10%' }}>
@@ -107,6 +107,7 @@ class settings extends React.Component {
                 placeholder="请输入首页欢迎词"
                 enterButton="保存"
                 value={this.state.homeWelcome}
+                style={{ width: '50%' }}
                 onChange={event => {
                   this.setState({
                     homeWelcome: event.target.value,
@@ -123,6 +124,7 @@ class settings extends React.Component {
                 placeholder="请输入尾页欢迎词"
                 enterButton="保存"
                 value={this.state.lastWelcome}
+                style={{ width: '50%' }}
                 onChange={event => {
                   this.setState({
                     lastWelcome: event.target.value,

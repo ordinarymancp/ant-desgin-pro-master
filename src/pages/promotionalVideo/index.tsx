@@ -43,15 +43,15 @@ class promotionalVideo extends React.Component {
         //   videoPath: window.URL.createObjectURL(videoPath),
         // })
       } else {
-        const videoFileStream = 'http://vjs.zencdn.net/v/oceans.mp4';
+        const videoFileStream = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
         this.videoReload(videoFileStream);
       }
     } else {
-      this.videoReload('http://vjs.zencdn.net/v/oceans.mp4');
+      this.videoReload('http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4');
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
-      const defaultVideo = { name: '宣传视频', path: 'http://vjs.zencdn.net/v/oceans.mp4  ' };
+      const defaultVideo = { name: '宣传视频', path: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ' };
       this.setState({
         // eslint-disable-next-line react/no-unused-state
         videoList: [defaultVideo, ...videoList],
@@ -64,12 +64,12 @@ class promotionalVideo extends React.Component {
   videoReload = (path: any) => {
     const videoFileStream = path;
     const options = {
-      width: '1000px',
       height: '500px',
       controls: 'controls',
       preload: 'auto',
       autoPlay: 'autoPlay',
       isFullscreen: true,
+      fluid: true,
     };
     this.player1 = videojs('myVideo1', options);
     this.player1.src({
@@ -143,7 +143,7 @@ class promotionalVideo extends React.Component {
     const { videoList, checkedPath, isplay } = this.state;
     return (
       <div>
-        <div style={{ width: '1000px', margin: '20px  auto', position: 'relative' }}>
+        <div style={{ width: '60%', height: '500px', margin: '20px  auto', position: 'relative' }}>
           <div className={styles.leftTopBorder} />
           <div className={styles.leftTopOverBorder} />
           <div className={styles.topBorder} />
@@ -164,7 +164,11 @@ class promotionalVideo extends React.Component {
           <div style={{ position: 'absolute', top: '430px', left: '-75px', zIndex: '999' }}>
             <VideoButton icon="setting" handleClick={this.showModal} />
           </div>
-          <video id="myVideo1" className="video-js">
+          <video
+            id="myVideo1"
+            className="video-js  vjs-big-play-centered vjs-fluid"
+            style={{ height: '100%' }}
+          >
             <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
             <track kind="captions" />
           </video>
@@ -195,6 +199,7 @@ class promotionalVideo extends React.Component {
                           title={item.name}
                           // @ts-ignore
                           description={`视频地址:${item.path}`}
+                          style={{wordBreak: 'break-all'}}
                         />
                       </List.Item>
                     )}

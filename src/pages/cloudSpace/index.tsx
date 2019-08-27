@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
@@ -11,40 +10,39 @@ const { TabPane } = Tabs;
 @connect(({ global }) => ({
   global,
 }))
-
-// eslint-disable-next-line react/prefer-stateless-function
-const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
-  // eslint-disable-next-line
-  class extends React.Component {
-    render() {
-      // @ts-ignore
-      const { visible, onCancel, onCreate, form } = this.props;
-      const { getFieldDecorator } = form;
-      return (
-        <Modal
-          visible={visible}
-          title="视频添加"
-          okText="创建"
-          onCancel={onCancel}
-          onOk={onCreate}
-        >
-          <Form layout="vertical">
-            <Form.Item label="视频路径">
-              {getFieldDecorator('title', {
-                rules: [{ required: true, message: '请输入视频路径' }],
-              })(<Input />)}
-            </Form.Item>
-            <Form.Item label="视频名称">
-              {getFieldDecorator('description', {
-                rules: [{ required: true, message: '请输入视频名称' }],
-              })(<Input type="textarea" />)}
-            </Form.Item>
-          </Form>
-        </Modal>
-      );
-    }
-  },
-)
+const // eslint-disable-next-line react/prefer-stateless-function
+  CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+    // eslint-disable-next-line
+    class extends React.Component {
+      render() {
+        // @ts-ignore
+        const { visible, onCancel, onCreate, form } = this.props;
+        const { getFieldDecorator } = form;
+        return (
+          <Modal
+            visible={visible}
+            title="视频添加"
+            okText="创建"
+            onCancel={onCancel}
+            onOk={onCreate}
+          >
+            <Form layout="vertical">
+              <Form.Item label="视频路径">
+                {getFieldDecorator('title', {
+                  rules: [{ required: true, message: '请输入视频路径' }],
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item label="视频名称">
+                {getFieldDecorator('description', {
+                  rules: [{ required: true, message: '请输入视频名称' }],
+                })(<Input type="textarea" />)}
+              </Form.Item>
+            </Form>
+          </Modal>
+        );
+      }
+    },
+  );
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 class cloudSpace extends React.Component {
   public player1: any;
@@ -53,11 +51,11 @@ class cloudSpace extends React.Component {
   componentDidMount(): void {
     if (localStorage.getItem('cloudSpace')) {
       // eslint-disable-next-line no-shadow
-      const { cloudSpace } = JSON.parse(localStorage.getItem('cloudSpace') as string)
+      const { cloudSpace } = JSON.parse(localStorage.getItem('cloudSpace') as string);
       const { videoList, imageList, musicList, textList } = cloudSpace;
-      this.setState({ videoList, imageList, musicList, textList })
+      this.setState({ videoList, imageList, musicList, textList });
     } else {
-      localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }))
+      localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
     }
   }
 
@@ -89,11 +87,11 @@ class cloudSpace extends React.Component {
 
   handleCreate = () => {
     const { form } = this.formRef.props;
-    form.validateFields((err: any, values: { title: any; description: any; }) => {
+    form.validateFields((err: any, values: { title: any; description: any }) => {
       if (err) {
         return;
       }
-      this.settingCloudVideo(values.title, values.description)
+      this.settingCloudVideo(values.title, values.description);
       console.log('Received values of form: ', values);
       form.resetFields();
       this.setState({ visible: false });
@@ -106,9 +104,9 @@ class cloudSpace extends React.Component {
     cloudSpace.videoList.push({ path, name });
     this.setState({
       videoList: cloudSpace.videoList,
-    })
-    localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace }))
-  }
+    });
+    localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace }));
+  };
 
   saveFormRef = (formRef: any) => {
     this.formRef = formRef;
@@ -121,12 +119,12 @@ class cloudSpace extends React.Component {
     cloudSpace.videoList.splice(index, 1);
     this.setState({
       videoList: cloudSpace.videoList,
-    })
-    localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace }))
-  }
+    });
+    localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace }));
+  };
 
   videoReload = (path: any) => {
-    console.log(path)
+    console.log(path);
     const videoFileStream = path;
     const options = {
       width: '450px',
@@ -142,13 +140,13 @@ class cloudSpace extends React.Component {
     });
     this.player1.load();
     this.player1.play();
-  }
+  };
 
   showViedoModal = (path: any) => {
     this.setState({ viedoModelVisible: true }, () => {
       setTimeout(() => {
         this.videoReload(path);
-      },200)
+      }, 200);
     });
   };
 
@@ -159,27 +157,22 @@ class cloudSpace extends React.Component {
   render() {
     const { videoList, viedoModelVisible } = this.state;
     return (
-      <div className= "overview">
+      <div className="overview">
         <Modal
           visible={viedoModelVisible}
           title="视频预览"
           onCancel={this.handleVideoCancel}
           onOk={this.handleVideoCancel}
         >
-          <div style={{ width: '100%', height: '100%'}}>
-            <video
-              id="myVideo1"
-              className="video-js"
-            >
-              <p className="vjs-no-js">
-                您的浏览器不支持HTML5，请升级浏览器。
-              </p>
+          <div style={{ width: '100%', height: '100%' }}>
+            <video id="myVideo1" className="video-js">
+              <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
               <track kind="captions" />
             </video>
           </div>
         </Modal>
-        <Tabs tabPosition ="left" style={{ height: 400, color: 'rgba(255, 255, 255, 0.65)' }}>
-          <TabPane tab="视频" key="视频" >
+        <Tabs tabPosition="left" style={{ height: 400, color: 'rgba(255, 255, 255, 0.65)' }}>
+          <TabPane tab="视频" key="视频">
             <Button type="primary" onClick={this.showModal}>
               添加视频
             </Button>
@@ -189,24 +182,38 @@ class cloudSpace extends React.Component {
               onCancel={this.handleCancel}
               onCreate={this.handleCreate}
             />
-            {videoList.length > 0 ?
-                      <List
-                      itemLayout="horizontal"
-                      dataSource={videoList}
-                      style={{ color: 'rgba(255, 255, 255, 0.65)'}}
-                      renderItem={(item, index) => (
-                      <List.Item
-                        actions={[<a key="list-loadmore-view" onClick={this.showViedoModal.bind(this, item.path)}>预览</a>, <a key="list-loadmore-edit" onClick={this.deleteCloudVideo.bind(this, index)}>删除</a>]}
+            {videoList.length > 0 ? (
+              <List
+                itemLayout="horizontal"
+                dataSource={videoList}
+                style={{ color: 'rgba(255, 255, 255, 0.65)' }}
+                renderItem={(item, index) => (
+                  <List.Item
+                    actions={[
+                      <a
+                        key="list-loadmore-view"
+                        onClick={this.showViedoModal.bind(this, item.path)}
                       >
-                        <List.Item.Meta
-                          title={<h4 style={{color: 'rgba(255, 255, 255, 0.65)'}}>item.name</h4>}
-                          description={<h4 style={{color: 'rgba(255, 255, 255, 0.65)'}}>视频地址:{item.path}</h4>}
-                          style={{color: 'rgba(255, 255, 255, 0.65) !important'}}
-                        />
-                      </List.Item>
-                    )}
-                      /> : <Empty />
-                }
+                        预览
+                      </a>,
+                      <a key="list-loadmore-edit" onClick={this.deleteCloudVideo.bind(this, index)}>
+                        删除
+                      </a>,
+                    ]}
+                  >
+                    <List.Item.Meta
+                      title={<h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>{item.name}</h4>}
+                      description={
+                        <h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>视频地址:{item.path}</h4>
+                      }
+                      style={{ color: 'rgba(255, 255, 255, 0.65) !important' }}
+                    />
+                  </List.Item>
+                )}
+              />
+            ) : (
+              <Empty />
+            )}
           </TabPane>
           <TabPane tab="文档" key="文档">
             <Empty />
@@ -222,6 +229,4 @@ class cloudSpace extends React.Component {
     );
   }
 }
-export default connect(({ global }: ConnectState) => ({
-
-}))(cloudSpace);
+export default connect(({ global }: ConnectState) => ({}))(cloudSpace);

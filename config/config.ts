@@ -92,11 +92,13 @@ export default {
     {
       path: '/login',
       component: '../layouts/UserLayout',
-      routes:[{
-        path: '/login',
-        name: 'login',
-        component: './login',
-      }]
+      routes: [
+        {
+          path: '/login',
+          name: 'login',
+          component: './login',
+        },
+      ],
     },
     {
       path: '/',
@@ -122,7 +124,7 @@ export default {
         {
           path: '/applicatioScenarioNext/:name',
           component: './applicatioScenarioNext/index',
-          name:'applicatioScenarioNext',
+          name: 'applicatioScenarioNext',
           hideInMenu: true,
         },
         {
@@ -130,6 +132,12 @@ export default {
           name: 'applicatioScenarioIndex',
           component: './applicatioScenarioIndex/index',
           hideInMenu: true,
+        },
+        //设置
+        {
+          path: '/settings',
+          name: 'settings',
+          component: './settings/index',
         },
         //云空间
         {
@@ -142,12 +150,6 @@ export default {
           path: '/favorites',
           name: 'favorites',
           component: './favorites/index',
-        },
-        //设置
-        {
-          path: '/settings',
-          name: 'settings',
-          component: './settings/index',
         },
         {
           component: './404',

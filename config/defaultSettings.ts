@@ -47,7 +47,7 @@ export default {
   primaryColor: 'rgba(24,144,255,0.65)',
   layout: 'topmenu',
   contentWidth: 'Fixed',
-  fixedHeader: false,
+  fixedHeader: true,
   autoHideHeader: false,
   fixSiderbar: false,
   menu: {
