@@ -75,6 +75,7 @@ class applicatioScenarioNext extends React.Component {
                     opacityTime={parseInt(index) * 100}
                     collected={buttonGroup[index].collected}
                     handleClick={this.routerButtonClick.bind(this, buttonGroup[index].url)}
+                    src={buttonGroup[index].image}
                   />
                 );
               }

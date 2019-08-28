@@ -57,33 +57,41 @@ const GlobalModel: GlobalModelType = {
       {
         name: '城市治理',
         solutionSonGroup: [
-          { state: 'real', name: '暴露垃圾', collected: false, url: 'https://www.google.com/' }, { state: 'real', name: '渣土运输未加盖', collected: false, url: 'https://www.google.com/' }, { state: 'real', name: '渣土乱倒乱卸', collected: false, url: 'https://www.google.com/' },
-          { state: 'simulation', name: '店外经营', collected: false, url: 'https://www.google.com/' }, { state: 'simulation', name: '机动车乱停放', collected: false, url: 'https://www.google.com/' }, { state: 'solution', name: '疑似非法聚众', collected: false, url: 'https://www.google.com/' },
+          { state: 'real', name: '暴露垃圾', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/bllj', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/BLLJ.png' }, { state: 'real', name: '渣土车治理', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/carindex', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/ZTC.png' }, { state: 'real', name: '无照经营游商', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/travelAgent', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/JYYS.png' },
+          { state: 'simulation', name: '店外经营', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/dwjy', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/DWJY.png' }, { state: 'simulation', name: '机动车乱停放', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/motorParking', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/LTF.png' }, { state: 'solution', name: '秸秆焚烧', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/straw', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/JGFS.png' },
         ],
       },
       {
         name: '社区治理',
         solutionSonGroup: [
-         { state: 'real', name: '社区重点人员布控', collected: false, url: 'https://www.google.com/' },
+         { state: 'real', name: '非法聚众', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/illegalMass', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/FFJZ.png' },
+          { state: 'real', name: '重点人员布控', collected: false, url: 'https://192.168.204.54:8830/monitored/#/keypersoncontrol', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/RYBK.png' },
+          { state: 'real', name: '楼宇外立面监控', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/buildingMonitoring', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/WLMJK.png' },
         ],
       },
       {
         name: '公共安全',
         solutionSonGroup: [
-          { state: 'solution', name: '重点区域人员监控', collected: false, url: 'https://www.google.com/' },
+          { state: 'solution', name: '重点区域人员监控', collected: false, url: 'https://192.168.204.54:8830/monitored/#/keyareamonitor', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/RLJK.png' },
         ],
       },
       {
         name: '宏观决策',
         solutionSonGroup: [
-         { state: 'solution', name: '城市运行态势分析', collected: false, url: 'https://www.google.com/' },
+         { state: 'solution', name: '城市运行态势分析', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/gzindex', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/CSYX.png' },
+          { state: 'solution', name: '公共场所人流密度', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/intensivePopulation', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/RLMD.png' },
         ],
       },
       {
-        name: '智慧园区',
+        name: '生态环境',
         solutionSonGroup: [
-          { state: 'real', name: '园区访客来访', collected: false, url: 'https://www.google.com/' }, { state: 'real', name: '室外停车引导服务', collected: false, url: 'https://www.google.com/' }, { state: 'real', name: '园区安全防范', collected: false, url: 'https://www.google.com/' },
-          { state: 'solution', name: '会议全过程服务', collected: false, url: 'https://www.google.com/' }, { state: 'solution', name: '食堂就餐疏导', collected: false, url: 'https://www.google.com/' }, { state: 'solution', name: '重点轨迹监控', collected: false, url: 'https://www.google.com/' },
+          { state: 'real', name: '生态环境管理', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/ecosystem', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/STHJ.png' },
+        ],
+      },
+      {
+        name: '应急处理',
+        solutionSonGroup: [
+          { state: 'real', name: '人防应急资源分析', collected: false, url: 'https://192.168.204.54:8830/largeScreen/#/index/emergency', image: 'https://192.168.204.54:8830/aiscenes-img/sonpages/RFFX.png' },
         ],
       },
       ],

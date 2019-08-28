@@ -77,7 +77,7 @@ class favorites extends React.Component {
                   // eslint-disable-next-line max-len
                   // @ts-ignore
                   // eslint-disable-next-line max-len
-                  return <Cards content={buttonGroup[index].name} opacityTime={parseInt(index)*100} state={buttonGroup[index].state} handleClick={this.routerButtonClick.bind(this, buttonGroup[index].url)}/>
+                  return <Cards content={buttonGroup[index].name} opacityTime={parseInt(index)*100} state={buttonGroup[index].state} handleClick={this.routerButtonClick.bind(this, buttonGroup[index].url)} src={buttonGroup[index].image}/>
                 } return null
               } return null
             })
