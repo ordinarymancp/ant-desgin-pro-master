@@ -2,41 +2,47 @@ import React from 'react';
 import styles from './index.scss';
 import {connect} from "dva";
 import {ConnectState} from "@/models/connect";
-import {ClickParam} from "antd/es/menu";
+import router from "umi/router";
 
 class FullScreenWelcome extends React.Component {
   constructor(props) {
     super(props);
   }
   state = {
-    homeWelcome: '',
+    homeWelcomeFirst: '',
+    homeWelcomeSecond: '',
     lastWelcome: '',
   }
 
-  componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: SS): void {
-    const { homeWelcome, lastWelcome } = JSON.parse(localStorage.getItem('settings') as string);
-    if(homeWelcome !== this.state.homeWelcome || lastWelcome !== this.state.lastWelcome){
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({
-        homeWelcome,
-        lastWelcome,
-      })}
+  componentDidMount(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: SS): void {
+    if (localStorage.getItem('settings') as string){
+      const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome } = JSON.parse(localStorage.getItem('settings') as string);
+      if(homeWelcomeFirst !== this.state.homeWelcomeFirst || homeWelcomeSecond !== this.state.homeWelcomeSecond || lastWelcome !== this.state.lastWelcome){
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+          homeWelcomeFirst,
+          homeWelcomeSecond,
+          lastWelcome,
+        })}
+    }
   }
 
   render() {
     // @ts-ignore
     const { hidden, dispatch, isHomewelcome } = this.props;
-    const { homeWelcome, lastWelcome } = this.state;
+    const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome } = this.state;
     const changeLang = (): void => {
-      dispatch({
-        type: 'global/openWelcome',
-        payload: { isHomewelcome, welcomeHidden: true },
-      })
+      // dispatch({
+      //   type: 'global/openWelcome',
+      //   payload: { isHomewelcome, welcomeHidden: false },
+      // })
+      router.push('/')
     };
     return (
       <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground} >
-        <span className={styles.welcome}>{isHomewelcome ? homeWelcome : lastWelcome}</span>
-        <span className={styles.editWelcome} onClick={changeLang}>退出预览</span>
+        <span className={styles.welcome}>{isHomewelcome ? homeWelcomeFirst : lastWelcome}</span>
+        <span className={styles.welcomeSecond}>{isHomewelcome ? homeWelcomeSecond : lastWelcome}</span>
+        <span className={styles.editWelcome} onClick={changeLang}>前往主界面</span>
       </div>
     )
   }

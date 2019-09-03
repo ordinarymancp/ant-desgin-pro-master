@@ -31,9 +31,9 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
     onSearch: () => {},
     onChange: () => {},
     className: '',
-    placeholder: '',
+    placeholder: '搜索你感兴趣的应用场景',
     dataSource: [],
-    defaultOpen: false,
+    defaultOpen: true,
     onVisibleChange: () => {},
   };
 
@@ -76,19 +76,26 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
     }
   };
 
-  onChange: AutoCompleteProps['onChange'] = value => {
-    if (typeof value === 'string') {
-      const { onSearch, onChange, searchHandle} = this.props;
-      searchHandle(value)
-      this.setState({ value });
-      if (onSearch) {
-        onSearch(value);
-      }
-      if (onChange) {
-        onChange(value);
-      }
-    }
+  onChange = e => {
+    console.log(e.target.value)
+    this.setState({ value: e.target.value });
+    // if (typeof value === 'string') {
+    //   const { onSearch, onChange, searchHandle} = this.props;
+    //   searchHandle(value)
+    //   this.setState({ value });
+    //   if (onSearch) {
+    //     onSearch(value);
+    //   }
+    //   if (onChange) {
+    //     onChange(value);
+    //   }
+    // }
   };
+
+  searchResult = () => {
+    const { searchHandle} = this.props;
+    searchHandle(this.state.value)
+  }
 
   enterSearchMode = () => {
     const { onVisibleChange } = this.props;
@@ -103,7 +110,7 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
 
   leaveSearchMode = () => {
     this.setState({
-      searchMode: false,
+      searchMode: true,
     });
   };
 
@@ -131,26 +138,20 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
           }
         }}
       >
-        <Icon type="search" key="Icon" style={{color:'rgba(255, 255, 255, 0.65)'}} />
-        <AutoComplete
-          key="AutoComplete"
-          {...restProps}
+        {/*<Icon type="search" key="Icon" style={{color:'rgba(255, 255, 255, 0.65)'}} />*/}
+        <input
           className={inputClass}
-          value={value}
+          ref={node => {
+            this.inputRef = node;
+          }}
+          style={{color:'black', background: 'white', outline: 'none', border: 'none', padding: '5px 5px'}}
+          aria-label={placeholder}
+          placeholder={placeholder}
+          onKeyDown={this.onKeyDown}
+          onBlur={this.leaveSearchMode}
           onChange={this.onChange}
-        >
-          <Input
-            className={inputClass}
-            ref={node => {
-              this.inputRef = node;
-            }}
-            style={{color:'rgba(255, 255, 255, 0.65)'}}
-            aria-label={placeholder}
-            placeholder={placeholder}
-            onKeyDown={this.onKeyDown}
-            onBlur={this.leaveSearchMode}
-          />
-        </AutoComplete>
+        />
+        <span style={{color:'white', fontWeight:'bolder', background:'rgba(36,14,255,0.65)', cursor: 'pointer', padding: '7px 9px'}} onClick={this.searchResult}>搜索</span>
       </span>
     );
   }

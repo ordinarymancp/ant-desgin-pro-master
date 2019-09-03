@@ -14,13 +14,16 @@ const { Search } = Input;
 // eslint-disable-next-line react/prefer-stateless-function,@typescript-eslint/class-name-casing
 class settings extends React.Component {
   state = {
-    homeWelcome: '',
+    homeWelcomeFirst: '',
+    homeWelcomeSecond: '',
     lastWelcome: '',
     volume: 0,
     videoPath: '',
   };
 
-  private homeWelcome: any;
+  private homeWelcomeFirst: any;
+
+  private homeWelcomeSecond: any;
 
   private lastWelcome: any;
 
@@ -31,10 +34,11 @@ class settings extends React.Component {
   componentDidMount(): void {
     if (localStorage.getItem('settings')) {
       const settingsValue = JSON.parse(localStorage.getItem('settings') as string);
-      const { homeWelcome, lastWelcome, volume, videoPath } = settingsValue;
+      const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome, volume, videoPath } = settingsValue;
       if (JSON.stringify(this.state) !== JSON.stringify(settingsValue)) {
         this.setState({
-          homeWelcome,
+          homeWelcomeFirst,
+          homeWelcomeSecond,
           lastWelcome,
           volume,
           videoPath,
@@ -54,7 +58,8 @@ class settings extends React.Component {
     } else {
       // eslint-disable-next-line no-undef,max-len
       const settingsobj = {
-        homeWelcome: this.homeWelcome,
+        homeWelcomeFirst: this.homeWelcomeFirst,
+        homeWelcomeSecond: this.homeWelcomeSecond,
         lastWelcome: this.lastWelcome,
         volume: this.volume,
         videoPath: this.videoPath,
@@ -103,18 +108,36 @@ class settings extends React.Component {
           <TabPane tab="首页编辑" key="首页编辑">
             <div style={{ width: '80%', marginLeft: '10%' }}>
               <div style={{ marginBottom: '20px' }}>首页欢迎词编辑</div>
-              <Search
-                placeholder="请输入首页欢迎词"
-                enterButton="保存"
-                value={this.state.homeWelcome}
-                style={{ width: '50%' }}
-                onChange={event => {
-                  this.setState({
-                    homeWelcome: event.target.value,
-                  });
-                }}
-                onSearch={value => this.setSettings('homeWelcome', value)}
-              />
+              <div>
+                <div style={{ margin: '0 20px 20px 0', float: 'left' }}>首行</div>
+                <Search
+                  placeholder="请输入首行欢迎词"
+                  enterButton="保存"
+                  value={this.state.homeWelcomeFirst}
+                  style={{ width: '50%' }}
+                  onChange={event => {
+                    this.setState({
+                      homeWelcomeFirst: event.target.value,
+                    });
+                  }}
+                  onSearch={value => this.setSettings('homeWelcomeFirst', value)}
+                />
+              </div>
+              <div style={{marginTop: '20px'}}>
+                <div style={{ margin: '0 20px 20px 0', float: 'left'}}>次行</div>
+                <Search
+                  placeholder="请输入次行欢迎词"
+                  enterButton="保存"
+                  value={this.state.homeWelcomeSecond}
+                  style={{ width: '50%' }}
+                  onChange={event => {
+                    this.setState({
+                      homeWelcomeSecond: event.target.value,
+                    });
+                  }}
+                  onSearch={value => this.setSettings('homeWelcomeSecond', value)}
+                />
+              </div>
             </div>
           </TabPane>
           <TabPane tab="尾页编辑" key="尾页编辑">

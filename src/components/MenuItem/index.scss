@@ -2,9 +2,9 @@
 .sharp:before{
   content:"";
   width:0;
-  border-bottom:vw(80) solid transparent;
-  border-top:vw(80) solid transparent;
-  border-right:vw(40) solid #6c6;
+  border-bottom:vw(60) solid transparent;
+  border-top:vw(60) solid transparent;
+  border-right:vw(40) solid rgba(24, 144, 255, 0.65);
   position:absolute;
   left:vw(-40);
   top:0px;
@@ -12,13 +12,13 @@
 
 .sharp{
   cursor: pointer;
-  width:vw(100);
-  height:vw(160);
-  background:#6c6;
+  width:vw(80);
+  height:vw(120);
+  background:rgba(24, 144, 255, 0.65);
   display: inline-block;
   position: absolute;
   word-break: break-all;
-  line-height: vw(160);
+  line-height: vw(120);
   color:#FFFFFF;
   font-size: vw(20);
   text-align: center;
@@ -27,11 +27,11 @@
 .sharp:after{
   content:"";
   width:0px;
-  border-bottom:vw(80) solid transparent;
-  border-top:vw(80) solid transparent;
+  border-bottom:vw(60) solid transparent;
+  border-top:vw(60) solid transparent;
   border-left-width:vw(40);
   border-left-style: solid;
-  border-left-color:#6c6;
+  border-left-color:rgba(24, 144, 255, 0.65);
   position:absolute;
   right:vw(-40);
   top:0px;

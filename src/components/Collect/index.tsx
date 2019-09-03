@@ -20,15 +20,8 @@ class Collect extends React.Component {
     solutionGroup.forEach(item => {
       item.solutionSonGroup.forEach(items => {
         if(items.name === content){
-          items.collected = !items.collected
-          this.setState({
-            collected: items.collected
-          })
-          if(items.collected){
-            message.info('收藏成功',[1]);
-          }else{
-            message.info('取消收藏成功',[1]);
-          }
+          items.collected = true
+          message.info('收藏成功',[1]);
         }
       })
     })
@@ -37,7 +30,7 @@ class Collect extends React.Component {
   render() {
     const { collected } = this.state;
    return(
-     <Icon type="heart" theme="twoTone" twoToneColor={`${collected ? "#8effba" : '#ff2c52' }`}  style={{float: 'right', marginTop: '2px'}} onClick={this.findAndSet}/>
+     <span style={{float: 'right', marginTop: '2px', color: 'rgba(36,14,255)', textDecoration: 'underline', cursor: 'pointer'}} onClick={this.findAndSet}>加入收藏</span>
    )
   }
 

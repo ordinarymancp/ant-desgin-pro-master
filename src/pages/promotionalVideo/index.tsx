@@ -10,6 +10,7 @@ import 'video.js/dist/video-js.css';
 import { Modal, notification, List, Empty, Radio, Icon } from 'antd';
 import styles from './index.scss';
 import VideoButton from '@/components/VideoButton';
+import router from "umi/router";
 // @ts-ignore
 @connect(({ global }) => ({
   global,
@@ -24,7 +25,7 @@ class promotionalVideo extends React.Component {
     videoPath: '',
     videoList: [],
     visible: false,
-    isplay: true,
+    isplay: false,
   };
 
   // eslint-disable-next-line react/sort-comp
@@ -33,7 +34,6 @@ class promotionalVideo extends React.Component {
       this.player1.dispose();
     }
   }
-
   componentDidMount(): void {
     if (localStorage.getItem('settings')) {
       const settingsValue = JSON.parse(localStorage.getItem('settings') as string) || {};
@@ -44,10 +44,10 @@ class promotionalVideo extends React.Component {
         // })
       } else {
         const videoFileStream = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
-        this.videoReload(videoFileStream);
+        this.videoReload(videoFileStream, false);
       }
     } else {
-      this.videoReload('http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4');
+      this.videoReload('http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',false);
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
@@ -61,7 +61,7 @@ class promotionalVideo extends React.Component {
   }
   // 视频重置
 
-  videoReload = (path: any) => {
+  videoReload = (path: any, canplay: true) => {
     const videoFileStream = path;
     const options = {
       height: '500px',
@@ -76,7 +76,9 @@ class promotionalVideo extends React.Component {
       src: videoFileStream,
     });
     this.player1.load();
-    this.player1.play();
+    if(canplay){
+      this.player1.play();
+    }
   };
 
   videoPlay = () => {
@@ -108,7 +110,7 @@ class promotionalVideo extends React.Component {
         videoPath: checkedPath,
         isplay: true,
       });
-      this.videoReload(checkedPath);
+      this.videoReload(checkedPath,true);
       notification.open({
         message: '切换成功',
         icon: <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />,
