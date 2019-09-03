@@ -31,9 +31,9 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
     onSearch: () => {},
     onChange: () => {},
     className: '',
-    placeholder: '',
+    placeholder: '输入您需要的应用场景',
     dataSource: [],
-    defaultOpen: false,
+    defaultOpen: true,
     onVisibleChange: () => {},
   };
 
@@ -103,7 +103,7 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
 
   leaveSearchMode = () => {
     this.setState({
-      searchMode: false,
+      searchMode: true,
     });
   };
 

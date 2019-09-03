@@ -19,6 +19,8 @@ export interface GlobalModelState {
   collapsed: boolean;
   welcomeHidden: boolean;
   isHomewelcome: boolean;
+  canPushIndex: boolean;
+  iframeUrl: string;
   notices: NoticeItem[];
 }
 
@@ -51,8 +53,10 @@ const GlobalModel: GlobalModelType = {
     collapsed: false,
     welcomeHidden: true,
     isHomewelcome: true,
+    canPushIndex: true,
     solutionRouter: '',
     notices: [],
+    iframeUrl: '',
     solutionGroup: [
       {
         name: '城市治理',
@@ -318,6 +322,20 @@ const GlobalModel: GlobalModelType = {
   },
 
   reducers: {
+    setIframeUrl(state, { payload }): GlobalModelState {
+      const { iframeUrl } = payload;
+      return {
+        ...state,
+        iframeUrl,
+      };
+    },
+    reviseIndexState(state, { payload }): GlobalModelState {
+      const { canPushIndex } = payload;
+      return {
+        ...state,
+        canPushIndex,
+      };
+    },
     openWelcome(state, { payload }): GlobalModelState {
       const { isHomewelcome, welcomeHidden } = payload;
       return {

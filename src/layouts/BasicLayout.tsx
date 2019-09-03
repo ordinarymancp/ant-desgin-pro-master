@@ -20,6 +20,7 @@ import { ConnectState, Dispatch } from '@/models/connect';
 // import { isAntDesignPro } from '@/utils/utils';
 import logo from '../assets/logo.svg';
 import FullScreenWelcome from '@/components/FullScreenWelcome';
+import router from "umi/router";
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
@@ -67,11 +68,10 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 // };
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
-  const { dispatch, children, settings, welcomeHidden } = props;
+  const { dispatch, children, settings, welcomeHidden, canPushIndex } = props;
   /**
    * constructor
    */
-
   useEffect(() => {
     if (dispatch) {
       dispatch({
@@ -80,6 +80,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       dispatch({
         type: 'settings/getSetting',
       });
+      console.log(sessionStorage.getItem('firstComeIn'))
+      if (!sessionStorage.getItem('firstComeIn')){
+        router.push('/index/welcomeIndex')
+      }
     }
   }, []);
 
@@ -138,5 +142,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 export default connect(({ global, settings }: ConnectState) => ({
   collapsed: global.collapsed,
   welcomeHidden: global.welcomeHidden,
+  canPushIndex: global.canPushIndex,
   settings,
 }))(BasicLayout);

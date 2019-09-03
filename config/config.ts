@@ -90,13 +90,23 @@ export default {
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
     {
-      path: '/login',
+      path: '/index',
       component: '../layouts/UserLayout',
       routes: [
         {
           path: '/login',
           name: 'login',
           component: './login',
+        },
+        {
+          path: '/index/welcomeIndex',
+          name: 'welcomeIndex',
+          component: './welcomeIndex',
+        },
+        {
+          path: '/index/applicatioScenarioIndex',
+          name: 'applicatioScenarioIndex',
+          component: './applicatioScenarioIndex/index',
         },
       ],
     },
@@ -111,13 +121,13 @@ export default {
         //   component: './warehouse/index',
         // },
         {
-          path: '/promotionalVideo',
+          path: '/',
           name: 'promotionalVideo',
           component: './promotionalVideo/index',
         },
         //应用场景一级目录
         {
-          path: '/',
+          path: '/applicatioScenario',
           name: 'applicatioScenario',
           component: './applicatioScenario/index',
         },
@@ -125,12 +135,6 @@ export default {
           path: '/applicatioScenarioNext/:name',
           component: './applicatioScenarioNext/index',
           name: 'applicatioScenarioNext',
-          hideInMenu: true,
-        },
-        {
-          path: '/applicatioScenarioIndex/:name',
-          name: 'applicatioScenarioIndex',
-          component: './applicatioScenarioIndex/index',
           hideInMenu: true,
         },
         //设置
