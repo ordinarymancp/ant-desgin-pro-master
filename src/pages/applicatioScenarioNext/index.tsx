@@ -29,6 +29,7 @@ class applicatioScenarioNext extends React.Component {
       const { solutionGroup } = this.props;
       localStorage.setItem('solutionGroup', JSON.stringify({ solutionGroup }));
     }
+    localStorage.setItem('currentMosel', match.params.name);
     const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup') as string);
     // eslint-disable-next-line max-len
     const buttonGroup = solutionGroup.filter(
@@ -48,13 +49,13 @@ class applicatioScenarioNext extends React.Component {
   //     })
   //   }
   // }
-  routerButtonClick = (url: any) => {
+  routerButtonClick = (url: any, name) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'global/setIframeUrl',
       payload: { iframeUrl: url },
     })
-    router.push('/index/applicatioScenarioIndex')
+    router.push('/index/applicatioScenarioIndex/' + name)
   };
 
   searchHandle = (value: any) => {
@@ -88,7 +89,7 @@ class applicatioScenarioNext extends React.Component {
                   state: buttonGroup[index].state,
                   opacityTime: parseInt(index) * 100,
                   collected: buttonGroup[index].collected,
-                  handleClick: this.routerButtonClick.bind(this, buttonGroup[index].url),
+                  handleClick: this.routerButtonClick.bind(this, buttonGroup[index].url,  buttonGroup[index].name),
                   src: buttonGroup[index].image,
                 }
                 return (

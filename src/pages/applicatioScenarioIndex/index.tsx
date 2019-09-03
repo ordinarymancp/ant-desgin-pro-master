@@ -4,7 +4,8 @@ import { ConnectState } from "@/models/connect";
 import styles from './index.scss';
 import router from "umi/router";
 import PageLoading from "@/components/PageLoading";
-
+import MenuItem from "@/components/MenuItem";
+import {message} from "antd";
 
 @connect(({ global }) => ({
   global,
@@ -18,7 +19,9 @@ class applicatioScenarioIndex extends React.Component {
     //   preTitle: titleGroup[0],
     //   nextTitle: titleGroup[1],
     // })
-    const { iframeUrl } = this.props;
+    const { iframeUrl, match } = this.props;
+    const currentModel = localStorage.getItem('currentMosel');
+    this.setState({content: match.params.name, currentModel})
     if (iframeUrl){
       const iframeUrlString = JSON.stringify({iframeUrl})
       localStorage.setItem('iframeUrl', iframeUrlString)
@@ -32,24 +35,88 @@ class applicatioScenarioIndex extends React.Component {
   state = {
     canHidden: false,
     iframeUrl: '',
+    content: '',
+    currentModel: '',
   }
 
   hiddenLoading = () => {
     this.setState({canHidden: false})
   }
+  findAndSet = () => {
+    const { content } = this.state
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach(items => {
+        if(items.name === content){
+          items.collected = true
+          message.info('收藏成功',[1]);
+        }
+      })
+    })
+    localStorage.setItem('solutionGroup',JSON.stringify({solutionGroup}))
+  }
+  goNext = () => {
+    const { content } = this.state
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach((items,index) => {
+        if(items.name === content){
+          console.log(index)
+          if(item.solutionSonGroup[index + 1]){
+            const { dispatch } = this.props;
+            dispatch({
+              type: 'global/setIframeUrl',
+              payload: { iframeUrl: item.solutionSonGroup[index + 1].url },
+            })
+            router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
+            const iframeUrlString = JSON.stringify({iframeUrl: item.solutionSonGroup[index + 1].url})
+            localStorage.setItem('iframeUrl', iframeUrlString)
+            location.reload();
+          }else{
+            message.warning('这是最后一个场景')
+          }
+        }
+      })
+    })
+  }
+  goBack = () => {
+    const currentModel = localStorage.getItem('currentMosel');
+    router.push('/applicatioScenarioNext/' + currentModel);
+  }
 
   render() {
       // const {preTitle, nextTitle} = this.state;
-    const { iframeUrl } = this.state;
-    const { canHidden } = this.state;
+    const { iframeUrl, canHidden, currentModel, content  } = this.state;
     return (
-      <div style={{width: '100%', height: '100%', position: 'relative'}}>
-        <div style={{display: `${canHidden ? 'block' : 'none'}`}}>
-          <PageLoading/>
+      <div style={{width: '100%', height: '100%', background: 'rgba(15, 10, 11, 1)'}}>
+        <div style={{width: '15%', height: '100%', boxSizing:'border-box',padding: '1% 0 5% 0', float: 'right'}}>
+          <div style={{width: '100%', height: '23%'}}>
+            <div style={{width:'100%', margin:'0 auto'}}>
+              <div style={{width: '100%', padding: '5px 0', boxSizing: 'border-box', marginBottom: '3px', background: 'rgba(24, 144, 255, 0.65)'}}>
+                <div style={{color: 'rgba(255,255,255,0.85)', margin: '2px auto', fontSize: '18px', width: '100%', textAlign: 'center', fontWeight: '900'}}>主页</div>
+              </div>
+              <div style={{width: '100%', padding: '5px 0', boxSizing: 'border-box', marginBottom: '3px', background: 'rgba(24, 144, 255, 0.65)'}}>
+                <div style={{color: 'rgba(255,255,255,0.85)', margin: '2px auto', fontSize: '18px', width: '100%', textAlign: 'center', fontWeight: '300'}}>{currentModel}</div>
+              </div>
+              <div style={{width: '100%', padding: '5px 0', boxSizing: 'border-box', marginBottom: '3px', background: 'rgba(24, 144, 255, 0.65)'}}>
+                <div style={{color: 'rgba(255,255,255,0.85)', margin: '2px auto', fontSize: '18px', width: '100%', textAlign: 'center', fontWeight: 'lighter'}}>{content}</div>
+              </div>
+            </div>
+          </div>
+          <div style={{width: '100%', height: '77%', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+            <div className={styles.buttomWrap}><MenuItem content="下个场景" handleClick={this.goNext}/></div>
+            <div className={styles.buttomWrap}><MenuItem content="加入收藏" handleClick={this.findAndSet}/></div>
+            <div className={styles.buttomWrap}><MenuItem content="搜索"/></div>
+            <div className={styles.buttomWrap}><MenuItem content="返回" handleClick={this.goBack}/></div>
+          </div>
         </div>
-        <iframe src={iframeUrl} frameBorder="0" onLoad={this.hiddenLoading}
-                style={{width: '100%', height: '100%', position: 'relative'}}/>
-        <span className={styles.gobackspan} onClick={router.goBack}>返回上一页</span>
+        <div style={{width: '85%', height: '100%', position: 'relative', float: 'left'}}>
+          <div style={{display: `${canHidden ? 'block' : 'none'}`}}>
+            <PageLoading/>
+          </div>
+          <iframe src={iframeUrl} frameBorder="none" onLoad={this.hiddenLoading}
+                  style={{width: '100%', height: '100%', position: 'relative', background: 'rgba(15, 10, 11, 0.8)'}}/>
+        </div>
       </div>
     );
   }

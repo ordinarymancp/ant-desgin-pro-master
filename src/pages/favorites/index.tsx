@@ -4,6 +4,7 @@ import { ConnectState } from '@/models/connect';
 import styles from './index.scss';
 import Cards from '@/components/Cards';
 import HeaderSearch from '@/components/HeaderSearch';
+import router from "umi/router";
 
 // @ts-ignore
 @connect(({ global }) => ({
@@ -54,7 +55,12 @@ class favorites extends React.Component {
   }
 
   routerButtonClick = (url: string | undefined) => {
-    window.open(url)
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'global/setIframeUrl',
+      payload: { iframeUrl: url },
+    })
+    router.push('/index/applicatioScenarioIndex')
   }
 
   render() {

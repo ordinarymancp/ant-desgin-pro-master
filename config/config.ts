@@ -104,7 +104,7 @@ export default {
           component: './welcomeIndex',
         },
         {
-          path: '/index/applicatioScenarioIndex',
+          path: '/index/applicatioScenarioIndex/:name',
           name: 'applicatioScenarioIndex',
           component: './applicatioScenarioIndex/index',
         },

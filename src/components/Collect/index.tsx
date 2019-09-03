@@ -30,7 +30,7 @@ class Collect extends React.Component {
   render() {
     const { collected } = this.state;
    return(
-     <span style={{float: 'right', marginTop: '2px', color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'underline', cursor: 'pointer'}} onClick={this.findAndSet}>加入收藏</span>
+     <span style={{float: 'right', marginTop: '2px', color: 'rgba(36,14,255)', textDecoration: 'underline', cursor: 'pointer'}} onClick={this.findAndSet}>加入收藏</span>
    )
   }
 

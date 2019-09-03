@@ -26,12 +26,24 @@
 .welcome{
   width: 100%;
   text-align: center;
-  font-size: vw(70);
+  font-size: vw(80);
   font-weight: bolder;
   color: white;
   height: 20%;
   position: absolute;
   top: 50%;
+  margin-top: -10%;
+  bottom: 0;
+}
+.welcomeSecond{
+  width: 100%;
+  text-align: center;
+  font-size: vw(80);
+  font-weight: bolder;
+  color: white;
+  height: 20%;
+  position: absolute;
+  top: 65%;
   margin-top: -10%;
   bottom: 0;
 }
