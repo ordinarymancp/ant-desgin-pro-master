@@ -9,7 +9,7 @@ class VideoButton extends React.Component {
   componentDidMount(): void {}
 
   render() {
-    const { icon, handleClick } = this.props;
+    const { icon, handleClick, id } = this.props;
     return (
       <div className={styles.videoButton}>
         <div style={{ position: 'absolute', top: '5px', left: '5px' }}>
@@ -27,7 +27,8 @@ class VideoButton extends React.Component {
           </ul>
         </div>
         <div className={styles.videoButtonCenter} onClick={handleClick}>
-          <Icon type={icon} style={{ color: '#6faf9e' }} />
+          {/*<Icon type={icon} style={{ color: '#6faf9e' }} />*/}
+          {icon}
         </div>
       </div>
     );

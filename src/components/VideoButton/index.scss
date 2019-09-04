@@ -1,26 +1,27 @@
 .videoButton{
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border: 1px solid #819898;
   border-radius: 50px;
   box-sizing: border-box;
 }
 .videoButtonCenter{
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border: 1px solid #6faf9e;
   border-radius: 30px;
   margin: 9px auto;
   box-sizing: border-box;
-  font-size: 16px;
   text-align: center;
-  line-height: 28px;
+  line-height: 38px;
   background: rgba(15, 10, 11, 1);
   position: absolute;
   top: 0px;
   left: 10px;
+  color: white;
+  font-size: 12px;
 }
 
 

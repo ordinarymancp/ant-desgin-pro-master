@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './index.scss';
-import {connect} from "dva";
-import {ConnectState} from "@/models/connect";
-import router from "umi/router";
+import { connect } from 'dva';
+import { ConnectState } from '@/models/connect';
+import router from 'umi/router';
 
 class FullScreenWelcome extends React.Component {
   constructor(props) {
@@ -12,18 +12,25 @@ class FullScreenWelcome extends React.Component {
     homeWelcomeFirst: '',
     homeWelcomeSecond: '',
     lastWelcome: '',
-  }
+  };
 
   componentDidMount(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: SS): void {
-    if (localStorage.getItem('settings') as string){
-      const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome } = JSON.parse(localStorage.getItem('settings') as string);
-      if(homeWelcomeFirst !== this.state.homeWelcomeFirst || homeWelcomeSecond !== this.state.homeWelcomeSecond || lastWelcome !== this.state.lastWelcome){
+    if (localStorage.getItem('settings') as string) {
+      const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome } = JSON.parse(localStorage.getItem(
+        'settings',
+      ) as string);
+      if (
+        homeWelcomeFirst !== this.state.homeWelcomeFirst ||
+        homeWelcomeSecond !== this.state.homeWelcomeSecond ||
+        lastWelcome !== this.state.lastWelcome
+      ) {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           homeWelcomeFirst,
           homeWelcomeSecond,
           lastWelcome,
-        })}
+        });
+      }
     }
   }
 
@@ -36,17 +43,20 @@ class FullScreenWelcome extends React.Component {
       //   type: 'global/openWelcome',
       //   payload: { isHomewelcome, welcomeHidden: false },
       // })
-      router.push('/')
+      router.push('/index');
     };
     return (
-      <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground} >
+      <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground}>
         <span className={styles.welcome}>{isHomewelcome ? homeWelcomeFirst : lastWelcome}</span>
-        <span className={styles.welcomeSecond}>{isHomewelcome ? homeWelcomeSecond : lastWelcome}</span>
-        <span className={styles.editWelcome} onClick={changeLang}>前往主界面</span>
+        <span className={styles.welcomeSecond}>
+          {isHomewelcome ? homeWelcomeSecond : lastWelcome}
+        </span>
+        <span className={styles.editWelcome} onClick={changeLang}>
+          前往主界面
+        </span>
       </div>
-    )
+    );
   }
-
 }
 export default connect(({ global, settings }: ConnectState) => ({
   welcomeHidden: global.welcomeHidden,

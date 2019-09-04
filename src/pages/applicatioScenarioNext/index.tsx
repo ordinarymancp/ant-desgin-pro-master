@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
 import styles from './index.scss';
 import Cards from '@/components/Cards';
-import router from "umi/router";
-import HeaderSearch from "@/components/HeaderSearch";
+import router from 'umi/router';
+import HeaderSearch from '@/components/HeaderSearch';
 
 // @ts-ignore
 @connect(({ global }) => ({
@@ -54,24 +54,34 @@ class applicatioScenarioNext extends React.Component {
     dispatch({
       type: 'global/setIframeUrl',
       payload: { iframeUrl: url },
-    })
-    router.push('/index/applicatioScenarioIndex/' + name)
+    });
+    router.push('/index/applicatioScenarioIndex/' + name);
   };
 
   searchHandle = (value: any) => {
-    console.log(value)
+    console.log(value);
     this.setState({
       searchResult: value,
-    })
-  }
+    });
+  };
 
   render() {
     const { buttonGroup, searchResult, startIndex, endIndex, pageName } = this.state;
     return (
       <div style={{ width: '100%', height: '100%' }} className="overview">
         <div style={{ overflow: 'hidden' }}>
-          <h1 style={{ marginLeft: '1.5%', float: 'left', fontSize: '20px', marginRight: '40px', color:'rgba(255, 255, 255, 0.65)' }}>{pageName}</h1>
-          <HeaderSearch searchHandle={this.searchHandle}/>
+          <h1
+            style={{
+              marginLeft: '1.5%',
+              float: 'left',
+              fontSize: '20px',
+              marginRight: '40px',
+              color: 'rgba(255, 255, 255, 0.65)',
+            }}
+          >
+            {pageName}
+          </h1>
+          <HeaderSearch searchHandle={this.searchHandle} />
         </div>
         <div className={styles.resultWrap}>
           {// @ts-ignore
@@ -89,12 +99,15 @@ class applicatioScenarioNext extends React.Component {
                   state: buttonGroup[index].state,
                   opacityTime: parseInt(index) * 100,
                   collected: buttonGroup[index].collected,
-                  handleClick: this.routerButtonClick.bind(this, buttonGroup[index].url,  buttonGroup[index].name),
+                  handleClick: this.routerButtonClick.bind(
+                    this,
+                    buttonGroup[index].url,
+                    buttonGroup[index].name,
+                  ),
                   src: buttonGroup[index].image,
-                }
-                return (
-                  <Cards {...cardsContent}/>
-                );
+                  ischildrenCard: true,
+                };
+                return <Cards {...cardsContent} />;
               }
               return null;
             }

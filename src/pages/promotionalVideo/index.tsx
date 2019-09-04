@@ -10,7 +10,7 @@ import 'video.js/dist/video-js.css';
 import { Modal, notification, List, Empty, Radio, Icon } from 'antd';
 import styles from './index.scss';
 import VideoButton from '@/components/VideoButton';
-import router from "umi/router";
+import router from 'umi/router';
 // @ts-ignore
 @connect(({ global }) => ({
   global,
@@ -25,7 +25,7 @@ class promotionalVideo extends React.Component {
     videoPath: '',
     videoList: [],
     visible: false,
-    isplay: false,
+    isplay: true,
   };
 
   // eslint-disable-next-line react/sort-comp
@@ -43,15 +43,23 @@ class promotionalVideo extends React.Component {
         //   videoPath: window.URL.createObjectURL(videoPath),
         // })
       } else {
-        const videoFileStream = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
-        this.videoReload(videoFileStream, false);
+        const videoFileStream =
+          'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
+        this.videoReload(videoFileStream, true);
       }
     } else {
-      this.videoReload('http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',false);
+      this.videoReload(
+        'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',
+        true,
+      );
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
-      const defaultVideo = { name: '宣传视频', path: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ' };
+      const defaultVideo = {
+        name: '宣传视频',
+        path:
+          'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ',
+      };
       this.setState({
         // eslint-disable-next-line react/no-unused-state
         videoList: [defaultVideo, ...videoList],
@@ -68,7 +76,7 @@ class promotionalVideo extends React.Component {
       controls: 'controls',
       preload: 'auto',
       autoPlay: 'autoPlay',
-      isFullscreen: true,
+      isFullscreen: false,
       fluid: true,
     };
     this.player1 = videojs('myVideo1', options);
@@ -76,7 +84,7 @@ class promotionalVideo extends React.Component {
       src: videoFileStream,
     });
     this.player1.load();
-    if(canplay){
+    if (canplay) {
       this.player1.play();
     }
   };
@@ -110,7 +118,7 @@ class promotionalVideo extends React.Component {
         videoPath: checkedPath,
         isplay: true,
       });
-      this.videoReload(checkedPath,true);
+      this.videoReload(checkedPath, true);
       notification.open({
         message: '切换成功',
         icon: <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />,
@@ -155,16 +163,16 @@ class promotionalVideo extends React.Component {
           <div className={styles.bottomBorder} />
           <div className={styles.bottomOverBorder} />
           <div style={{ position: 'absolute', top: '230px', left: '-75px', zIndex: '999' }}>
-            <VideoButton icon="fullscreen" handleClick={this.fullscreen} />
+            <VideoButton icon="全屏" handleClick={this.fullscreen} />
           </div>
           <div
             style={{ position: 'absolute', top: '330px', left: '-75px', zIndex: '999' }}
             onClick={this.videoPlay}
           >
-            <VideoButton icon={!isplay ? 'caret-right' : 'pause'} />
+            <VideoButton icon={!isplay ? '播放' : '暂停'} />
           </div>
           <div style={{ position: 'absolute', top: '430px', left: '-75px', zIndex: '999' }}>
-            <VideoButton icon="setting" handleClick={this.showModal} />
+            <VideoButton icon="设置" handleClick={this.showModal} />
           </div>
           <video
             id="myVideo1"
@@ -201,7 +209,7 @@ class promotionalVideo extends React.Component {
                           title={item.name}
                           // @ts-ignore
                           description={`视频地址:${item.path}`}
-                          style={{wordBreak: 'break-all'}}
+                          style={{ wordBreak: 'break-all' }}
                         />
                       </List.Item>
                     )}

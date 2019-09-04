@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
 import { Tabs, Input, message } from 'antd';
-
+import styles from './index.scss';
+import router from 'umi/router';
 const { TabPane } = Tabs;
 const { Search } = Input;
 
@@ -68,6 +69,10 @@ class settings extends React.Component {
     }
   };
 
+  gotoWelcomeIndex = () => {
+    router.push('/index/welcomeIndex');
+  };
+
   getVideoUrl = (e: { preventDefault: () => void }) => {
     // @ts-ignore
     const { dispatch } = this.props;
@@ -107,7 +112,12 @@ class settings extends React.Component {
         <Tabs tabPosition="left" style={{ height: 220, color: 'rgba(255, 255, 255, 0.65)' }}>
           <TabPane tab="首页编辑" key="首页编辑">
             <div style={{ width: '80%', marginLeft: '10%' }}>
-              <div style={{ marginBottom: '20px' }}>首页欢迎词编辑</div>
+              <div style={{ marginBottom: '20px' }}>
+                首页欢迎词编辑{' '}
+                <span className={styles.gotoWelcome} onClick={this.gotoWelcomeIndex}>
+                  前往欢迎页
+                </span>
+              </div>
               <div>
                 <div style={{ margin: '0 20px 20px 0', float: 'left' }}>首行</div>
                 <Search
@@ -123,8 +133,8 @@ class settings extends React.Component {
                   onSearch={value => this.setSettings('homeWelcomeFirst', value)}
                 />
               </div>
-              <div style={{marginTop: '20px'}}>
-                <div style={{ margin: '0 20px 20px 0', float: 'left'}}>次行</div>
+              <div style={{ marginTop: '20px' }}>
+                <div style={{ margin: '0 20px 20px 0', float: 'left' }}>次行</div>
                 <Search
                   placeholder="请输入次行欢迎词"
                   enterButton="保存"

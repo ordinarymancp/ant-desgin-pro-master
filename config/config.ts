@@ -104,6 +104,11 @@ export default {
           component: './welcomeIndex',
         },
         {
+          path: '/index',
+          name: 'webIndex',
+          component: './webIndex',
+        },
+        {
           path: '/index/applicatioScenarioIndex/:name',
           name: 'applicatioScenarioIndex',
           component: './applicatioScenarioIndex/index',
