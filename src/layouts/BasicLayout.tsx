@@ -20,7 +20,7 @@ import { ConnectState, Dispatch } from '@/models/connect';
 // import { isAntDesignPro } from '@/utils/utils';
 import logo from '../assets/logo.svg';
 import FullScreenWelcome from '@/components/FullScreenWelcome';
-import router from "umi/router";
+import router from 'umi/router';
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
@@ -80,9 +80,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       dispatch({
         type: 'settings/getSetting',
       });
-      console.log(sessionStorage.getItem('firstComeIn'))
-      if (!sessionStorage.getItem('firstComeIn')){
-        router.push('/index/welcomeIndex')
+      if (!sessionStorage.getItem('firstComeIn')) {
+        router.push('/index');
+        sessionStorage.setItem('firstComeIn', true);
       }
     }
   }, []);

@@ -93,14 +93,14 @@ const GlobalModel: GlobalModelType = {
             image:
               'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3066822566,1639758920&fm=15&gp=0.jpg',
           },
-            {
-              state: 'solution',
-              name: '秸秆焚烧',
-              collected: false,
-              url: 'https://219.233.175.82:58830/largeScreen/#/index/straw',
-              image:
-                'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2497258426,3784412229&fm=26&gp=0.jpg',
-            },
+          {
+            state: 'solution',
+            name: '秸秆焚烧',
+            collected: false,
+            url: 'https://219.233.175.82:58830/largeScreen/#/index/straw',
+            image:
+              'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2497258426,3784412229&fm=26&gp=0.jpg',
+          },
           {
             state: 'solution',
             name: '机动车乱停放',
@@ -210,6 +210,49 @@ const GlobalModel: GlobalModelType = {
             url: 'http://physicalpoint.f3322.net:38106/#/main/home',
             image:
               'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3315100282,716145117&fm=26&gp=0.jpg',
+          },
+          {
+            state: 'real',
+            name: '园区访客来访',
+            collected: false,
+            url: 'https://219.233.175.82:58830/visitor-web/#/',
+            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/YQFK.png',
+          },
+          {
+            state: 'real',
+            name: '室外停车引导服务',
+            collected: false,
+            url: 'http://219.233.175.82:58090/visual/parking',
+            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/TCYD.png',
+          },
+          {
+            state: 'real',
+            name: '园区安全防范',
+            collected: false,
+            url: 'http://219.233.175.82:58090/visual/pksecurity',
+            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/AQFF.png',
+          },
+          {
+            state: 'real',
+            name: '会议全过程服务',
+            collected: false,
+            url: 'https://219.233.175.82:58443/office-portal/officepc/index.html',
+            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/HYQGC.png',
+          },
+          {
+            state: 'real',
+            name: '食堂就餐疏导',
+            collected: false,
+            url:
+              'http://219.233.175.82:58090/portal-web/passFlowPc/index.html?tdsourcetag=s_pcqq_aiomsg',
+            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/STJC.png',
+          },
+          {
+            state: 'real',
+            name: '重点轨迹监控',
+            collected: false,
+            url: 'http://219.233.175.82:58090/visual/personTrace',
+            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/GJJK.png',
           },
         ],
       },
