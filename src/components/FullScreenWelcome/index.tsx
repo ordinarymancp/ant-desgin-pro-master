@@ -43,7 +43,7 @@ class FullScreenWelcome extends React.Component {
       //   type: 'global/openWelcome',
       //   payload: { isHomewelcome, welcomeHidden: false },
       // })
-      router.push('/');
+      router.push('/index');
     };
     return (
       <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground}>
