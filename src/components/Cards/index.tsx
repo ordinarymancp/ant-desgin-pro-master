@@ -3,7 +3,7 @@ import styles from './index.scss';
 import Collect from '@/components/Collect';
 import ppt from '../../../public/image/ppt.png';
 import moxing from '../../../public/image/moxing.png';
-import saasguanli from '../../../public/image/saasguanli.png';
+import saas from '../../../public/image/saas.png';
 
 class Cards extends React.Component {
   constructor(props) {
@@ -14,9 +14,6 @@ class Cards extends React.Component {
     src:
       'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1566285512395&di=d3ac38876873eb4158e0a863dc60b4b7&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw500h268%2F20180123%2F3c99-fyqwiqi6981317.jpg',
     hidden: true,
-    realState: true,
-    modleState: true,
-    pptState: true,
   };
 
   componentDidMount(): void {
@@ -50,27 +47,10 @@ class Cards extends React.Component {
     );
   }
 
-  changeRealState = () => {
-    this.setState({ realState: false });
-  };
-  changeRealStateFalse = () => {
-    this.setState({ realState: true });
-  };
-  changeModelState = () => {
-    this.setState({ modleState: false });
-  };
-  changeModelStateFalse = () => {
-    this.setState({ modleState: true });
-  };
-  changePptState = () => {
-    this.setState({ pptState: false });
-  };
-  changePptStateFalse = () => {
-    this.setState({ pptState: true });
-  };
+
   render() {
     const { content, handleClick, collected, ischildrenCard } = this.props;
-    const { styleState, src, hidden, modleState, realState, pptState } = this.state;
+    const { styleState, src, hidden, } = this.state;
     return (
       <div
         style={{
@@ -101,115 +81,6 @@ class Cards extends React.Component {
               ''
             )}
           </div>
-          {!ischildrenCard ? (
-            <div style={{ float: 'left', marginLeft: '20px', marginTop: '5px' }}>
-              <div
-                style={{
-                  width: '70px',
-                  height: '30px',
-                  marginRight: '20px',
-                  float: 'left',
-                  zIndex: '99',
-                }}
-              >
-                <img
-                  src={saasguanli}
-                  alt=""
-                  style={{ width: '20px', height: '20px', marginLeft: '30px' }}
-                  hidden={!realState}
-                  onMouseOver={this.changeRealState}
-                />
-                <div
-                  style={{
-                    background: 'rgba(35,32,30,0.96)',
-                    color: 'rgba(255,255,255,0.65)',
-                    width: '80px',
-                    height: '30px',
-                    lineHeight: '26px',
-                    textAlign: 'center',
-                    borderRadius: '2px',
-                    cursor: 'pointer',
-                  }}
-                  hidden={realState}
-                  onMouseOut={this.changeRealStateFalse}
-                >
-                  真实数据(0)
-                </div>
-              </div>
-              <div style={{ width: '70px', height: '20px', marginRight: '20px', float: 'left' }}>
-                <div
-                  style={{
-                    width: '70px',
-                    height: '30px',
-                    marginRight: '20px',
-                    float: 'left',
-                    zIndex: '99',
-                  }}
-                >
-                  <img
-                    src={moxing}
-                    alt=""
-                    style={{ width: '20px', height: '20px', marginLeft: '30px' }}
-                    hidden={!modleState}
-                    onMouseOver={this.changeModelState}
-                  />
-                  <div
-                    style={{
-                      background: 'rgba(35,32,30,0.96)',
-                      color: 'rgba(255,255,255,0.65)',
-                      width: '80px',
-                      height: '30px',
-                      lineHeight: '26px',
-                      textAlign: 'center',
-                      borderRadius: '2px',
-                      cursor: 'pointer',
-                    }}
-                    hidden={modleState}
-                    onMouseOut={this.changeModelStateFalse}
-                  >
-                    模拟数据(0)
-                  </div>
-                </div>
-              </div>
-              <div style={{ width: '70px', height: '20px', float: 'left' }}>
-                <div
-                  style={{
-                    width: '70px',
-                    height: '30px',
-                    marginRight: '20px',
-                    float: 'left',
-                    zIndex: '99',
-                  }}
-                >
-                  <img
-                    src={ppt}
-                    alt=""
-                    style={{ width: '20px', height: '20px', marginLeft: '30px' }}
-                    hidden={!pptState}
-                    onMouseOver={this.changePptState}
-                  />
-                  <div
-                    style={{
-                      background: 'rgba(35,32,30,0.96)',
-                      color: 'rgba(255,255,255,0.65)',
-                      width: '70px',
-                      height: '30px',
-                      lineHeight: '26px',
-                      textAlign: 'center',
-                      borderRadius: '2px',
-                      cursor: 'pointer',
-                    }}
-                    hidden={pptState}
-                    onMouseOut={this.changePptStateFalse}
-                  >
-                    ppt(0)
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            ''
-          )}
           <img
             alt="example"
             className={styleState}
@@ -217,6 +88,78 @@ class Cards extends React.Component {
             src={src}
           />
         </div>
+        {!ischildrenCard ? (
+          <div style={{ width: '100%', height: '40px'}}>
+            <div
+              className={styles.stateStyleWrap}
+            >
+              <div
+                style={{
+                  color: 'rgba(255,255,255,0.65)',
+                  width: '100%',
+                  height: '100%',
+                  lineHeight: '40px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  position: 'relative',
+                }}
+              >
+                <img
+                  src={saas}
+                  alt=""
+                  style={{ width: '20px', height: '20px', position: 'absolute', top: '10px', left: '10px'}}
+                />
+                <span style={{fontSize: '12px'}}>SAAS应用</span>
+                <span className={styles.stateStyle}>1</span>
+              </div>
+            </div>
+            <div className={styles.stateStyleWrap}>
+                <div
+                  style={{
+                    color: 'rgba(255,255,255,0.65)',
+                    width: '100%',
+                    height: '100%',
+                    lineHeight: '40px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    src={moxing}
+                    alt=""
+                    style={{ width: '20px', height: '20px', position: 'absolute', top: '10px', left: '10px'}}
+                  />
+                  <span style={{fontSize: '12px', transform: 'scale(0.85)'}}>MODEL模型</span>
+                  <span className={styles.stateStyle}>1</span>
+                </div>
+            </div>
+            <div className={styles.stateStyleWrap} style={{borderRight: 'none'}}>
+                <div
+                  style={{
+                    color: 'rgba(255,255,255,0.65)',
+                    width: '100%',
+                    height: '100%',
+                    lineHeight: '40px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    src={ppt}
+                    alt=""
+                    style={{ width: '20px', height: '20px', position: 'absolute', top: '10px', left: '10px' }}
+                  />
+                  <span style={{fontSize: '12px'}}>PPT解决方案</span>
+                  <span className={styles.stateStyle}>1</span>
+                </div>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

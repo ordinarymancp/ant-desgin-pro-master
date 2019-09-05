@@ -3,7 +3,7 @@ import styles from './index.scss';
 import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
 import router from 'umi/router';
-
+import welcome from '../../../public/image/welcome.jpg'
 class FullScreenWelcome extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +46,7 @@ class FullScreenWelcome extends React.Component {
       router.push('/index');
     };
     return (
-      <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground}>
+      <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground} style={{background: `url(${welcome})`, backgroundSize: '100% 100%'}}>
         <span className={styles.welcome}>{isHomewelcome ? homeWelcomeFirst : lastWelcome}</span>
         <span className={styles.welcomeSecond}>
           {isHomewelcome ? homeWelcomeSecond : lastWelcome}
