@@ -26,21 +26,27 @@
   justify-content: space-between;
 }
 .indexUnderTitle{
+  width: 100%;
   font-size: vw(65);
   font-weight: bolder;
   position: absolute;
   color: white;
   top: 10%;
   margin-top: 8%;
-  right: 7%;
+  text-align: center;
 }
 .indexUnderTitleText{
   position: relative;
 }
 .indexMenuItem{
-  color: white;
-  font-size: vw(30);
+  color: rgba(25, 25, 25, 0.68);
+  font-size: vw(25);
   cursor: pointer;
+  padding: vw(5);
+  background: rgba(255,255,255,1);
+  width: vw(200);
+  text-align: center;
+  border-radius: vw(6);
 }
 .gotoIndex{
   cursor: pointer;

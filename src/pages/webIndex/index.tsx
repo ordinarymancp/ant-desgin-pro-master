@@ -4,6 +4,7 @@ import { ConnectState } from '@/models/connect';
 import styles from './index.scss';
 import router from 'umi/router';
 import { Select } from 'antd';
+import index from  '../../../public/image/index.jpg'
 // @ts-ignore
 @connect(({ global }) => ({
   global,
@@ -43,7 +44,7 @@ class webIndex extends React.Component {
 
   render() {
     return (
-      <div className={styles.indexWrap}>
+      <div className={styles.indexWrap} style={{background: `url(${index})`, backgroundSize: '100% 100%',}}>
         <div className={styles.indexBigTitle}>长三角一体化互联网大脑展示平台</div>
         <div className={styles.indexUnderTitle}>
           <div>上海大数据股份</div>

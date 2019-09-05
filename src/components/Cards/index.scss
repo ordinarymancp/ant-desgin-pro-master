@@ -5,7 +5,7 @@
 }
 .real:hover{
   cursor: pointer;
-  box-shadow: 0 8px 15px rgba(119, 255, 189, 0.35);
+  //box-shadow: 0 8px 15px rgba(119, 255, 189, 0.35);
   transform: translateZ(15px) translateY(-5px) translateX(-5px);
 }
 .simulation{
@@ -15,7 +15,7 @@
 }
 .simulation:hover{
   cursor: pointer;
-  box-shadow: 0 10px 12px rgba(24, 144, 255, 0.4);
+  //box-shadow: 0 10px 12px rgba(24, 144, 255, 0.4);
   transform: translateZ(15px) translateY(-5px) translateX(-5px);
 }
 .solution{
@@ -25,7 +25,7 @@
 }
 .solution:hover{
   cursor: pointer;
-  box-shadow: 0 10px 12px rgba(220, 20, 60, 0.4);
+  //box-shadow: 0 10px 12px rgba(220, 20, 60, 0.4);
   transform: translateZ(15px) translateY(-5px) translateX(-5px);
 }
 .cardHidden{
@@ -35,4 +35,30 @@
 .cardShow{
   opacity: 1;
   transform: translateY(0) translateX(0);
+}
+.stateStyle{
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 12px;
+  border:1px solid rgba(255,255,255,0.85);
+  border-radius: 20px;
+  line-height: 16px;
+  text-align: center;
+  transform: scale(0.85);
+}
+.stateStyleWrap{
+  width: 33.3%;
+  height: 100%;
+  float: left;
+  z-index: 99;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(255,255,255,0.4);
+  background: black;
+}
+.stateStyleWrap:hover{
+  background: #1890ff;
+  border-right: 1px solid transparent;
 }
