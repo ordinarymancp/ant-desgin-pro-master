@@ -1,38 +1,19 @@
 @import '../../styles/mixin.scss';
-.sharp:before{
-  content:"";
-  width:0;
-  border-bottom:vw(60) solid transparent;
-  border-top:vw(60) solid transparent;
-  border-right:vw(40) solid rgba(24, 144, 255, 0.65);
-  position:absolute;
-  left:vw(-40);
-  top:0px;
-}
+
 
 .sharp{
   cursor: pointer;
-  width:vw(80);
-  height:vw(120);
-  background:rgba(24, 144, 255, 0.65);
+  width:vw(120);
+  height:vw(60);
+  background:rgba(24, 144, 255, 0.5);
   display: inline-block;
   position: absolute;
   word-break: break-all;
-  line-height: vw(120);
+  line-height: vw(60);
   color:#FFFFFF;
   font-size: vw(20);
   text-align: center;
+  border-radius: vw(5);
 }
 
-.sharp:after{
-  content:"";
-  width:0px;
-  border-bottom:vw(60) solid transparent;
-  border-top:vw(60) solid transparent;
-  border-left-width:vw(40);
-  border-left-style: solid;
-  border-left-color:rgba(24, 144, 255, 0.65);
-  position:absolute;
-  right:vw(-40);
-  top:0px;
-}
+

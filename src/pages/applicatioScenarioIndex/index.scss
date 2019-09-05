@@ -49,3 +49,35 @@
   margin-bottom: 3px;
   background: rgba(24, 144, 255, 1);
 }
+.xuanfuBurron{
+  width: vw(80);
+  height: vw(80);
+  background: #929292;
+  border-radius: vw(80);
+  position: fixed;
+  right: 2%;
+  bottom: 2%;
+  z-index: 997;
+  opacity: 0.8;
+}
+.xunfuButtonSecond{
+  width: vw(60);
+  height: vw(60);
+  border-radius: vw(60);
+  z-index: 998;
+  background: #c0c0c0;
+  margin: vw(10);
+  overflow: hidden;
+  border: 1px solid #9f9f9f;
+  box-sizing: border-box;
+}
+.xunfuButtonThird{
+  width: vw(40);
+  height: vw(40);
+  border-radius: vw(40);
+  z-index: 999;
+  background: #d8d8d8;
+  margin: vw(10);
+  border: 1px solid rgba(159, 159, 159, 0.67);
+  box-sizing: border-box;
+}

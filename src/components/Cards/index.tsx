@@ -49,7 +49,7 @@ class Cards extends React.Component {
 
 
   render() {
-    const { content, handleClick, collected, ischildrenCard } = this.props;
+    const { content, handleClick, collected, ischildrenCard, rnum, snum, sinum  } = this.props;
     const { styleState, src, hidden, } = this.state;
     return (
       <div
@@ -107,10 +107,10 @@ class Cards extends React.Component {
                 <img
                   src={saas}
                   alt=""
-                  style={{ width: '20px', height: '20px', position: 'absolute', top: '10px', left: '10px'}}
+                  style={{ width: '20px', height: '16px', position: 'absolute', top: '12px', left: '12px'}}
                 />
                 <span style={{fontSize: '12px'}}>SAAS应用</span>
-                <span className={styles.stateStyle}>1</span>
+                <span className={styles.stateStyle}>{rnum}</span>
               </div>
             </div>
             <div className={styles.stateStyleWrap}>
@@ -128,10 +128,10 @@ class Cards extends React.Component {
                   <img
                     src={moxing}
                     alt=""
-                    style={{ width: '20px', height: '20px', position: 'absolute', top: '10px', left: '10px'}}
+                    style={{ width: '16px', height: '16px', position: 'absolute', top: '12px', left: '12px'}}
                   />
                   <span style={{fontSize: '12px', transform: 'scale(0.85)'}}>MODEL模型</span>
-                  <span className={styles.stateStyle}>1</span>
+                  <span className={styles.stateStyle}>{snum}</span>
                 </div>
             </div>
             <div className={styles.stateStyleWrap} style={{borderRight: 'none'}}>
@@ -150,10 +150,10 @@ class Cards extends React.Component {
                   <img
                     src={ppt}
                     alt=""
-                    style={{ width: '20px', height: '20px', position: 'absolute', top: '10px', left: '10px' }}
+                    style={{ width: '16px', height: '16px', position: 'absolute', top: '12px', left: '12px' }}
                   />
                   <span style={{fontSize: '12px'}}>PPT解决方案</span>
-                  <span className={styles.stateStyle}>1</span>
+                  <span className={styles.stateStyle}>{sinum}</span>
                 </div>
             </div>
           </div>

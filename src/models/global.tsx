@@ -62,7 +62,7 @@ const GlobalModel: GlobalModelType = {
         name: '城市治理',
         solutionSonGroup: [
           {
-            state: 'real',
+            state: 'solution',
             name: '暴露垃圾',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/bllj',
@@ -70,7 +70,7 @@ const GlobalModel: GlobalModelType = {
               'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4012151590,2182971758&fm=15&gp=0.jpg',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '渣土车治理',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/carindex',
@@ -78,7 +78,7 @@ const GlobalModel: GlobalModelType = {
               'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3118387549,3450856842&fm=26&gp=0.jpg',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '无照经营游商',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/travelAgent',
@@ -86,7 +86,7 @@ const GlobalModel: GlobalModelType = {
               'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1040847284,1669896782&fm=15&gp=0.jpg',
           },
           {
-            state: 'simulation',
+            state: 'solution',
             name: '店外经营',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/dwjy',
@@ -115,7 +115,7 @@ const GlobalModel: GlobalModelType = {
         name: '社区治理',
         solutionSonGroup: [
           {
-            state: 'real',
+            state: 'solution',
             name: '非法聚众',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/illegalMass',
@@ -123,7 +123,7 @@ const GlobalModel: GlobalModelType = {
               'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2970716254,3578919158&fm=26&gp=0.jpg',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '重点人员布控',
             collected: false,
             url: 'https://219.233.175.82:58830/monitored/#/keypersoncontrol',
@@ -131,7 +131,7 @@ const GlobalModel: GlobalModelType = {
               'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2970716254,3578919158&fm=26&gp=0.jpg',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '楼宇外立面监控',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/buildingMonitoring',
@@ -178,7 +178,7 @@ const GlobalModel: GlobalModelType = {
         name: '生态环境',
         solutionSonGroup: [
           {
-            state: 'real',
+            state: 'solution',
             name: '生态环境管理',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/ecosystem',
@@ -191,7 +191,7 @@ const GlobalModel: GlobalModelType = {
         name: '应急处理',
         solutionSonGroup: [
           {
-            state: 'real',
+            state: 'solution',
             name: '人防应急资源分析',
             collected: false,
             url: 'https://219.233.175.82:58830/largeScreen/#/index/emergency',
@@ -204,7 +204,7 @@ const GlobalModel: GlobalModelType = {
         name: '园区管理',
         solutionSonGroup: [
           {
-            state: 'real',
+            state: 'solution',
             name: '创富港智慧园区',
             collected: false,
             url: 'http://physicalpoint.f3322.net:38106/#/main/home',
@@ -212,35 +212,35 @@ const GlobalModel: GlobalModelType = {
               'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3315100282,716145117&fm=26&gp=0.jpg',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '园区访客来访',
             collected: false,
             url: 'https://219.233.175.82:58830/visitor-web/#/',
             image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/YQFK.png',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '室外停车引导服务',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/parking',
             image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/TCYD.png',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '园区安全防范',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/pksecurity',
             image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/AQFF.png',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '会议全过程服务',
             collected: false,
             url: 'https://219.233.175.82:58443/office-portal/officepc/index.html',
             image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/HYQGC.png',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '食堂就餐疏导',
             collected: false,
             url:
@@ -248,7 +248,7 @@ const GlobalModel: GlobalModelType = {
             image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/STJC.png',
           },
           {
-            state: 'real',
+            state: 'solution',
             name: '重点轨迹监控',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/personTrace',

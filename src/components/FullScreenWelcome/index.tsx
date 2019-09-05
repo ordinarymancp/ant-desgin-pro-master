@@ -11,24 +11,27 @@ class FullScreenWelcome extends React.Component {
   state = {
     homeWelcomeFirst: '',
     homeWelcomeSecond: '',
-    lastWelcome: '',
+    lastWelcomeFirst: '',
+    lastWelcomeSecond: '',
   };
 
   componentDidMount(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: SS): void {
     if (localStorage.getItem('settings') as string) {
-      const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome } = JSON.parse(localStorage.getItem(
+      const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome, lastWelcomeSecond, lastWelcomeFirst } = JSON.parse(localStorage.getItem(
         'settings',
       ) as string);
       if (
         homeWelcomeFirst !== this.state.homeWelcomeFirst ||
         homeWelcomeSecond !== this.state.homeWelcomeSecond ||
-        lastWelcome !== this.state.lastWelcome
+        lastWelcomeFirst !== this.state.lastWelcomeFirst ||
+        lastWelcomeSecond !== this.state.lastWelcomeSecond
       ) {
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           homeWelcomeFirst,
           homeWelcomeSecond,
-          lastWelcome,
+          lastWelcomeFirst,
+          lastWelcomeSecond,
         });
       }
     }
@@ -37,7 +40,8 @@ class FullScreenWelcome extends React.Component {
   render() {
     // @ts-ignore
     const { hidden, dispatch, isHomewelcome } = this.props;
-    const { homeWelcomeFirst, homeWelcomeSecond, lastWelcome } = this.state;
+    const { homeWelcomeFirst, homeWelcomeSecond, lastWelcomeFirst, lastWelcomeSecond } = this.state;
+    console.log(isHomewelcome)
     const changeLang = (): void => {
       // dispatch({
       //   type: 'global/openWelcome',
@@ -47,18 +51,20 @@ class FullScreenWelcome extends React.Component {
     };
     return (
       <div className={hidden ? styles.welcomeBackgroundHiiden : styles.welcomeBackground} style={{background: `url(${welcome})`, backgroundSize: '100% 100%'}}>
-        <span className={styles.welcome}>{isHomewelcome ? homeWelcomeFirst : lastWelcome}</span>
+        <span className={styles.welcome}>{isHomewelcome ? homeWelcomeFirst : lastWelcomeFirst}</span>
         <span className={styles.welcomeSecond}>
-          {isHomewelcome ? homeWelcomeSecond : lastWelcome}
+          {isHomewelcome ? homeWelcomeSecond : lastWelcomeSecond}
         </span>
-        <span className={styles.editWelcome} onClick={changeLang}>
+        <div className={styles.editWelcome}>
+          <span className={styles.tans}></span>
+          <span style={{marginLeft: '20px', marginBottom: '3px'}} onClick={changeLang}>
           前往主界面
         </span>
+        </div>
       </div>
     );
   }
 }
 export default connect(({ global, settings }: ConnectState) => ({
   welcomeHidden: global.welcomeHidden,
-  isHomewelcome: global.isHomewelcome,
 }))(FullScreenWelcome);

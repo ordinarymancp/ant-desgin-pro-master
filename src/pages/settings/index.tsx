@@ -17,7 +17,8 @@ class settings extends React.Component {
   state = {
     homeWelcomeFirst: '',
     homeWelcomeSecond: '',
-    lastWelcome: '',
+    lastWelcomeFirst: '',
+    lastWelcomeSecond: '',
     volume: 0,
     videoPath: '',
   };
@@ -26,7 +27,8 @@ class settings extends React.Component {
 
   private homeWelcomeSecond: any;
 
-  private lastWelcome: any;
+  private lastWelcomeFirst: any;
+  private lastWelcomeSecond: any;
 
   private volume: any;
 
@@ -61,7 +63,8 @@ class settings extends React.Component {
       const settingsobj = {
         homeWelcomeFirst: this.homeWelcomeFirst,
         homeWelcomeSecond: this.homeWelcomeSecond,
-        lastWelcome: this.lastWelcome,
+        lastWelcomeSecond: this.lastWelcomeSecond,
+        lastWelcomeFirst: this.lastWelcomeFirst,
         volume: this.volume,
         videoPath: this.videoPath,
       };
@@ -153,18 +156,47 @@ class settings extends React.Component {
           <TabPane tab="尾页编辑" key="尾页编辑">
             <div style={{ width: '80%', marginLeft: '10%' }}>
               <div style={{ marginBottom: '20px' }}>尾页欢迎词编辑</div>
+              {/*<Search*/}
+              {/*  placeholder="请输入尾页欢迎词"*/}
+              {/*  enterButton="保存"*/}
+              {/*  value={this.state.lastWelcome}*/}
+              {/*  style={{ width: '50%' }}*/}
+              {/*  onChange={event => {*/}
+              {/*    this.setState({*/}
+              {/*      lastWelcome: event.target.value,*/}
+              {/*    });*/}
+              {/*  }}*/}
+              {/*/!*  onSearch={value => this.setSettings('lastWelcome', value)}*!//>*/}
+              <div>
+              <div style={{ margin: '0 20px 20px 0', float: 'left' }}>首行</div>
               <Search
-                placeholder="请输入尾页欢迎词"
+                placeholder="请输入首行结束词"
                 enterButton="保存"
-                value={this.state.lastWelcome}
+                value={this.state.lastWelcomeFirst}
                 style={{ width: '50%' }}
                 onChange={event => {
                   this.setState({
-                    lastWelcome: event.target.value,
+                    lastWelcomeFirst: event.target.value,
                   });
                 }}
-                onSearch={value => this.setSettings('lastWelcome', value)}
+                onSearch={value => this.setSettings('lastWelcomeFirst', value)}
               />
+            </div>
+              <div style={{ marginTop: '20px' }}>
+                <div style={{ margin: '0 20px 20px 0', float: 'left' }}>次行</div>
+                <Search
+                  placeholder="请输入次行结束词"
+                  enterButton="保存"
+                  value={this.state.lastWelcomeSecond}
+                  style={{ width: '50%' }}
+                  onChange={event => {
+                    this.setState({
+                      lastWelcomeSecond: event.target.value,
+                    });
+                  }}
+                  onSearch={value => this.setSettings('lastWelcomeSecond', value)}
+                />
+              </div>
             </div>
           </TabPane>
           <TabPane tab="音量编辑" key="音量编辑">

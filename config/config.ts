@@ -104,6 +104,11 @@ export default {
           component: './welcomeIndex',
         },
         {
+          path: '/index/enddingIndex',
+          name: 'enddingIndex',
+          component: './enddingIndex',
+        },
+        {
           path: '/index',
           name: 'webIndex',
           component: './webIndex',

@@ -19,24 +19,25 @@ export interface GlobalHeaderRightProps extends ConnectProps {
 
 const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
   const { theme, layout } = props;
-  const langMenu = (
-    <Menu className={styles.menu}>
-      <Menu.Item>
-          <span role="img" aria-label= { '欢迎词' }>
-            { '欢迎词'}
-          </span>{' '}
-        { '欢迎词'}
-      </Menu.Item>
-    </Menu>
-  );
-  let className = styles.right;
-
-  if (theme === 'dark' && layout === 'topmenu') {
-    className = `${styles.right}  ${styles.dark}`;
-  }
+  // const langMenu = (
+  //   {/*<Menu className={styles.menu}>*/}
+  //   {/*  <Menu.Item>*/}
+  //   {/*      <span role="img" aria-label= { '欢迎词' }>*/}
+  //   {/*        { '欢迎词'}*/}
+  //   {/*      </span>{' '}*/}
+  //   {/*    { '欢迎词'}*/}
+  //   {/*  </Menu.Item>*/}
+  //   {/*</Menu>*/}
+  // );
+  // let className = styles.right;
+  //
+  // if (theme === 'dark' && layout === 'topmenu') {
+  //   className = `${styles.right}  ${styles.dark}`;
+  // }
 
   return (
-    <div className={className}>
+    <div className={}>
+      <HeaderSearch/>
       {/*<HeaderSearch*/}
       {/*  className={`${styles.action} ${styles.search}`}*/}
       {/*  placeholder={formatMessage({*/}
@@ -67,8 +68,8 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
       {/*>*/}
       {/*  <Icon type="bell" />*/}
       {/*</Tooltip>*/}
-      <Avatar />
-      <SelectLang className={styles.action} />
+      {/*<Avatar />*/}
+      {/*<SelectLang className={styles.action} />*/}
     </div>
   );
 };

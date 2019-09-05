@@ -48,11 +48,29 @@
   bottom: 0;
 }
 .editWelcome{
-  font-size: vw(50);
+  height: vw(50);
+  line-height: vw(40);
+  font-size: vw(30);
   font-weight: bolder;
   position: absolute;
-  right: 10%;
-  bottom: 10%;
+  right: 5%;
+  bottom: 5%;
   color: white;
   cursor: pointer;
+  opacity: 0.7;
+}
+.tansWrap{
+  position: absolute;
+  right: 20%;
+  bottom: 5%;
+  height: 20px;
+}
+.tans {
+  width:0;
+  display: inline-block;
+  height:0;
+  border-top: vw(15) solid transparent;
+  border-bottom:vw(15) solid transparent;
+  border-left:vw(15) solid white;
+  transform: translateY(4px)
 }
