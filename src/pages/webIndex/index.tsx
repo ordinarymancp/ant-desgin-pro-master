@@ -4,7 +4,7 @@ import { ConnectState } from '@/models/connect';
 import styles from './index.scss';
 import router from 'umi/router';
 import { Select } from 'antd';
-import index from  '../../../public/image/index.jpg'
+import index from '../../../public/image/index.jpg';
 // @ts-ignore
 @connect(({ global }) => ({
   global,
@@ -40,7 +40,10 @@ class webIndex extends React.Component {
 
   render() {
     return (
-      <div className={styles.indexWrap} style={{background: `url(${index})`, backgroundSize: '100% 100%',}}>
+      <div
+        className={styles.indexWrap}
+        style={{ background: `url(${index})`, backgroundSize: '100% 100%' }}
+      >
         <div className={styles.indexBigTitle}>长三角一体化互联网大脑展示平台</div>
         <div className={styles.indexUnderTitle}>
           <div>上海大数据股份</div>
@@ -55,18 +58,16 @@ class webIndex extends React.Component {
           >
             智慧城市应用
           </div>
-          <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/settings')}>
-            设置
+          <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/favorites')}>
+            我的收藏
           </div>
           <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/cloudSpace')}>
             云空间
           </div>
-          <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/favorites')}>
-            我的收藏
+          <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/settings')}>
+            设置
           </div>
-          <div className={styles.indexMenuItem}>
-            故障申报
-          </div>
+          <div className={styles.indexMenuItem}>故障申报</div>
         </div>
         <div style={{ position: 'absolute', bottom: '10%', left: '5%' }}>
           <Select defaultValue="欢迎词" style={{ width: 120 }} onChange={this.handleChange}>

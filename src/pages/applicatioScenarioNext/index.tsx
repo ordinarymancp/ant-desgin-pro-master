@@ -65,21 +65,29 @@ class applicatioScenarioNext extends React.Component {
     });
   };
 
+  gotoIndex = () => {
+    router.push('/applicatioScenario');
+  };
+
   render() {
     const { buttonGroup, searchResult, startIndex, endIndex, pageName } = this.state;
     return (
       <div style={{ width: '100%', height: '100%' }} className="overview">
-        <div style={{ overflow: 'hidden' }}>
+        <div style={{ overflow: 'hidden', width: '100%' }}>
           <h1
             style={{
               marginLeft: '1.5%',
               float: 'left',
-              fontSize: '20px',
-              marginRight: '40px',
+              fontSize: '24px',
+              // marginRight: '40px',
               color: 'rgba(255, 255, 255, 0.65)',
+              width: '100%',
             }}
           >
             {pageName}
+            <span className={styles.gotoIndex} onClick={this.gotoIndex}>
+              前往主页
+            </span>
           </h1>
           {/*<HeaderSearch searchHandle={this.searchHandle} />*/}
         </div>

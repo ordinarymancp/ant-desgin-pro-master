@@ -47,10 +47,9 @@ class Cards extends React.Component {
     );
   }
 
-
   render() {
-    const { content, handleClick, collected, ischildrenCard, rnum, snum, sinum  } = this.props;
-    const { styleState, src, hidden, } = this.state;
+    const { content, handleClick, collected, ischildrenCard, rnum, snum, sinum } = this.props;
+    const { styleState, src, hidden } = this.state;
     return (
       <div
         style={{
@@ -70,7 +69,7 @@ class Cards extends React.Component {
               marginBottom: '10px',
               color: 'rgba(255, 255, 255, 0.65)',
               fontWeight: 'bold',
-              fontSize: '21px',
+              fontSize: '18px',
               float: `${!ischildrenCard ? 'left' : ''}`,
             }}
           >
@@ -89,10 +88,8 @@ class Cards extends React.Component {
           />
         </div>
         {!ischildrenCard ? (
-          <div style={{ width: '100%', height: '40px'}}>
-            <div
-              className={styles.stateStyleWrap}
-            >
+          <div style={{ width: '100%', height: '40px' }}>
+            <div className={styles.stateStyleWrap}>
               <div
                 style={{
                   color: 'rgba(255,255,255,0.65)',
@@ -107,54 +104,72 @@ class Cards extends React.Component {
                 <img
                   src={saas}
                   alt=""
-                  style={{ width: '20px', height: '16px', position: 'absolute', top: '12px', left: '12px'}}
+                  style={{
+                    width: '20px',
+                    height: '16px',
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                  }}
                 />
-                <span style={{fontSize: '12px'}}>SAAS应用</span>
+                <span style={{ fontSize: '12px' }}>SAAS应用</span>
                 <span className={styles.stateStyle}>{rnum}</span>
               </div>
             </div>
             <div className={styles.stateStyleWrap}>
-                <div
+              <div
+                style={{
+                  color: 'rgba(255,255,255,0.65)',
+                  width: '100%',
+                  height: '100%',
+                  lineHeight: '40px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  position: 'relative',
+                }}
+              >
+                <img
+                  src={moxing}
+                  alt=""
                   style={{
-                    color: 'rgba(255,255,255,0.65)',
-                    width: '100%',
-                    height: '100%',
-                    lineHeight: '40px',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    position: 'relative',
+                    width: '16px',
+                    height: '16px',
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
                   }}
-                >
-                  <img
-                    src={moxing}
-                    alt=""
-                    style={{ width: '16px', height: '16px', position: 'absolute', top: '12px', left: '12px'}}
-                  />
-                  <span style={{fontSize: '12px', transform: 'scale(0.85)'}}>MODEL模型</span>
-                  <span className={styles.stateStyle}>{snum}</span>
-                </div>
+                />
+                <span style={{ fontSize: '12px', transform: 'scale(0.85)' }}>MODEL模型</span>
+                <span className={styles.stateStyle}>{snum}</span>
+              </div>
             </div>
-            <div className={styles.stateStyleWrap} style={{borderRight: 'none'}}>
-                <div
+            <div className={styles.stateStyleWrap} style={{ borderRight: 'none' }}>
+              <div
+                style={{
+                  color: 'rgba(255,255,255,0.65)',
+                  width: '100%',
+                  height: '100%',
+                  lineHeight: '40px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  position: 'relative',
+                }}
+              >
+                <img
+                  src={ppt}
+                  alt=""
                   style={{
-                    color: 'rgba(255,255,255,0.65)',
-                    width: '100%',
-                    height: '100%',
-                    lineHeight: '40px',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    position: 'relative',
+                    width: '16px',
+                    height: '16px',
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
                   }}
-                >
-                  <img
-                    src={ppt}
-                    alt=""
-                    style={{ width: '16px', height: '16px', position: 'absolute', top: '12px', left: '12px' }}
-                  />
-                  <span style={{fontSize: '12px'}}>PPT解决方案</span>
-                  <span className={styles.stateStyle}>{sinum}</span>
-                </div>
+                />
+                <span style={{ fontSize: '12px' }}>PPT解决方案</span>
+                <span className={styles.stateStyle}>{sinum}</span>
+              </div>
             </div>
           </div>
         ) : (

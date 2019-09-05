@@ -109,9 +109,16 @@ class settings extends React.Component {
     // }
   };
 
+  gotoIndex = () => {
+    router.push('/index');
+  };
+
   render() {
     return (
       <div className="overview" style={{ padding: '20px' }}>
+        <span className={styles.gotoIndex} onClick={this.gotoIndex}>
+          前往主页
+        </span>
         <Tabs tabPosition="left" style={{ height: 220, color: 'rgba(255, 255, 255, 0.65)' }}>
           <TabPane tab="首页编辑" key="首页编辑">
             <div style={{ width: '80%', marginLeft: '10%' }}>
@@ -168,20 +175,20 @@ class settings extends React.Component {
               {/*  }}*/}
               {/*/!*  onSearch={value => this.setSettings('lastWelcome', value)}*!//>*/}
               <div>
-              <div style={{ margin: '0 20px 20px 0', float: 'left' }}>首行</div>
-              <Search
-                placeholder="请输入首行结束词"
-                enterButton="保存"
-                value={this.state.lastWelcomeFirst}
-                style={{ width: '50%' }}
-                onChange={event => {
-                  this.setState({
-                    lastWelcomeFirst: event.target.value,
-                  });
-                }}
-                onSearch={value => this.setSettings('lastWelcomeFirst', value)}
-              />
-            </div>
+                <div style={{ margin: '0 20px 20px 0', float: 'left' }}>首行</div>
+                <Search
+                  placeholder="请输入首行结束词"
+                  enterButton="保存"
+                  value={this.state.lastWelcomeFirst}
+                  style={{ width: '50%' }}
+                  onChange={event => {
+                    this.setState({
+                      lastWelcomeFirst: event.target.value,
+                    });
+                  }}
+                  onSearch={value => this.setSettings('lastWelcomeFirst', value)}
+                />
+              </div>
               <div style={{ marginTop: '20px' }}>
                 <div style={{ margin: '0 20px 20px 0', float: 'left' }}>次行</div>
                 <Search

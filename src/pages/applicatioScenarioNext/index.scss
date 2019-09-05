@@ -39,3 +39,11 @@
 .menuItemHeight{
   height: vw(60);
 }
+.gotoIndex{
+  font-size: vw(23);
+  margin-right: 4%;
+  cursor: pointer;
+  color: rgba(24, 144, 255, 0.65);
+  text-decoration: underline;
+  float: right;
+}
