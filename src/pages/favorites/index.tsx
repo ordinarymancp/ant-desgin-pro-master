@@ -63,6 +63,10 @@ class favorites extends React.Component {
     router.push('/index/applicatioScenarioIndex/' + name);
   };
 
+  gotoIndex = () => {
+    router.push('/index');
+  };
+
   render() {
     const { buttonGroup, searchResult, startIndex, endIndex } = this.state;
     return (
@@ -79,7 +83,9 @@ class favorites extends React.Component {
           >
             收藏夹
           </h1>
-          <HeaderSearch searchHandle={this.searchHandle} />
+          <span className={styles.gotoIndex} onClick={this.gotoIndex}>
+            前往主页
+          </span>
         </div>
         <div className={styles.resultWrap}>
           {buttonGroup.map((item, index) => {

@@ -43,3 +43,14 @@
   color: rgba(24, 144, 255, 0.65);
   text-decoration: underline;
 }
+.gotoIndex{
+  z-index: 9999;
+  right: 3%;
+  cursor: pointer;
+  color: rgba(24, 144, 255, 0.65);
+  text-decoration: underline;
+  float: right;
+  font-size: vw(23);
+  margin-top: vw(5);
+  position: absolute;
+}

@@ -77,7 +77,7 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
   };
 
   onChange = e => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     this.setState({ value: e.target.value });
     // if (typeof value === 'string') {
     //   const { onSearch, onChange, searchHandle} = this.props;
@@ -95,7 +95,7 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
   searchResult = () => {
     // const { searchHandle} = this.props;
     // searchHandle(this.state.value)
-  }
+  };
 
   enterSearchMode = () => {
     const { onVisibleChange } = this.props;
@@ -144,14 +144,33 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
           ref={node => {
             this.inputRef = node;
           }}
-          style={{color:'black', background: 'white', outline: 'none', border: 'none', padding: '5px 5px', height: '30px'}}
+          style={{
+            color: 'black',
+            background: 'white',
+            outline: 'none',
+            border: 'none',
+            padding: '5px 5px',
+            height: '30px',
+          }}
           aria-label={placeholder}
           placeholder={placeholder}
           onKeyDown={this.onKeyDown}
           onBlur={this.leaveSearchMode}
           onChange={this.onChange}
         />
-        <span style={{color:'white', fontWeight:'bolder', background:'rgba(36,14,255,0.65)', cursor: 'pointer', padding: '7px 9px', height: '30px'}} onClick={this.searchResult}>搜索</span>
+        <span
+          style={{
+            color: 'white',
+            fontWeight: 'bolder',
+            background: 'rgba(47,33,160,0.65)',
+            cursor: 'pointer',
+            padding: '7px 9px',
+            height: '30px',
+          }}
+          onClick={this.searchResult}
+        >
+          搜索
+        </span>
       </span>
     );
   }

@@ -62,12 +62,12 @@ class applicatioScenario extends React.Component {
           <h1
             style={{
               marginLeft: '1.5%',
-              fontSize: '24px',
+              fontSize: '22px',
               color: 'rgba(255, 255, 255, 0.65)',
               fontWeight: 'bold',
             }}
           >
-            智慧城市应用{' '}
+            智慧城市应用 <span style={{ fontSize: '14px' }}>(23)</span>
             <span className={styles.gotoIndex} onClick={this.gotoIndex}>
               前往主页
             </span>
@@ -81,10 +81,18 @@ class applicatioScenario extends React.Component {
               // eslint-disable-next-line react/jsx-no-bind
               // @ts-ignore
               // eslint-disable-next-line max-len,react/jsx-no-bind
-              const groups = solutionGroup.filter((gitem) => {return gitem.name === item})[0].solutionSonGroup;
-              const realnum = groups.filter(ritem => {return ritem.state === 'real'}).length;
-              const solutionnum = groups.filter(sitem => {return sitem.state === 'solution'}).length;
-              const simulationnum = groups.filter(sitem => {return sitem.state === 'simulation'}).length;
+              const groups = solutionGroup.filter(gitem => {
+                return gitem.name === item;
+              })[0].solutionSonGroup;
+              const realnum = groups.filter(ritem => {
+                return ritem.state === 'real';
+              }).length;
+              const solutionnum = groups.filter(sitem => {
+                return sitem.state === 'solution';
+              }).length;
+              const simulationnum = groups.filter(sitem => {
+                return sitem.state === 'simulation';
+              }).length;
               return (
                 <Cards
                   ischildrenCard={false}

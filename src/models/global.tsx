@@ -216,28 +216,28 @@ const GlobalModel: GlobalModelType = {
             name: '园区访客来访',
             collected: false,
             url: 'https://219.233.175.82:58830/visitor-web/#/',
-            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/YQFK.png',
+            image: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1039610337,414040631&fm=26&gp=0.jpg',
           },
           {
             state: 'solution',
             name: '室外停车引导服务',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/parking',
-            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/TCYD.png',
+            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=470403f622bc17c72abc3b4909f62822&imgtype=0&src=http%3A%2F%2Fimg8.iqilu.com%2Fcamimgs%2F2018%2F04%2F03%2Fa0e5382ae96ed06260b6f582ec38cec9.jpg',
           },
           {
             state: 'solution',
             name: '园区安全防范',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/pksecurity',
-            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/AQFF.png',
+            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=8828deeda6366b149bd292b2e0751ecb&imgtype=0&src=http%3A%2F%2F13355794.s21i-13.faiusr.com%2F2%2FABUIABACGAAg6qeyywUosL-ZqgYwnQs4hAc.jpg',
           },
           {
             state: 'solution',
             name: '会议全过程服务',
             collected: false,
             url: 'https://219.233.175.82:58443/office-portal/officepc/index.html',
-            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/HYQGC.png',
+            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487193&di=331cc7d4badcd1da99c56aacb3db646e&imgtype=0&src=http%3A%2F%2Fwww.guang-an.gov.cn%2Fls-integration%2Fxxgk%2FArticles%2F39142181%2F2018%2F10%2F08%2F20181008111609620846.jpg',
           },
           {
             state: 'solution',
@@ -245,14 +245,14 @@ const GlobalModel: GlobalModelType = {
             collected: false,
             url:
               'http://219.233.175.82:58090/portal-web/passFlowPc/index.html?tdsourcetag=s_pcqq_aiomsg',
-            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/STJC.png',
+            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686563230&di=d8b64b0205a4af61317150a7d7a0c3e6&imgtype=0&src=http%3A%2F%2Fnewpic.jxnews.com.cn%2F0%2F12%2F45%2F34%2F12453438_210849.jpg',
           },
           {
             state: 'solution',
             name: '重点轨迹监控',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/personTrace',
-            image: 'https://219.233.175.82:58830/aiscenes-img/sonpages/GJJK.png',
+            image: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1043027965,3810702774&fm=11&gp=0.jpg',
           },
         ],
       },
@@ -279,6 +279,30 @@ const GlobalModel: GlobalModelType = {
             url: 'http://yun.jyyzjk.cn/',
             image:
               'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=6536245,3787631551&fm=26&gp=0.jpg',
+          },
+          {
+            state: 'real',
+            name: '大数据精准教学',
+            collected: false,
+            url: 'https://www.zhixue.com/login.html',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568281004&di=72a4a7c0cddae495441b151b1c10d571&imgtype=jpg&er=1&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn17%2F400%2Fw1200h800%2F20181118%2F190f-hnyuqhh8774163.jpg',
+          },
+          {
+            state: 'real',
+            name: '校园云平台',
+            collected: false,
+            url: 'http://xfyx.lezhiyun.com',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686313371&di=53a87dd372875c9d1fe098937c489a46&imgtype=0&src=http%3A%2F%2Fimgslim.geekpark.net%2Fuploads%2Fimage%2Ffile%2F24%2F42%2F2442de44d14a4738ed746c91c183d9f2.jpg',
+          },
+          {
+            state: 'real',
+            name: '教育大数据平台',
+            collected: false,
+            url: 'http://da.edu.changyan.com/WebBI/ReportServer?op=fs',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686356176&di=1919da215dd8219d2b8e1d5d0b5adcb0&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180702%2F7a22310e18554d988e35b281c6877715.jpg',
           },
         ],
       },

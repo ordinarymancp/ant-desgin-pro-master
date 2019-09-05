@@ -6,43 +6,38 @@ import videojs from 'video.js/dist/video.js';
 import 'videojs-flash';
 import 'videojs-contrib-hls';
 import 'video.js/dist/video-js.css';
+import styles from '@/pages/settings/index.scss';
+import router from 'umi/router';
 const { TabPane } = Tabs;
 @connect(({ global }) => ({
   global,
-}))
-const // eslint-disable-next-line react/prefer-stateless-function
-  CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
-    // eslint-disable-next-line
-    class extends React.Component {
-      render() {
-        // @ts-ignore
-        const { visible, onCancel, onCreate, form } = this.props;
-        const { getFieldDecorator } = form;
-        return (
-          <Modal
-            visible={visible}
-            title="视频添加"
-            okText="创建"
-            onCancel={onCancel}
-            onOk={onCreate}
-          >
-            <Form layout="vertical">
-              <Form.Item label="视频路径">
-                {getFieldDecorator('title', {
-                  rules: [{ required: true, message: '请输入视频路径' }],
-                })(<Input />)}
-              </Form.Item>
-              <Form.Item label="视频名称">
-                {getFieldDecorator('description', {
-                  rules: [{ required: true, message: '请输入视频名称' }],
-                })(<Input type="textarea" />)}
-              </Form.Item>
-            </Form>
-          </Modal>
-        );
-      }
-    },
-  );
+})) // eslint-disable-next-line react/prefer-stateless-function
+const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+  // eslint-disable-next-line
+  class extends React.Component {
+    render() {
+      // @ts-ignore
+      const { visible, onCancel, onCreate, form } = this.props;
+      const { getFieldDecorator } = form;
+      return (
+        <Modal visible={visible} title="视频添加" okText="创建" onCancel={onCancel} onOk={onCreate}>
+          <Form layout="vertical">
+            <Form.Item label="视频路径">
+              {getFieldDecorator('title', {
+                rules: [{ required: true, message: '请输入视频路径' }],
+              })(<Input />)}
+            </Form.Item>
+            <Form.Item label="视频名称">
+              {getFieldDecorator('description', {
+                rules: [{ required: true, message: '请输入视频名称' }],
+              })(<Input type="textarea" />)}
+            </Form.Item>
+          </Form>
+        </Modal>
+      );
+    }
+  },
+);
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 class cloudSpace extends React.Component {
   public player1: any;
@@ -154,10 +149,17 @@ class cloudSpace extends React.Component {
     this.setState({ viedoModelVisible: false });
   };
 
+  gotoIndex = () => {
+    router.push('/index');
+  };
+
   render() {
     const { videoList, viedoModelVisible } = this.state;
     return (
       <div className="overview">
+        <span className={styles.gotoIndex} onClick={this.gotoIndex}>
+          前往主页
+        </span>
         <Modal
           visible={viedoModelVisible}
           title="视频预览"
