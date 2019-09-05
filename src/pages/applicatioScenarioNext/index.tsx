@@ -86,7 +86,7 @@ class applicatioScenarioNext extends React.Component {
           >
             {pageName}
             <span className={styles.gotoIndex} onClick={this.gotoIndex}>
-              前往主页
+              返回上一页
             </span>
           </h1>
           {/*<HeaderSearch searchHandle={this.searchHandle} />*/}
