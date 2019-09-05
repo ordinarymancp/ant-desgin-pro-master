@@ -37,6 +37,7 @@ class applicatioScenarioIndex extends React.Component {
     iframeUrl: '',
     content: '',
     currentModel: '',
+    hiddenState: true,
   };
 
   hiddenLoading = () => {
@@ -80,16 +81,102 @@ class applicatioScenarioIndex extends React.Component {
       });
     });
   };
+
+  goPre = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach((items, index) => {
+        if (items.name === content) {
+          if (item.solutionSonGroup[index - 1]) {
+            const { dispatch } = this.props;
+            dispatch({
+              type: 'global/setIframeUrl',
+              payload: { iframeUrl: item.solutionSonGroup[index - 1].url },
+            });
+            router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
+            const iframeUrlString = JSON.stringify({
+              iframeUrl: item.solutionSonGroup[index - 1].url,
+            });
+            localStorage.setItem('iframeUrl', iframeUrlString);
+            location.reload();
+          } else {
+            message.warning('这是第一个场景');
+          }
+        }
+      });
+    });
+  };
+
+
   goBack = () => {
     const currentModel = localStorage.getItem('currentMosel');
     router.push('/applicatioScenarioNext/' + currentModel);
   };
 
+  buttonClick = () => {
+    this.setState({
+      hiddenState: !this.state.hiddenState,
+    })
+  }
+
+  movein = () => {
+    this.setState({
+      hiddenState: false,
+    })
+  }
+
+  moveout = () => {
+    this.setState({
+      hiddenState: true,
+    })
+  }
+
   render() {
     // const {preTitle, nextTitle} = this.state;
-    const { iframeUrl, canHidden, currentModel, content } = this.state;
+    const { iframeUrl, canHidden, hiddenState} = this.state;
     return (
       <div style={{ width: '100%', height: '100%', background: 'rgba(15, 10, 11, 1)' }}>
+        <div style={{position: 'fixed',height: '100%', width: '3%', right: 0, zIndex: '999'}} onMouseOver={this.movein} onMouseOut={this.moveout}>
+         <div style={{width: '70%', height: '100%', background: 'rgba(0,0,0,0.3)', float: 'right'}}>
+           <div
+             hidden={hiddenState}
+             style={{
+               height: '47%',
+               display: 'flex',
+               flexDirection: 'column',
+               justifyContent: 'space-between',
+               bottom: '0',
+               position: 'fixed',
+               right: '2%',
+               bottom: '12%',
+               background: 'rgba(0,0,0,0.6)',
+               padding: '10px 20px',
+             }}
+           >
+             <div className={styles.buttonWrap}>
+               <MenuItem content="上个场景" handleClick={this.goPre} />
+             </div>
+             <div className={styles.buttonWrap}>
+               <MenuItem content="下个场景" handleClick={this.goNext} />
+             </div>
+             <div className={styles.buttonWrap}>
+               <MenuItem content="加入收藏" handleClick={this.findAndSet} />
+             </div>
+             <div className={styles.buttonWrap}>
+               <MenuItem content="搜索" />
+             </div>
+             <div className={styles.buttonWrap}>
+               <MenuItem content="返回" handleClick={this.goBack} />
+             </div>
+           </div>
+         </div>
+        </div>
+        <div className={styles.xuanfuBurron} onClick={this.buttonClick}>
+          <div className={styles.xunfuButtonSecond}>
+            <div className={styles.xunfuButtonThird}></div>
+          </div>
+        </div>
         <div
           style={{
             width: '15%',
@@ -98,7 +185,7 @@ class applicatioScenarioIndex extends React.Component {
             padding: '1% 0 5% 0',
             right: '0',
             position: 'fixed',
-            zIndex: '999',
+            zIndex: '99',
           }}
         >
           {/*<div style={{ width: '100%', height: '23%' }}>*/}
@@ -114,31 +201,6 @@ class applicatioScenarioIndex extends React.Component {
           {/*    </div>*/}
           {/*  </div>*/}
           {/*</div>*/}
-          <div
-            style={{
-              height: '77%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              bottom: '0',
-              position: 'fixed',
-              right: '2%',
-              bottom: '2%',
-            }}
-          >
-            <div className={styles.buttonWrap}>
-              <MenuItem content="下个场景" handleClick={this.goNext} />
-            </div>
-            <div className={styles.buttonWrap}>
-              <MenuItem content="加入收藏" handleClick={this.findAndSet} />
-            </div>
-            <div className={styles.buttonWrap}>
-              <MenuItem content="搜索" />
-            </div>
-            <div className={styles.buttonWrap}>
-              <MenuItem content="返回" handleClick={this.goBack} />
-            </div>
-          </div>
         </div>
         <div style={{ width: '100%', height: '100%', position: 'relative', float: 'left' }}>
           <div style={{ display: `${canHidden ? 'block' : 'none'}` }}>

@@ -20,14 +20,10 @@ class webIndex extends React.Component {
   componentDidMount(): void {}
 
   handleChange = value => {
-    if (value === '欢迎词') {
-      this.setState({
-        welcomeState: true,
-      });
+    if (value === '欢迎页') {
+      router.push('/index/welcomeIndex');
     } else {
-      this.setState({
-        welcomeState: false,
-      });
+      router.push('/index/enddingIndex');
     }
   };
 
@@ -68,15 +64,18 @@ class webIndex extends React.Component {
           <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/favorites')}>
             我的收藏
           </div>
+          <div className={styles.indexMenuItem}>
+            故障申报
+          </div>
         </div>
         <div style={{ position: 'absolute', bottom: '10%', left: '5%' }}>
           <Select defaultValue="欢迎词" style={{ width: 120 }} onChange={this.handleChange}>
             <Option value="欢迎页">欢迎词</Option>
             <Option value="结束页">结束词</Option>
           </Select>
-          <span className={styles.gotoIndex} onClick={this.gotoWelcome}>
-            前往
-          </span>
+          {/*<span className={styles.gotoIndex} onClick={this.gotoWelcome}>*/}
+          {/*  前往*/}
+          {/*</span>*/}
         </div>
       </div>
     );

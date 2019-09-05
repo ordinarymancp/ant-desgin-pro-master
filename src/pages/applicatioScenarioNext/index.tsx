@@ -81,7 +81,7 @@ class applicatioScenarioNext extends React.Component {
           >
             {pageName}
           </h1>
-          <HeaderSearch searchHandle={this.searchHandle} />
+          {/*<HeaderSearch searchHandle={this.searchHandle} />*/}
         </div>
         <div className={styles.resultWrap}>
           {// @ts-ignore

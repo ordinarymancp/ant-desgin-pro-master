@@ -55,6 +55,7 @@ class applicatioScenario extends React.Component {
 
   render() {
     const { applicatioScenarioGroup, searchResult, imageList } = this.state;
+    const { solutionGroup } = this.props;
     return (
       <div className="overview">
         <div>
@@ -80,6 +81,10 @@ class applicatioScenario extends React.Component {
               // eslint-disable-next-line react/jsx-no-bind
               // @ts-ignore
               // eslint-disable-next-line max-len,react/jsx-no-bind
+              const groups = solutionGroup.filter((gitem) => {return gitem.name === item})[0].solutionSonGroup;
+              const realnum = groups.filter(ritem => {return ritem.state === 'real'}).length;
+              const solutionnum = groups.filter(sitem => {return sitem.state === 'solution'}).length;
+              const simulationnum = groups.filter(sitem => {return sitem.state === 'simulation'}).length;
               return (
                 <Cards
                   ischildrenCard={false}
@@ -87,6 +92,9 @@ class applicatioScenario extends React.Component {
                   opacityTime={parseInt(index) * 100}
                   handleClick={this.routerButtonClick.bind(this, applicatioScenarioGroup[index])}
                   src={imageList[index]}
+                  rnum={realnum}
+                  snum={solutionnum}
+                  sinum={simulationnum}
                 />
               );
             } else {

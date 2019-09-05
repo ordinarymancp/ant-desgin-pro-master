@@ -133,7 +133,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       {...props}
       {...settings}
     >
-      <FullScreenWelcome hidden={welcomeHidden} />
       {children}
     </ProLayout>
   );

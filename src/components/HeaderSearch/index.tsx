@@ -93,8 +93,8 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
   };
 
   searchResult = () => {
-    const { searchHandle} = this.props;
-    searchHandle(this.state.value)
+    // const { searchHandle} = this.props;
+    // searchHandle(this.state.value)
   }
 
   enterSearchMode = () => {
@@ -144,14 +144,14 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
           ref={node => {
             this.inputRef = node;
           }}
-          style={{color:'black', background: 'white', outline: 'none', border: 'none', padding: '5px 5px'}}
+          style={{color:'black', background: 'white', outline: 'none', border: 'none', padding: '5px 5px', height: '30px'}}
           aria-label={placeholder}
           placeholder={placeholder}
           onKeyDown={this.onKeyDown}
           onBlur={this.leaveSearchMode}
           onChange={this.onChange}
         />
-        <span style={{color:'white', fontWeight:'bolder', background:'rgba(36,14,255,0.65)', cursor: 'pointer', padding: '7px 9px'}} onClick={this.searchResult}>搜索</span>
+        <span style={{color:'white', fontWeight:'bolder', background:'rgba(36,14,255,0.65)', cursor: 'pointer', padding: '7px 9px', height: '30px'}} onClick={this.searchResult}>搜索</span>
       </span>
     );
   }

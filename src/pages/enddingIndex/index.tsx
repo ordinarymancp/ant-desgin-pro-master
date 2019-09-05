@@ -8,17 +8,15 @@ import FullScreenWelcome from '@/components/FullScreenWelcome';
 }))
 
 // eslint-disable-next-line react/prefer-stateless-function
-class welcomeIndex extends React.Component {
-  componentDidMount(): void {
-    sessionStorage.setItem('firstComeIn', '1')
-  }
+class enddingIndex extends React.Component {
+
 
   render() {
     return (
-      <FullScreenWelcome isHomewelcome={true}/>
+      <FullScreenWelcome isHomewelcome={false}/>
     );
   }
 }
 export default connect(({ global }: ConnectState) => ({
 
-}))(welcomeIndex);
+}))(enddingIndex);

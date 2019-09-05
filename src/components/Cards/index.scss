@@ -43,9 +43,11 @@
   top: 12px;
   right: 12px;
   font-size: 12px;
-  border:1px solid rgba(255,255,255,0.85);
+  border:1.5px solid rgba(255,255,255,1);
+  color: white;
+  font-weight: bolder;
   border-radius: 20px;
-  line-height: 16px;
+  line-height: 15px;
   text-align: center;
   transform: scale(0.85);
 }
