@@ -3,13 +3,13 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 24px;
+  padding: 24px 10%;
 }
 .applicationScenarioContentLeft{
   float: left;
-  width: 35%;
+  width: 45%;
   height: 95%;
-  margin-right: 2%;
+  margin-right: 7%;
 }
 .buttonWrap{
   width:vw(120);
@@ -19,7 +19,7 @@
 }
 .applicationScenarioContentRight{
   float: left;
-  width: 63%;
+  width: 48%;
   height: 90%;
   background: white;
   border-radius: 3px;
@@ -32,7 +32,7 @@
 }
 .applicationScenarioContentRight canvas{
   width: 100% !important;
-  height: 100% !important;
+  height: 50% !important;
   border-radius: 3px;
 }
 .applicationScenarioContentLeftTop{
@@ -48,65 +48,69 @@
   position: relative;
 }
 .applicationScenarioContentLeftTopTab{
-  width: 30px;
-  height: 60px;
+  width: 40px;
+  height: 70px;
   text-align: center;
   word-break: break-all;
   position: absolute;
   border: 1px solid #d6d6d6;
   box-sizing: border-box;
   top: 0;
-  left: -30px;
-  padding: 5px;
+  left: -40px;
+  padding: 10px 5px;
   background: white;
   border-radius: 3px;
   font-weight: bolder;
+  font-size: 17px;
 }
 .applicationScenarioContentLeftTopTabNext{
-  width: 30px;
-  height: 60px;
+  width: 40px;
+  height: 70px;
   text-align: center;
   word-break: break-all;
   position: absolute;
   border: 1px solid #d6d6d6;
   box-sizing: border-box;
-  top: 60px;
-  left: -30px;
-  padding: 5px;
+  top: 70px;
+  left: -40px;
+  padding: 10px 5px;
   background: white;
   border-radius: 3px;
   font-weight: bolder;
+  font-size: 17px;
 }
 .applicationScenarioContentLeftTopTabChecked{
-  width: 30px;
-  height: 60px;
+  width: 40px;
+  height: 70px;
   text-align: center;
   word-break: break-all;
   position: absolute;
   border: 1px solid #d6d6d6;
   box-sizing: border-box;
   top: 0;
-  left: -30px;
+  left: -40px;
   padding: 5px;
   background: white;
   border-radius: 3px;
   font-weight: bolder;
   box-shadow: inset 0 -1px 0 rgba( 255, 255, 250, 0.6);
+  font-size: 17px;
 }
 .applicationScenarioContentRightTopTab{
-  width: 35px;
-  height: 95px;
+  width: 40px;
+  height: 120px;
   text-align: center;
   word-break: break-all;
   position: absolute;
   border: 1px solid #d6d6d6;
   box-sizing: border-box;
   top: 0;
-  right: -35px;
-  padding: 5px;
+  right: -40px;
+  padding: 10px 7px;
   background: white;
   border-radius: 3px;
   font-weight: bolder;
+  font-size: 17px;
 }
 .applicationScenarioContentLeftBottom{
   width: 100%;
