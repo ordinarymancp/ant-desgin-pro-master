@@ -21,8 +21,15 @@ class Collect extends React.Component {
     solutionGroup.forEach(item => {
       item.solutionSonGroup.forEach(items => {
         if (items.name === content) {
-          items.collected = true;
-          message.info('收藏成功', [1]);
+          items.collected = !items.collected;
+          this.setState({
+            collected: items.collected
+          })
+          if(items.collected){
+            message.info('收藏成功', [1]);
+          }else{
+            message.info('取消收藏成功', [1]);
+          }
         }
       });
     });
@@ -43,7 +50,7 @@ class Collect extends React.Component {
         }}
         onClick={this.findAndSet}
       >
-        加入收藏
+        {!collected ? '加入收藏' : '取消收藏'}
       </span>
     );
   }

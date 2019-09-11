@@ -34,6 +34,7 @@ class promotionalVideo extends React.Component {
       this.player1.dispose();
     }
   }
+
   componentDidMount(): void {
     if (localStorage.getItem('settings')) {
       const settingsValue = JSON.parse(localStorage.getItem('settings') as string) || {};
@@ -66,6 +67,7 @@ class promotionalVideo extends React.Component {
       });
     }
     this.player1.on('click', this.videoPlay);
+    // this.fullscreen()
   }
   // 视频重置
 
@@ -134,6 +136,7 @@ class promotionalVideo extends React.Component {
   };
 
   fullscreen = () => {
+
     this.player1.requestFullscreen();
   };
 

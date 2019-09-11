@@ -79,9 +79,42 @@ class settings extends React.Component {
   getVideoUrl = (e: { preventDefault: () => void }) => {
     // @ts-ignore
     const { dispatch } = this.props;
-    dispatch({
-      type: 'global/fetchVideo',
-    });
+    // var reader = new FileReader();
+    // var AllowImgFileSize = 2100000; //上传图片最大值(单位字节)（ 2 M = 2097152 B ）超过2M上传失败
+    // var file = e.target.files[0];
+    // let imageFile = '';
+    // var imgUrlBase64;
+    function getObjectURL(file) {
+      var url = null;
+      if (window.createObjcectURL != undefined) {
+        url = window.createOjcectURL(file);
+      } else if (window.URL != undefined) {
+        url = window.URL.createObjectURL(file);
+      } else if (window.webkitURL != undefined) {
+        url = window.webkitURL.createObjectURL(file);
+      }
+      return url;
+    }
+    var objURL = getObjectURL(e.target.files[0]);//这里的objURL就是input file的真实路径
+    console.log(objURL)
+    // if (file) {
+    //   //将文件以Data URL形式读入页面
+    //   imgUrlBase64 = reader.readAsDataURL(file);
+    //   reader.onload = function (e) {
+    //     //var ImgFileSize = reader.result.substring(reader.result.indexOf(",") + 1).length;//截取base64码部分（可选可不选，需要与后台沟通）
+    //     if (AllowImgFileSize != 0 && AllowImgFileSize < reader.result.length) {
+    //       alert( '上传失败，请上传不大于2M的图片！');
+    //       return;
+    //     }else{
+    //       //执行上传操作
+    //       imageFile = reader.result;
+          dispatch({
+            type: 'global/fetchVideo',
+            url: objURL,
+          });
+    //     }
+    //   }
+    // }
     // fetch('http://192.168.1.117:8810/api/v1/video/start',{
     //   method: 'POST',
     //   body: JSON.stringify({ account: 'rtsp://localhost:8554/' }),
