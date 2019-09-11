@@ -147,6 +147,18 @@ export default {
           name: 'applicatioScenarioNext',
           hideInMenu: true,
         },
+        {
+          path: '/applicatioScenarioContent/:name',
+          component: './applicatioScenarioContent/index',
+          name: 'applicatioScenarioContent',
+          hideInMenu: true,
+        },
+        {
+          path: '/applicatioScenarioContentTwo/:name',
+          component: './applicatioScenarioContentTwo/index',
+          name: 'applicatioScenarioContentTwo',
+          hideInMenu: true,
+        },
         //设置
         {
           path: '/settings',

@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { readdirSync, statSync, writeFile, readFile, createReadStream, createWriteStream } from 'fs';
+import { join } from 'path';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 // const {readFile} = require('fs');
 export default {
@@ -106,6 +108,45 @@ export default {
       type,
       currentAuthority: 'guest',
     });
+  },
+  'POST /api/save': (req: Request, res: Response) => {
+
+    var inputFile = 'C:\\前端文件\\React资料\\第三章 ：构建可维护可扩展的前端应用\\22  前端项目的理想架构：可维护，可扩展，可测试，易开发，易建构.mp4';
+    var outputFile = './public/video/1.mp4';
+
+    var input = createReadStream(inputFile);
+    var output = createWriteStream(outputFile);
+    const timer = setInterval(printMemoryUsage, 1000);
+    input.on('data', function (chunk) {
+      output.write(chunk);
+    });
+
+    input.on('end', function () {
+      output.end(function () {
+        printMemoryUsage();
+        clearInterval(timer)
+      });
+    });
+
+// 打印内存占用情况
+    function printMemoryUsage () {
+      var info = process.memoryUsage();
+      function mb (v) {
+        return (v / 1024 / 1024).toFixed(2) + 'MB';
+      }
+      console.log('rss=%s, heapTotal=%s, heapUsed=%s', mb(info.rss), mb(info.heapTotal), mb(info.heapUsed));
+    }
+    // var imgData = req.body.url;
+    // console.log(imgData)
+    // //过滤data:URL
+    // var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+    // var dataBuffer = new Buffer(base64Data, 'base64');
+    // readFile('./public/image/index.jpg',(error,data) => {
+    //   res.send(data)
+    // })
+    // writeFile('./public/image/' + req.url.name, req.url, () => {
+    //   console.log('11111111')
+    // })
   },
   'POST /api/register': (req: Request, res: Response) => {
     res.send({ status: 'ok', currentAuthority: 'user' });

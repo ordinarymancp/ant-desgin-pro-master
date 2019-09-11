@@ -49,13 +49,17 @@ class applicatioScenarioNext extends React.Component {
   //     })
   //   }
   // }
-  routerButtonClick = (url: any, name) => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'global/setIframeUrl',
-      payload: { iframeUrl: url },
-    });
-    router.push('/index/applicatioScenarioIndex/' + name);
+  routerButtonClick = (url: any, name, bool) => {
+    if(bool){
+      router.push('/applicatioScenarioContentTwo/' + name);
+    }else{
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'global/setIframeUrl',
+        payload: { iframeUrl: url },
+      });
+      router.push('/index/applicatioScenarioIndex/' + name);
+    }
   };
 
   searchHandle = (value: any) => {
@@ -111,6 +115,7 @@ class applicatioScenarioNext extends React.Component {
                     this,
                     buttonGroup[index].url,
                     buttonGroup[index].name,
+                    buttonGroup[index].gotoContent,
                   ),
                   src: buttonGroup[index].image,
                   ischildrenCard: true,
