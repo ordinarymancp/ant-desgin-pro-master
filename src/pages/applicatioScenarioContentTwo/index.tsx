@@ -8,7 +8,8 @@ import contentback from '../../../public/image/contentback.jpg';
 import router from "umi/router";
 import MenuItem from "@/components/MenuItem";
 import { message } from 'antd';
-
+import pdf1 from '../../../public/pdf/1.pdf'
+import pdf2 from '../../../public/pdf/2.pdf'
 @connect(({ global }) => ({
   global,
 }))
@@ -47,11 +48,11 @@ class applicatioScenarioContentTwo extends React.Component {
   }
 
   handlePrevious = () => {
-    this.setState({ page: this.state.page - 1 });
+    this.setState({ page: this.state.page - 2 });
   }
 
   handleNext = () => {
-    this.setState({ page: this.state.page + 1 });
+    this.setState({ page: this.state.page + 2 });
   }
   findAndSet = () => {
     const { name } = this.state;
@@ -119,7 +120,7 @@ class applicatioScenarioContentTwo extends React.Component {
     const { name, description, pdfName, example, hiddenState } = this.state
     console.log(name,description,example,pdfName)
     return (
-      <div className="overview" style={{boxSizing: 'border-box', padding: '3%', background: `url(${contentback})`, backgroundSize: '100% 100%'}}>
+      <div className="overview" style={{boxSizing: 'border-box', padding: '2% 10% 1% 10%', background: `url(${contentback})`, backgroundSize: '100% 100%'}}>
         <div
           style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
           onMouseOver={this.movein}
@@ -191,12 +192,20 @@ class applicatioScenarioContentTwo extends React.Component {
 
           <span className={styles.applicationScenarioContentRightTopTab}>解决方案</span>
           {
-            pdfName ? <PDF
-              style={{width: '100%', height: '100%'}}
-              file={require(`../../../public/pdf/${pdfName}.pdf`)}
-              onDocumentComplete={this.onDocumentComplete}
-              page={this.state.page}
-            /> : ''
+            pdfName ? <div style={{width: '100%', height: '100%'}}>
+              <PDF
+                style={{width: '100%', height: '50%'}}
+                file={pdf1}
+                onDocumentComplete={this.onDocumentComplete}
+                page={this.state.page}
+              />
+              <PDF
+                style={{width: '100%', height: '50%'}}
+                file={pdf1}
+                onDocumentComplete={this.onDocumentComplete}
+                page={this.state.page+1}
+              />
+            </div> : ''
           }
 
           {pagination}

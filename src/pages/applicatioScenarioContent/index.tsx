@@ -3,11 +3,12 @@ import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
 import styles from './index.scss';
 import PDF from 'react-pdf-js';
-import {Icon, message} from 'antd';
+import {Icon, message, Table} from 'antd';
 import pdf from '../../../public/pdf/1.pdf'
 import router from "umi/router";
 import MenuItem from "@/components/MenuItem";
 import contentback from '../../../public/image/contentback.jpg';
+import contentImage from '../../../public/image/contentImage.jpg';
 @connect(({ global }) => ({
   global,
 }))
@@ -114,9 +115,56 @@ class applicatioScenarioContent extends React.Component {
       pagination = this.renderPagination(this.state.page, this.state.pages);
     }
     const {  description, pdfName, example, hiddenState } = this.state
+    const columns = [
+      {
+        title: '学校名称',
+        dataIndex: 'name',
+      },
+      {
+        title: '类型',
+        dataIndex: 'type',
+      },
+    ];
+    const data = [
+      {
+        key: '1',
+        name: '张家口市第二幼儿园',
+        type: '幼儿园',
+      },
+      {
+        key: '2',
+        name: '张家口市第六中学',
+        type: '高中',
+      },
+      {
+        key: '3',
+        name: '张家口市第十中学',
+        type: '高中',
+      },
+      {
+        key: '4',
+        name: '张家口市第二中学',
+        type: '高中',
+      },
+      {
+        key: '5',
+        name: '张家口市第一中学',
+        type: '高中',
+      },
+      {
+        key: '6',
+        name: '张家口市职业技术教育中心',
+        type: '职业高中',
+      },
+      {
+        key: '7',
+        name: '张家口市桥西区蒙古营小学',
+        type: '小学',
+      },
+    ];
     // const {preTitle, nextTitle} = this.state;
     return (
-      <div className="overview" style={{boxSizing: 'border-box', padding: '3%', background: `url(${contentback})`, backgroundSize: '100% 100%'}}>
+      <div className="overview" style={{boxSizing: 'border-box', padding: '1% 3% 1% 3%', background: `url(${contentback})`, backgroundSize: '100% 100%'}}>
         <div
           style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
           onMouseOver={this.movein}
@@ -162,11 +210,14 @@ class applicatioScenarioContent extends React.Component {
             <div className={styles.xunfuButtonThird}></div>
           </div>
         </div>
-        <div className={styles.applicationScenarioContentTop}>
-          {description}
-        </div>
-        <div className={styles.applicationScenarioContentBottom}>
-          <div className={styles.applicationScenarioContentLeft}>
+        <div className={styles.applicationScenarioContentLeft}>
+          <div className={styles.applicationScenarioContentLeftTop}>
+            <img src={contentImage} alt="" style={{float: 'left', height: '100%', width: '20%'}}/>
+            <div style={{float: "left", width: '80%', padding: '14px'}}>
+              {description}
+            </div>
+          </div>
+          <div className={styles.applicationScenarioContentLeftBottom}>
             {pdfName ?  <PDF
               style={{width: '100%', height: '100%'}}
               file={require(`../../../public/pdf/${pdfName}.pdf`)}
@@ -175,20 +226,28 @@ class applicatioScenarioContent extends React.Component {
             /> : ''}
             {pagination}
           </div>
-          <div className={styles.applicationScenarioContentRight}>
+        </div>
+        <div className={styles.applicationScenarioContentRight}>
             <div className={styles.applicationScenarioContentRightTop}>
               <h2>建设内容简要</h2>
             </div>
             <div className={styles.applicationScenarioContentRightBottom}>
-              <h2 style={{width: '100%', textAlign: 'left'}}>应用案例</h2>
-              {example.map(item => {
-                return(
-                  <div className={styles.applicationScenarioContentRightBottomItem}>{item.title}</div>
-                )
-              })}
+              <h2 style={{width: '100%', textAlign: 'left',height: '60px',lineHeight: '60px',marginBottom: '0'}}>应用案例</h2>
+              <div style={{width: '100%', height: '80%'}}>
+                <Table
+                  columns={columns}
+                  dataSource={data}
+                  bordered
+                  pagination={false}
+                />
+              </div>
+            {/*  {example.map(item => {*/}
+            {/*    return(*/}
+            {/*      <div className={styles.applicationScenarioContentRightBottomItem}>{item.title}</div>*/}
+            {/*    )*/}
+            {/*  })}*/}
             </div>
           </div>
-        </div>
       </div>
     );
   }

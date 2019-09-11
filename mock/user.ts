@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { readdirSync, statSync, writeFile, readFile, createReadStream, createWriteStream } from 'fs';
-import { join } from 'path';
+import { resolve } from 'path';
+import { createServer } from 'http'
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 // const {readFile} = require('fs');
 export default {
@@ -14,6 +15,36 @@ export default {
   //     })
   //   })
   // },
+  'GET /movie':() => {
+    var movie_webm, movie_mp4, movie_ogg;
+    readFile(resolve(__dirname, "../public/video/1.mp4"), function (err, data) {
+      if (err) {
+        throw err;
+      }
+      movie_mp4 = data;
+    });
+    console.log(movie_mp4)
+    createServer(function (req, res) {
+      // ... [snip] ... (Serve client files)
+      var total;
+        total = movie_mp4.length;
+      // ... [snip] ... handle two other formats for the video
+      console.log(req.headers)
+      var range = req.headers.range;
+      var positions = range.replace(/bytes=/, "").split("-");
+      var start = parseInt(positions[0], 10);
+      var end = positions[1] ? parseInt(positions[1], 10) : total - 1;
+      var chunksize = (end - start) + 1;
+      res.writeHead(206, {
+          "Content-Range": "bytes " + start + "-" + end + "/" + total,
+          "Accept-Ranges": "bytes",
+          "Content-Length": chunksize,
+          "Content-Type": "video/mp4"
+        });
+        res.end(movie_mp4.slice(start, end + 1), "binary");
+      // ... [snip] ... handle two other formats for the video
+    }).listen(8000)
+  },
   'GET /api/currentUser': {
     name: 'Serati Ma',
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
