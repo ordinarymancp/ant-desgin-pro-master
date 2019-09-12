@@ -10,12 +10,14 @@ import {
   readdir,
   ensureDirSync,
   rename,
+  mkdirSync,
 } from 'fs';
 import { resolve, join } from 'path';
-import { formidable } from 'formidable/lib/index';
+import { IncomingForm } from 'formidable/lib/index';
 import { createServer } from 'http';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据s
 // const {readFile} = require('fs');
+const formidable = require('formidable')
 export default {
   // // 支持值为 Object 和 Array
   // 'POST /api/files': (req,res) =>{
@@ -27,20 +29,18 @@ export default {
   //     })
   //   })
   // },
+
   'POST /upload': (req, resp) => {
     console.log('_________________uploadStart!');
-    var form = new formidable.IncomingForm({
-      uploadDir: __dirname,
-    });
-    console.log('_________________uploadStart!!!!!!!');
+    var form = new formidable.IncomingForm({uploadDir: '../public/tmp'});
     form.parse(req, function(err, fields, file) {
       let index = fields.index;
       let total = fields.total;
       let fileMd5Value = fields.fileMd5Value;
-      let folder = resolve(__dirname, fileMd5Value);
+      console.log('_________________uploadStart!!!!!!!',fileMd5Value);
+      let folder = resolve(__dirname, 'public/video', fileMd5Value);
       folderIsExit(folder).then(val => {
         let destFile = resolve(folder, fields.index);
-        console.log('_________________uploadLoading!!!!!111111111111');
         console.log('----------->', file.data.path, destFile);
         copyFile(file.data.path, destFile).then(
           successLog => {
@@ -62,7 +62,7 @@ export default {
     function folderIsExit(folder) {
       console.log('folderIsExit', folder);
       return new Promise(async (resolve, reject) => {
-        let result = await ensureDirSync(join(folder));
+        let result = await mkdirSync(join(folder));
         console.log('result----', result);
         resolve(true);
       });
@@ -81,12 +81,33 @@ export default {
       return promise;
     }
   },
+  '/check/chunk': (req, resp) => {
+    let query = req.query
+    let chunkIndex = query.index
+    let md5 = query.md5
 
+    stat(join(__dirname, md5, chunkIndex), (err, stats) => {
+      if (stats) {
+        resp.send({
+          stat: 1,
+          exit: true,
+          desc: 'Exit 1'
+        })
+      } else {
+        resp.send({
+          stat: 1,
+          exit: false,
+          desc: 'Exit 0'
+        })
+      }
+    })
+  },
   'GET /check/file': (req, resp) => {
     let query = req.query;
     let fileName = query.fileName;
     let fileMd5Value = query.fileMd5Value;
-    let uploadDir = __dirname;
+    let uploadDir = 'public/video';
+    console.log(fileName)
     // 获取文件Chunk列表
     getChunkList(join(uploadDir, fileName), join(uploadDir, fileMd5Value), data => {
       resp.send(data);
@@ -149,7 +170,6 @@ export default {
         };
       } else {
         let isFolderExist = await isExist(folderPath);
-        console.log(folderPath);
         // 如果文件夹(md5值后的文件)存在, 就获取已经上传的块
         let fileList = [];
         if (isFolderExist) {
@@ -169,7 +189,11 @@ export default {
     let md5 = query.md5;
     let size = query.size;
     let fileName = query.fileName;
-    let uploadDir = __dirname;
+    let uploadDir = 'public/video';
+    mergeFiles(join(uploadDir, md5), uploadDir, fileName, size);
+    resp.send({
+      stat: 1,
+    });
     function concat(files, destination, cb) {
       var async = require('async');
 
@@ -200,7 +224,12 @@ export default {
     async function mergeFiles(srcDir, targetDir, newFileName, size) {
       console.log(...arguments);
       let targetStream = createWriteStream(join(targetDir, newFileName));
+      console.log('die here1')
       let fileArr = await listDir(srcDir);
+      fileArr.sort((x,y) => {
+        return x-y;
+      })
+      console.log('die here2')
       // 把文件名加上文件夹的前缀
       for (let i = 0; i < fileArr.length; i++) {
         fileArr[i] = srcDir + '/' + fileArr[i];
@@ -210,10 +239,6 @@ export default {
         console.log('Merge Success!');
       });
     }
-    mergeFiles(join(uploadDir, md5), uploadDir, fileName, size);
-    resp.send({
-      stat: 1,
-    });
   },
   'GET /api/currentUser': {
     name: 'Serati Ma',

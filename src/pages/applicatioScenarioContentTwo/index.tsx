@@ -195,13 +195,13 @@ class applicatioScenarioContentTwo extends React.Component {
             pdfName ? <div style={{width: '100%', height: '100%'}}>
               <PDF
                 style={{width: '100%', height: '50%'}}
-                file={pdf1}
+                file={require(`../../../public/pdf/${pdfName}.pdf`)}
                 onDocumentComplete={this.onDocumentComplete}
                 page={this.state.page}
               />
               <PDF
                 style={{width: '100%', height: '50%'}}
-                file={pdf1}
+                file={require(`../../../public/pdf/${pdfName}.pdf`)}
                 onDocumentComplete={this.onDocumentComplete}
                 page={this.state.page+1}
               />
