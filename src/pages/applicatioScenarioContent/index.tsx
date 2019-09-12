@@ -223,13 +223,14 @@ class applicatioScenarioContent extends React.Component {
       },
     ];
     // const {preTitle, nextTitle} = this.state;
+    const {match} = this.props
     return (
       <div
         className="overview"
         style={{
           boxSizing: 'border-box',
-          padding: '1% 5%',
-          background: `url(${contentback})`,
+          padding: '1% 7%',
+          background: `rgb(212, 212, 212)`,
           backgroundSize: '100% 100%',
         }}
       >
@@ -285,7 +286,10 @@ class applicatioScenarioContent extends React.Component {
               alt=""
               style={{ float: 'left', height: '100%', width: '20%' }}
             />
-            <div style={{ float: 'left', width: '80%', padding: '14px' }}>{description}</div>
+            <div style={{ float: 'left', width: '80%', padding: '14px' }}>
+              <h3>{match.params.name}解决方案</h3>
+              {description}
+            </div>
           </div>
           <div className={styles.applicationScenarioContentLeftBottom}>
             {pdfName ? (
@@ -341,7 +345,7 @@ class applicatioScenarioContent extends React.Component {
                 background: '#4d8fff',
               }}
             >
-              应用案例
+              成功案例
             </h2>
             <div style={{ width: '100%', height: '80%', padding: '0 10px' }}>
               <Table columns={columns} dataSource={data} bordered pagination={false} />

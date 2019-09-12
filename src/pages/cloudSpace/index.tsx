@@ -169,6 +169,7 @@ class cloudSpace extends React.Component {
         fileSize: e.target.files[0].size,
       },
       () => {
+        console.log(this.state.file)
         this.responseChange(this.state.file);
       },
     );
@@ -238,7 +239,7 @@ class cloudSpace extends React.Component {
     // 第三步：检查并上传MD5
     await this.checkAndUploadChunk(fileMd5Value, result.chunkList);
     // 第四步: 通知服务器所有分片已上传完成
-    this.notifyServer(fileMd5Value);
+    // this.notifyServer(fileMd5Value);
   };
 
   // 1.修改时间+文件名称+最后修改时间-->MD5
@@ -294,6 +295,7 @@ class cloudSpace extends React.Component {
     return new Promise((resolve, reject) => {
       let url = baseUrl + '/check/file?fileName=' + fileName + '&fileMd5Value=' + fileMd5Value;
       $.getJSON(url, function(data) {
+        console.log(data)
         resolve(data);
       });
     });
@@ -302,23 +304,28 @@ class cloudSpace extends React.Component {
   checkAndUploadChunk = async (fileMd5Value, chunkList) => {
     console.log('_________checkAndUploadChunk!!!');
     const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
+    console.log(fileSize,chunkSize)
     this.setState(
       {
         chunks: Math.ceil(fileSize / chunkSize),
         hasUploaded: chunkList.length,
       },
-      async () => {
+        async () => {
+         const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
+        console.log(chunks)
         for (let i = 0; i < chunks; i++) {
           let exit = chunkList.indexOf(i + '') > -1;
           // 如果已经存在, 则不用再上传当前块
           if (!exit) {
-            let index = await this.upload(i, fileMd5Value, chunks);
-            this.setState({ hasUploaded: hasUploaded++ });
-            let radio = Math.floor((hasUploaded / chunks) * 100);
-            $('#uploadProcessStyle').css({
-              width: radio + '%',
+            let index =  await this.upload(i, fileMd5Value, chunks);
+            this.setState({ hasUploaded: hasUploaded + 1 },() => {
+              const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
+              let radio = Math.floor((hasUploaded / chunks) * 100);
+              $('#uploadProcessStyle').css({
+                width: radio + '%',
+              });
+              $('#uploadProcessValue').html(radio + '%');
             });
-            $('#uploadProcessValue').html(radio + '%');
           }
         }
       },
