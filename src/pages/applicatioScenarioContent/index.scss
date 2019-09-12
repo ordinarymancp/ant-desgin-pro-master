@@ -27,8 +27,8 @@
   background: white;
   margin-bottom: 3%;
   box-sizing: border-box;
-  padding: 10px;
   padding-top: 0;
+  overflow: auto;
   border-radius: 2px;
 }
 .applicationScenarioContentRightBottom{
@@ -36,8 +36,6 @@
   height: 44%;
   background: white;
   box-sizing: border-box;
-  padding: 10px;
-  padding-top: 0;
   text-align: center;
   border-radius: 2px;
   overflow: auto;
@@ -131,4 +129,14 @@
   height:vw(120);
   position: relative;
   margin: 0 auto;
+}
+.topSpan{
+  width: 100%;
+  height: vw(42);
+  line-height: vw(42);
+  display: block;
+  padding: 0 10px;
+  border-bottom: 1px solid #d9d9d9;
+  cursor: pointer;
+  background: #92ccbd;
 }

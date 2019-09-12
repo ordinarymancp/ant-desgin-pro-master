@@ -4,6 +4,8 @@ import { ConnectState } from '@/models/connect';
 import { Tabs, Input, message } from 'antd';
 import styles from './index.scss';
 import router from 'umi/router';
+import $ from '../../../public/js/jquery-1.10.2.min';
+import SparkMD5 from '../../../public/js/spark-md5.min';
 const { TabPane } = Tabs;
 const { Search } = Input;
 
@@ -21,6 +23,12 @@ class settings extends React.Component {
     lastWelcomeSecond: '',
     volume: 0,
     videoPath: '',
+    baseUrl: 'http://localhost:8000',
+    chunkSize: 5 * 1024 * 1024,
+    fileSize: 0,
+    file: null,
+    hasUploaded: 0,
+    chunks: 0,
   };
 
   private homeWelcomeFirst: any;
@@ -79,24 +87,21 @@ class settings extends React.Component {
   getVideoUrl = (e: { preventDefault: () => void }) => {
     // @ts-ignore
     const { dispatch } = this.props;
+    this.setState(
+      {
+        file: e.target.files[0],
+        fileSize: e.target.files[0].size,
+      },
+      () => {
+        this.responseChange(this.state.file);
+      },
+    );
+
     // var reader = new FileReader();
     // var AllowImgFileSize = 2100000; //上传图片最大值(单位字节)（ 2 M = 2097152 B ）超过2M上传失败
     // var file = e.target.files[0];
     // let imageFile = '';
     // var imgUrlBase64;
-    function getObjectURL(file) {
-      var url = null;
-      if (window.createObjcectURL != undefined) {
-        url = window.createOjcectURL(file);
-      } else if (window.URL != undefined) {
-        url = window.URL.createObjectURL(file);
-      } else if (window.webkitURL != undefined) {
-        url = window.webkitURL.createObjectURL(file);
-      }
-      return url;
-    }
-    var objURL = getObjectURL(e.target.files[0]);//这里的objURL就是input file的真实路径
-    console.log(objURL)
     // if (file) {
     //   //将文件以Data URL形式读入页面
     //   imgUrlBase64 = reader.readAsDataURL(file);
@@ -107,11 +112,6 @@ class settings extends React.Component {
     //       return;
     //     }else{
     //       //执行上传操作
-    //       imageFile = reader.result;
-          dispatch({
-            type: 'global/fetchVideo',
-            url: objURL,
-          });
     //     }
     //   }
     // }
@@ -142,6 +142,151 @@ class settings extends React.Component {
     // }
   };
 
+  // 0.响应点击
+  responseChange = async file => {
+    // 第一步：按照 修改时间+文件名称+最后修改时间-->MD5
+    // 显示文件校验进度
+    $('#process1').slideDown(200);
+    // 开始校验
+    let fileMd5Value = await this.md5File(file);
+    // 第二步：校验文件的MD5
+    let result = await this.checkFileMD5(file.name, fileMd5Value);
+    // 如果文件已存在, 就秒传
+    if (result.file) {
+      alert('文件已秒传');
+      return;
+    }
+    // let exit = false
+    // 显示文件上传进度
+    $('#process2').slideDown(200);
+    // 第三步：检查并上传MD5
+    await this.checkAndUploadChunk(fileMd5Value, result.chunkList);
+    // 第四步: 通知服务器所有分片已上传完成
+    this.notifyServer(fileMd5Value);
+  };
+
+  // 1.修改时间+文件名称+最后修改时间-->MD5
+  md5File = file => {
+    return new Promise((resolve, reject) => {
+      var blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice,
+        //chunkSize = 2097152, // Read in chunks of 2MB
+        chunkSize = file.size / 100,
+        //chunks = Math.ceil(file.size / chunkSize),
+        chunks = 100,
+        currentChunk = 0,
+        spark = new SparkMD5.ArrayBuffer(),
+        fileReader = new FileReader();
+
+      fileReader.onload = function(e) {
+        console.log('read chunk nr', currentChunk + 1, 'of', chunks);
+        spark.append(e.target.result); // Append array buffer
+        currentChunk++;
+
+        if (currentChunk < chunks) {
+          loadNext();
+        } else {
+          let cur = +new Date();
+          console.log('finished loading');
+          // alert(spark.end() + '---' + (cur - pre)); // Compute hash
+          let result = spark.end();
+          resolve(result);
+        }
+      };
+
+      fileReader.onerror = () => {
+        console.warn('oops, something went wrong.');
+      };
+
+      function loadNext() {
+        var start = currentChunk * chunkSize,
+          end = start + chunkSize >= file.size ? file.size : start + chunkSize;
+        console.log(start, end);
+        fileReader.readAsArrayBuffer(blobSlice.call(file, start, end));
+        $('#checkProcessStyle').css({
+          width: currentChunk + 1 + '%',
+        });
+        $('#checkProcessValue').html(currentChunk + 1 + '%');
+        // $("#tip").html(currentChunk)
+      }
+
+      loadNext();
+    });
+  };
+  // 2.校验文件的MD5
+  checkFileMD5 = (fileName, fileMd5Value) => {
+    const { baseUrl } = this.state;
+    return new Promise((resolve, reject) => {
+      let url = baseUrl + '/check/file?fileName=' + fileName + '&fileMd5Value=' + fileMd5Value;
+      $.getJSON(url, function(data) {
+        resolve(data);
+      });
+    });
+  };
+  // 3.上传chunk
+  checkAndUploadChunk = async (fileMd5Value, chunkList) => {
+    const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
+    this.setState(
+      {
+        chunks: Math.ceil(fileSize / chunkSize),
+        hasUploaded: chunkList.length,
+      },
+      async () => {
+        for (let i = 0; i < chunks; i++) {
+          let exit = chunkList.indexOf(i + '') > -1;
+          // 如果已经存在, 则不用再上传当前块
+          if (!exit) {
+            let index = await this.upload(i, fileMd5Value, chunks);
+            this.setState({ hasUploaded: hasUploaded++ });
+            let radio = Math.floor((hasUploaded / chunks) * 100);
+            $('#uploadProcessStyle').css({
+              width: radio + '%',
+            });
+            $('#uploadProcessValue').html(radio + '%');
+          }
+        }
+      },
+    );
+  };
+
+  // 3-2. 上传chunk
+  upload = (i, fileMd5Value, chunks) => {
+    const { baseUrl, chunkSize, hasUploaded, fileSize, file } = this.state;
+    return new Promise((resolve, reject) => {
+      //构造一个表单，FormData是HTML5新增的
+      let end = (i + 1) * chunkSize >= file.size ? file.size : (i + 1) * chunkSize;
+      let form = new FormData();
+      form.append('data', file.slice(i * chunkSize, end)); //file对象的slice方法用于切出文件的一部分
+      form.append('total', chunks); //总片数
+      form.append('index', i); //当前是第几片
+      form.append('fileMd5Value', fileMd5Value);
+      $.ajax({
+        url: baseUrl + '/upload',
+        type: 'POST',
+        data: form, //刚刚构建的form数据对象
+        async: true, //异步
+        processData: false, //很重要，告诉jquery不要对form进行处理
+        contentType: false, //很重要，指定为false才能形成正确的Content-Type
+        success: function(data) {
+          resolve(data.desc);
+        },
+      });
+    });
+  };
+
+  // 第四步: 通知服务器所有分片已上传完成
+  notifyServer = fileMd5Value => {
+    const { baseUrl, chunks, chunkSize, hasUploaded, fileSize, file } = this.state;
+    let url =
+      baseUrl + '/merge?md5=' + fileMd5Value + '&fileName=' + file.name + '&size=' + file.size;
+    $.getJSON(url, function(data) {
+      alert('上传成功');
+    });
+  };
+
+  getDate = () => {
+    let d = new Date();
+    return d.getMinutes() + ':' + d.getSeconds() + ' ' + d.getMilliseconds();
+  };
   gotoIndex = () => {
     router.push('/index');
   };
