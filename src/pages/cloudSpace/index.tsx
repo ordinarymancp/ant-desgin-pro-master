@@ -72,7 +72,7 @@ class cloudSpace extends React.Component {
     musicList: [],
     // eslint-disable-next-line react/no-unused-state
     textList: [],
-    baseUrl: '',
+    baseUrl: 'http://localhost:5000',
     chunkSize: 5 * 1024 * 1024,
     fileSize: 0,
     file: null,
@@ -169,54 +169,10 @@ class cloudSpace extends React.Component {
         fileSize: e.target.files[0].size,
       },
       () => {
-        console.log(this.state.file)
+        console.log(this.state.file);
         this.responseChange(this.state.file);
       },
     );
-
-    // var reader = new FileReader();
-    // var AllowImgFileSize = 2100000; //上传图片最大值(单位字节)（ 2 M = 2097152 B ）超过2M上传失败
-    // var file = e.target.files[0];
-    // let imageFile = '';
-    // var imgUrlBase64;
-    // if (file) {
-    //   //将文件以Data URL形式读入页面
-    //   imgUrlBase64 = reader.readAsDataURL(file);
-    //   reader.onload = function (e) {
-    //     //var ImgFileSize = reader.result.substring(reader.result.indexOf(",") + 1).length;//截取base64码部分（可选可不选，需要与后台沟通）
-    //     if (AllowImgFileSize != 0 && AllowImgFileSize < reader.result.length) {
-    //       alert( '上传失败，请上传不大于2M的图片！');
-    //       return;
-    //     }else{
-    //       //执行上传操作
-    //     }
-    //   }
-    // }
-    // fetch('http://192.168.1.117:8810/api/v1/video/start',{
-    //   method: 'POST',
-    //   body: JSON.stringify({ account: 'rtsp://localhost:8554/' }),
-    // }).then(function(res){ console.log(res) })
-    //   .catch(function(res){ console.log(res) })
-    // console.log(request('http://192.168.1.117:8810/api/v1/video/start', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ account: 'rtsp://localhost:8554/' }),
-    // }).then(res => {console.log(res)}))
-
-    // const windowURL = window.URL || window.webkitURL;
-    // const fileObj = e.target.files;
-    // console.log(fileObj)
-    // // if (fileObj.type.indexOf('video') === -1){
-    // //   return false;
-    // // }
-    // if (localStorage.getItem('settings')) {
-    //   const settingValue = JSON.parse(localStorage.getItem('settings'));
-    //   console.log(JSON.stringify(fileObj))
-    //   settingValue['videoPath'] = JSON.stringify(fileObj);
-    //   localStorage.setItem('settings', JSON.stringify(settingValue))
-    // } else {
-    //   const settingsobj = { homeWelcome, lastWelcome, volume, videoPath };
-    //   localStorage.setItem('settings', JSON.stringify(settingsobj))
-    // }
   };
 
   // 0.响应点击
@@ -239,7 +195,6 @@ class cloudSpace extends React.Component {
     // 第三步：检查并上传MD5
     await this.checkAndUploadChunk(fileMd5Value, result.chunkList);
     // 第四步: 通知服务器所有分片已上传完成
-    // this.notifyServer(fileMd5Value);
   };
 
   // 1.修改时间+文件名称+最后修改时间-->MD5
@@ -295,41 +250,41 @@ class cloudSpace extends React.Component {
     return new Promise((resolve, reject) => {
       let url = baseUrl + '/check/file?fileName=' + fileName + '&fileMd5Value=' + fileMd5Value;
       $.getJSON(url, function(data) {
-        console.log(data)
+        console.log(data);
         resolve(data);
       });
     });
   };
   // 3.上传chunk
   checkAndUploadChunk = async (fileMd5Value, chunkList) => {
+    let hasUploaded = 0;
     console.log('_________checkAndUploadChunk!!!');
-    const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
-    console.log(fileSize,chunkSize)
-    this.setState(
-      {
-        chunks: Math.ceil(fileSize / chunkSize),
-        hasUploaded: chunkList.length,
-      },
+    const { chunks, chunkSize, fileSize } = this.state;
+    console.log(fileSize, chunkSize);
+    (hasUploaded = chunkList.length),
+      this.setState(
+        {
+          chunks: Math.ceil(fileSize / chunkSize),
+        },
         async () => {
-         const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
-        console.log(chunks)
-        for (let i = 0; i < chunks; i++) {
-          let exit = chunkList.indexOf(i + '') > -1;
-          // 如果已经存在, 则不用再上传当前块
-          if (!exit) {
-            let index =  await this.upload(i, fileMd5Value, chunks);
-            this.setState({ hasUploaded: hasUploaded + 1 },() => {
-              const { chunks, chunkSize, hasUploaded, fileSize } = this.state;
+          const { chunks, chunkSize, fileSize } = this.state;
+          console.log(chunks);
+          for (let i = 0; i < chunks; i++) {
+            let exit = chunkList.indexOf(i + '') > -1;
+            // 如果已经存在, 则不用再上传当前块
+            if (!exit) {
+              let index = await this.upload(i, fileMd5Value, chunks);
+              hasUploaded++;
               let radio = Math.floor((hasUploaded / chunks) * 100);
               $('#uploadProcessStyle').css({
                 width: radio + '%',
               });
               $('#uploadProcessValue').html(radio + '%');
-            });
+            }
           }
-        }
-      },
-    );
+          this.notifyServer(fileMd5Value);
+        },
+      );
   };
 
   // 3-2. 上传chunk
@@ -396,32 +351,43 @@ class cloudSpace extends React.Component {
             <Button type="primary" onClick={this.showModal}>
               添加视频
             </Button>
-            {/*<input type="file" onChange={this.getVideoUrl.bind(this)} />*/}
-            {/*<div className="container">*/}
-            {/*  <div className="row">*/}
-            {/*    <div className="col-md-4">点击上传按钮</div>*/}
-            {/*    <div className="col-md-8">*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*  <div className="row" id="process1" style={{display: 'none'}}>*/}
-            {/*    <div className="col-md-4">校验文件进度</div>*/}
-            {/*    <div className="col-md-8">*/}
-            {/*      <div className="progress">*/}
-            {/*        <div id="checkProcessStyle" className="progress-bar" style={{width:'0%'}}></div>*/}
-            {/*        <p id="checkProcessValue" className="value">0%</p>*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*  <div className="row" id="process2" style={{display: 'none'}}>*/}
-            {/*    <div className="col-md-4">上传文件进度</div>*/}
-            {/*    <div className="col-md-8">*/}
-            {/*      <div className="progress">*/}
-            {/*        <div id="uploadProcessStyle" className="progress-bar" style={{width:'0%'}}></div>*/}
-            {/*        <p id="uploadProcessValue" className="value">0%</p>*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
+            <input type="file" onChange={this.getVideoUrl.bind(this)} />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-4">点击上传按钮</div>
+                <div className="col-md-8"></div>
+              </div>
+              <div className="row" id="process1" style={{ display: 'none' }}>
+                <div className="col-md-4">校验文件进度</div>
+                <div className="col-md-8">
+                  <div className="progress">
+                    <div
+                      id="checkProcessStyle"
+                      className="progress-bar"
+                      style={{ width: '0%' }}
+                    ></div>
+                    <p id="checkProcessValue" className="value">
+                      0%
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="row" id="process2" style={{ display: 'none' }}>
+                <div className="col-md-4">上传文件进度</div>
+                <div className="col-md-8">
+                  <div className="progress">
+                    <div
+                      id="uploadProcessStyle"
+                      className="progress-bar"
+                      style={{ width: '0%' }}
+                    ></div>
+                    <p id="uploadProcessValue" className="value">
+                      0%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <CollectionCreateForm
               wrappedComponentRef={this.saveFormRef}
               visible={this.state.visible}

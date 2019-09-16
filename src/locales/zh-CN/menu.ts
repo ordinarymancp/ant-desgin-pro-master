@@ -1,8 +1,8 @@
 export default {
-  'menu.applicatioScenario': '智慧城市应用',
-  'menu.applicatioScenarioNext': '智慧城市应用',
+  'menu.applicatioScenario': '智慧应用',
+  'menu.applicatioScenarioNext': '智慧应用',
   'menu.promotionalVideo': '宣传视频',
-  'menu.cloudSpace': '云空间',
+  'menu.cloudSpace': '本地空间',
   'menu.favorites': '收藏夹',
   'menu.settings': '设置',
   'menu.welcome': '欢迎',

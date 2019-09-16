@@ -67,7 +67,7 @@ class applicatioScenario extends React.Component {
               fontWeight: 'bold',
             }}
           >
-            智慧城市应用 <span style={{ fontSize: '14px' }}>(23)</span>
+            智慧应用 <span style={{ fontSize: '14px' }}>(23)</span>
             <span className={styles.gotoIndex} onClick={this.gotoIndex}>
               前往主页
             </span>
