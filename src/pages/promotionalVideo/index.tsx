@@ -44,8 +44,7 @@ class promotionalVideo extends React.Component {
         //   videoPath: window.URL.createObjectURL(videoPath),
         // })
       } else {
-        const videoFileStream = 'http://localhost:5000/video?name=1';
-        // 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
+        const videoFileStream = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
         this.videoReload(videoFileStream, true);
       }
     } else {
@@ -58,8 +57,7 @@ class promotionalVideo extends React.Component {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
       const defaultVideo = {
         name: '宣传视频',
-        path:
-          'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ',
+        path: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ',
       };
       this.setState({
         // eslint-disable-next-line react/no-unused-state
