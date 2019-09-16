@@ -351,7 +351,7 @@ class cloudSpace extends React.Component {
             <Button type="primary" onClick={this.showModal}>
               添加视频
             </Button>
-            <input type="file" onChange={this.getVideoUrl.bind(this)} />
+            {/*<input type="file" onChange={this.getVideoUrl.bind(this)} />*/}
             <div className="container">
               <div className="row">
                 <div className="col-md-4">点击上传按钮</div>
