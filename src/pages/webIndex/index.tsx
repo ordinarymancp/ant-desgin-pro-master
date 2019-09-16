@@ -44,10 +44,8 @@ class webIndex extends React.Component {
         className={styles.indexWrap}
         style={{ background: `url(${index})`, backgroundSize: '100% 100%' }}
       >
-        <div className={styles.indexBigTitle}>长三角一体化互联网大脑展示平台</div>
-        <div className={styles.indexUnderTitle}>
-          <div>上海大数据股份</div>
-        </div>
+        <div className={styles.indexBigTitle}>长三角一体化智慧应用展示平台</div>
+        <div className={styles.indexUnderTitle}></div>
         <div className={styles.menuWrap}>
           <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/')}>
             宣传视频
@@ -56,13 +54,13 @@ class webIndex extends React.Component {
             className={styles.indexMenuItem}
             onClick={this.linkClick.bind(this, '/applicatioScenario')}
           >
-            智慧城市应用
+            智慧应用
           </div>
           <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/favorites')}>
             我的收藏
           </div>
           <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/cloudSpace')}>
-            云空间
+            本地空间
           </div>
           <div className={styles.indexMenuItem} onClick={this.linkClick.bind(this, '/settings')}>
             设置
