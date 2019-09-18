@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
-import { Tabs, Button, Modal, Form, Input, List, Empty } from 'antd';
+import {Tabs, Button, Modal, Form, Input, List, Empty, Icon} from 'antd';
 import videojs from 'video.js/dist/video.js';
 import 'videojs-flash';
 import 'videojs-contrib-hls';
@@ -10,6 +10,8 @@ import styles from '@/pages/settings/index.scss';
 import router from 'umi/router';
 import $ from '../../../public/js/jquery-1.10.2.min';
 import SparkMD5 from '../../../public/js/spark-md5.min';
+import PDF from 'react-pdf-js';
+
 const { TabPane } = Tabs;
 @connect(({ global }) => ({
   global,
@@ -46,6 +48,10 @@ class cloudSpace extends React.Component {
 
   // eslint-disable-next-line react/sort-comp
   componentDidMount(): void {
+    const { baseUrl } = this.state
+    this.setState({
+      loadinghidden: true
+    })
     if (localStorage.getItem('cloudSpace')) {
       // eslint-disable-next-line no-shadow
       const { cloudSpace } = JSON.parse(localStorage.getItem('cloudSpace') as string);
@@ -54,6 +60,75 @@ class cloudSpace extends React.Component {
     } else {
       localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
     }
+    $.ajax({
+      url: baseUrl + '/findVideo',
+      type: 'POST',
+      data: '', //刚刚构建的form数据对象
+      async: true, //异步
+      success: (data) => {
+        const successArr = data.filter(item => {
+          return item.indexOf('mp4') !== -1
+        })
+        this.setState({
+          videoList: successArr
+        },() => {
+          localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
+        })
+      },
+      error: () => {
+        this.setState({
+          videoList: [],
+        },() => {
+          localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
+        })
+      },
+    });
+    $.ajax({
+      url: baseUrl + '/findPdf',
+      type: 'POST',
+      data: '',
+      async: true,
+      success: (data) => {
+        const successArr = data.filter(item => {
+          return item.indexOf('pdf') !== -1
+        })
+        this.setState({
+          textList: successArr,
+        },() => {
+          localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
+        })
+      },
+      error: () => {
+        this.setState({
+          textList: [],
+        },() => {
+          localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
+        })
+      },
+    });
+    $.ajax({
+      url: baseUrl + '/findImage',
+      type: 'POST',
+      data: '', //刚刚构建的form数据对象
+      async: true, //异步
+      success: (data) => {
+        const successArr = data.filter(item => {
+          return item.indexOf('jpg') !== -1
+        })
+        this.setState({
+          imageList: successArr
+        },() => {
+          localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
+        })
+      },
+      error: () => {
+        this.setState({
+         imageList: [],
+        },() => {
+          localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace: this.state }));
+        })
+      },
+    });
   }
 
   componentWillUnmount() {
@@ -72,16 +147,15 @@ class cloudSpace extends React.Component {
     musicList: [],
     // eslint-disable-next-line react/no-unused-state
     textList: [],
-    baseUrl: 'http://localhost:5000',
+    baseUrl: 'http://192.168.1.102:3000',
     chunkSize: 5 * 1024 * 1024,
     fileSize: 0,
     file: null,
     hasUploaded: 0,
     chunks: 0,
-  };
-
-  showModal = () => {
-    this.setState({ visible: true });
+    loadinghidden: true,
+    checkedVideo: '',
+    checkedPdf: '',
   };
 
   handleCancel = () => {
@@ -115,18 +189,58 @@ class cloudSpace extends React.Component {
     this.formRef = formRef;
   };
 
-  // 删除云视频
-  deleteCloudVideo = (index: any) => {
+  deleteCloudPdf = (index: any) => {
+    const { textList, baseUrl } = this.state;
     // eslint-disable-next-line no-shadow
-    const { cloudSpace } = JSON.parse(localStorage.getItem('cloudSpace') as string);
-    cloudSpace.videoList.splice(index, 1);
-    this.setState({
-      videoList: cloudSpace.videoList,
+    // @ts-ignore
+    $.ajax({
+      url: baseUrl + '/deletePdf?name='+ textList[index],
+      type: 'GET',
+      async: true,
+      success: (data) => {
+        textList.splice(index ,1)
+        this.setState(textList)
+      },
     });
-    localStorage.setItem('cloudSpace', JSON.stringify({ cloudSpace }));
   };
 
+  deleteCloudImage = (index: any) => {
+    const { imageList, baseUrl } = this.state;
+    // eslint-disable-next-line no-shadow
+    // @ts-ignore
+    $.ajax({
+      url: baseUrl + '/deleteImage?name='+ imageList[index],
+      type: 'GET',
+      async: true, //异步
+      success: (data) => {
+        imageList.splice(index,1)
+        this.setState(imageList)
+      },
+    });
+  };
+
+  // 删除云视频
+  deleteCloudVideo = (index: any) => {
+    const { videoList, baseUrl } = this.state;
+    // eslint-disable-next-line no-shadow
+    // @ts-ignore
+    $.ajax({
+      url: `${baseUrl}/deleteVideo?name=${videoList[index]}`,
+      type: 'GET',
+      data: videoList[index],
+      async: true,
+      success: () => {
+        videoList.splice(index, 1)
+        this.setState(videoList)
+      },
+    });
+  };
+  openPdf = (index) => {
+    const { textList } = this.state;
+    window.open("http://192.168.1.102:3000/pdf?name=" + textList[index])
+  }
   videoReload = (path: any) => {
+    const { baseUrl } = this.state
     console.log(path);
     const videoFileStream = path;
     const options = {
@@ -139,27 +253,51 @@ class cloudSpace extends React.Component {
     };
     this.player1 = videojs('myVideo1', options);
     this.player1.src({
-      src: videoFileStream,
+      src: `${baseUrl}video?name=${videoFileStream}`,
     });
     this.player1.load();
     this.player1.play();
-  };
-
-  showViedoModal = (path: any) => {
-    this.setState({ viedoModelVisible: true }, () => {
-      setTimeout(() => {
-        this.videoReload(path);
-      }, 200);
-    });
   };
 
   handleVideoCancel = () => {
     this.setState({ viedoModelVisible: false });
   };
 
+  handleVideoOk = () => {
+    this.setState({ viedoModelVisible: false });
+  };
+  renderPagination = (page, pages) => {
+    let previousButton = <li className="previous" onClick={this.handlePrevious} style={{position: 'absolute', left: '20px', top: '48%', opacity: '0.4'}}><Icon type="left-circle" style={{fontSize: '35px'}} /></li>;
+    if (page === 1) {
+      previousButton = <li className="previous disabled" style={{position: 'absolute', left: '20px', top: '48%', opacity: '0.4'}}><Icon type="left-circle" style={{fontSize: '35px'}}/></li>;
+    }
+    let nextButton = <li className="next" onClick={this.handleNext} style={{position: 'absolute', right: '20px', top: '48%', opacity: '0.4'}}><Icon type="right-circle" style={{fontSize: '35px'}}/></li>;
+    if (page === pages) {
+      nextButton = <li className="next disabled" style={{position: 'absolute', right: '20px', top: '48%', opacity: '0.4'}}><Icon type="right-circle" style={{fontSize: '35px'}}/></li>;
+    }
+    return (
+      <nav>
+        <ul className="pager">
+          {previousButton}
+          {nextButton}
+        </ul>
+      </nav>
+    );
+  }
+  onDocumentComplete = (pages) => {
+    this.setState({ page: 1, pages });
+  }
+  handlePrevious = () => {
+    this.setState({ page: this.state.page - 2 });
+  }
+
+  handleNext = () => {
+    this.setState({ page: this.state.page + 2 });
+  }
   gotoIndex = () => {
     router.push('/index');
   };
+
   getVideoUrl = (e: { preventDefault: () => void }) => {
     // @ts-ignore
     const { dispatch } = this.props;
@@ -170,13 +308,14 @@ class cloudSpace extends React.Component {
       },
       () => {
         console.log(this.state.file);
+        this.setState({loadinghidden: false})
         this.responseChange(this.state.file);
       },
     );
   };
 
   // 0.响应点击
-  responseChange = async file => {
+  responseChange = async (file: { name: any; }) => {
     // 第一步：按照 修改时间+文件名称+最后修改时间-->MD5
     // 显示文件校验进度
     $('#process1').slideDown(200);
@@ -187,6 +326,7 @@ class cloudSpace extends React.Component {
     // 如果文件已存在, 就秒传
     if (result.file) {
       alert('文件已秒传');
+      this.componentDidMount()
       return;
     }
     // let exit = false
@@ -244,6 +384,7 @@ class cloudSpace extends React.Component {
       loadNext();
     });
   };
+
   // 2.校验文件的MD5
   checkFileMD5 = (fileName, fileMd5Value) => {
     const { baseUrl } = this.state;
@@ -283,6 +424,7 @@ class cloudSpace extends React.Component {
             }
           }
           this.notifyServer(fileMd5Value);
+          this.componentDidMount()
         },
       );
   };
@@ -301,7 +443,7 @@ class cloudSpace extends React.Component {
       $.ajax({
         url: baseUrl + '/upload',
         type: 'POST',
-        data: form, //刚刚构建的form数据对象
+        data: form, //刚刚构建的form数据对象,
         async: true, //异步
         processData: false, //很重要，告诉jquery不要对form进行处理
         contentType: false, //很重要，指定为false才能形成正确的Content-Type
@@ -322,72 +464,65 @@ class cloudSpace extends React.Component {
     });
   };
 
-  getDate = () => {
-    let d = new Date();
-    return d.getMinutes() + ':' + d.getSeconds() + ' ' + d.getMilliseconds();
-  };
   render() {
-    const { videoList, viedoModelVisible } = this.state;
+    const { videoList, viedoModelVisible, imageList, loadinghidden, textList, checkedPdf, baseUrl } = this.state;
+    let pagination = null;
+    if (this.state.pages) {
+      pagination = this.renderPagination(this.state.page, this.state.pages);
+    }
     return (
       <div className="overview">
+        <div className="container" style={{color: 'rgba(255, 255, 255, 0.65)', position: 'fixed',width: '40%',height: '40%',left: '0', right: '0', top: '0', bottom: '0',zIndex: '999', margin: 'auto', background: 'black'}} hidden={loadinghidden}>
+          <div className="row" id="process1" style={{ display: 'none' }}>
+            <div className="col-md-4">校验文件进度</div>
+            <div className="col-md-8">
+              <div className="progress">
+                <div
+                  id="checkProcessStyle"
+                  className="progress-bar"
+                  style={{ width: '0%' }}
+                />
+                <p id="checkProcessValue" className="value">
+                  0%
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row" id="process2" style={{ display: 'none' }}>
+            <div className="col-md-4">上传文件进度</div>
+            <div className="col-md-8">
+              <div className="progress">
+                <div
+                  id="uploadProcessStyle"
+                  className="progress-bar"
+                  style={{ width: '0%' }}
+                />
+                <p id="uploadProcessValue" className="value">
+                  0%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         <span className={styles.gotoIndex} onClick={this.gotoIndex}>
           前往主页
         </span>
-        <Modal
-          visible={viedoModelVisible}
-          title="视频预览"
-          onCancel={this.handleVideoCancel}
-          onOk={this.handleVideoCancel}
-        >
-          <div style={{ width: '100%', height: '100%' }}>
-            <video id="myVideo1" className="video-js">
-              <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
-              <track kind="captions" />
-            </video>
-          </div>
-        </Modal>
-        <Tabs tabPosition="left" style={{ height: 400, color: 'rgba(255, 255, 255, 0.65)' }}>
+        {/*<Modal*/}
+        {/*  visible={viedoModelVisible}*/}
+        {/*  title="pdf预览"*/}
+        {/*  onCancel={this.handleVideoCancel}*/}
+        {/*  onOk={this.handleVideoOk}*/}
+        {/*>*/}
+        {/*  <PDF*/}
+        {/*    style={{width: '100%', height: '50%'}}*/}
+        {/*    file={"http://192.168.1.102:3000/pdf?name=云班牌解决方案(2).pdf"}*/}
+        {/*    onDocumentComplete={this.onDocumentComplete}*/}
+        {/*    page={this.state.page+1}*/}
+        {/*  />*/}
+        {/*</Modal>*/}
+        <Tabs tabPosition="left" style={{ height: '100%', color: 'rgba(255, 255, 255, 0.65)' }}>
           <TabPane tab="视频" key="视频">
-            <Button type="primary" onClick={this.showModal}>
-              添加视频
-            </Button>
-            {/*<input type="file" onChange={this.getVideoUrl.bind(this)} />*/}
-            <div className="container">
-              <div className="row">
-                <div className="col-md-4">点击上传按钮</div>
-                <div className="col-md-8"></div>
-              </div>
-              <div className="row" id="process1" style={{ display: 'none' }}>
-                <div className="col-md-4">校验文件进度</div>
-                <div className="col-md-8">
-                  <div className="progress">
-                    <div
-                      id="checkProcessStyle"
-                      className="progress-bar"
-                      style={{ width: '0%' }}
-                    ></div>
-                    <p id="checkProcessValue" className="value">
-                      0%
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="row" id="process2" style={{ display: 'none' }}>
-                <div className="col-md-4">上传文件进度</div>
-                <div className="col-md-8">
-                  <div className="progress">
-                    <div
-                      id="uploadProcessStyle"
-                      className="progress-bar"
-                      style={{ width: '0%' }}
-                    ></div>
-                    <p id="uploadProcessValue" className="value">
-                      0%
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <input type="file" onChange={this.getVideoUrl.bind(this)} />
             <CollectionCreateForm
               wrappedComponentRef={this.saveFormRef}
               visible={this.state.visible}
@@ -402,21 +537,15 @@ class cloudSpace extends React.Component {
                 renderItem={(item, index) => (
                   <List.Item
                     actions={[
-                      <a
-                        key="list-loadmore-view"
-                        onClick={this.showViedoModal.bind(this, item.path)}
-                      >
-                        预览
-                      </a>,
                       <a key="list-loadmore-edit" onClick={this.deleteCloudVideo.bind(this, index)}>
                         删除
                       </a>,
                     ]}
                   >
                     <List.Item.Meta
-                      title={<h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>{item.name}</h4>}
+                      title={<h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>{item}</h4>}
                       description={
-                        <h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>视频地址:{item.path}</h4>
+                        <h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>视频地址:{item}</h4>
                       }
                       style={{ color: 'rgba(255, 255, 255, 0.65) !important' }}
                     />
@@ -428,10 +557,64 @@ class cloudSpace extends React.Component {
             )}
           </TabPane>
           <TabPane tab="文档" key="文档">
-            <Empty />
+            <input type="file" onChange={this.getVideoUrl.bind(this)} />
+
+            {imageList.length > 0 ? (
+              <List
+                itemLayout="horizontal"
+                dataSource={textList}
+                style={{ color: 'rgba(255, 255, 255, 0.65)' }}
+                renderItem={(item, index) => (
+                  <List.Item
+                    actions={[
+                      <a key="list-loadmore-edit" onClick={this.deleteCloudPdf.bind(this, index)}>
+                        删除
+                      </a>,
+                      <a key="list-loadmore-edit" onClick={this.openPdf.bind(this, index)}>
+                        预览
+                      </a>,
+                    ]}
+                  >
+                    <List.Item.Meta
+                      title={<h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>{item}</h4>}
+                      style={{ color: 'rgba(255, 255, 255, 0.65) !important' }}
+                    />
+                  </List.Item>
+                )}
+              />
+            ) : (
+              <Empty />
+            )}
           </TabPane>
           <TabPane tab="图片" key="图片">
-            <Empty />
+            <input type="file" onChange={this.getVideoUrl.bind(this)} />
+
+            {imageList.length > 0 ? (
+              <List
+                itemLayout="horizontal"
+                dataSource={imageList}
+                style={{ color: 'rgba(255, 255, 255, 0.65)' }}
+                renderItem={(item, index) => (
+                  <List.Item
+                    actions={[
+                      <a key="list-loadmore-edit" onClick={this.deleteCloudImage.bind(this, index)}>
+                        删除
+                      </a>,
+                    ]}
+                  >
+                    <List.Item.Meta
+                      title={<h4 style={{ color: 'rgba(255, 255, 255, 0.65)' }}>{item}</h4>}
+                      description={
+                        <img src= {`http://192.168.1.102:3000/image?name=${item}`} alt="" style={{width: '100px', height: '60px'}}/>
+                      }
+                      style={{ color: 'rgba(255, 255, 255, 0.65) !important' }}
+                    />
+                  </List.Item>
+                )}
+              />
+            ) : (
+              <Empty />
+            )}
           </TabPane>
           <TabPane tab="音频" key="音频">
             <Empty />

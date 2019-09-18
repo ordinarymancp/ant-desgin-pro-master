@@ -10,7 +10,6 @@ import 'video.js/dist/video-js.css';
 import { Modal, notification, List, Empty, Radio, Icon } from 'antd';
 import styles from './index.scss';
 import VideoButton from '@/components/VideoButton';
-import router from 'umi/router';
 // @ts-ignore
 @connect(({ global }) => ({
   global,
@@ -26,6 +25,7 @@ class promotionalVideo extends React.Component {
     videoList: [],
     visible: false,
     isplay: true,
+    orginPath: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',
   };
 
   // eslint-disable-next-line react/sort-comp
@@ -55,10 +55,7 @@ class promotionalVideo extends React.Component {
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
-      const defaultVideo = {
-        name: '宣传视频',
-        path: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ',
-      };
+      const defaultVideo = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 '
       this.setState({
         // eslint-disable-next-line react/no-unused-state
         videoList: [defaultVideo, ...videoList],
@@ -111,14 +108,19 @@ class promotionalVideo extends React.Component {
   };
 
   handleOk = () => {
-    const { checkedPath, videoPath } = this.state;
+    const { checkedPath, videoPath, orginPath } = this.state;
     if (checkedPath && checkedPath !== videoPath) {
       this.setState({
         visible: false,
         videoPath: checkedPath,
         isplay: true,
       });
-      this.videoReload(checkedPath, true);
+      if (checkedPath !== orginPath) {
+        console.log(checkedPath,orginPath)
+        this.videoReload('http://192.168.1.102:3000/video?name=' + checkedPath, true);
+      } else{
+        this.videoReload(orginPath, true);
+      }
       notification.open({
         message: '切换成功',
         icon: <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />,
@@ -201,14 +203,13 @@ class promotionalVideo extends React.Component {
                       <List.Item
                         extra={
                           // @ts-ignore
-                          <Radio name="videos" value={item.path} style={{ float: 'right' }} />
+                          <Radio name="videos" value={item} style={{ float: 'right' }} />
                         }
                       >
                         <List.Item.Meta
                           // @ts-ignore
-                          title={item.name}
+                          title={item}
                           // @ts-ignore
-                          description={`视频地址:${item.path}`}
                           style={{ wordBreak: 'break-all' }}
                         />
                       </List.Item>
