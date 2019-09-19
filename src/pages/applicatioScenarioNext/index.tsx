@@ -58,7 +58,11 @@ class applicatioScenarioNext extends React.Component {
         type: 'global/setIframeUrl',
         payload: { iframeUrl: url },
       });
-      router.push('/index/applicatioScenarioIndex/' + name);
+      if(name === '区域经济大脑'){
+        window.open(url)
+      }else{
+        router.push('/index/applicatioScenarioIndex/' + name);
+      }
     }
   };
 

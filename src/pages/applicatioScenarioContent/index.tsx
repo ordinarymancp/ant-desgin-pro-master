@@ -240,7 +240,7 @@ class applicatioScenarioContent extends React.Component {
           onMouseOut={this.moveout}
         >
           <div
-            style={{ width: '70%', height: '100%', background: 'rgba(0,0,0,0.3)', float: 'right' }}
+            style={{ width: '30%', height: '100%', background: 'rgba(0,0,0,0.3)', float: 'right' }}
           >
             <div
               hidden={hiddenState}

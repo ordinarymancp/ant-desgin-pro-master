@@ -263,7 +263,7 @@ const GlobalModel: GlobalModelType = {
             state: 'real',
             name: '区域经济大脑',
             collected: false,
-            url: 'http://eco.wanvdata.com/login/loginIndex.do',
+            url: 'http://www.hyu.ltd/login/loginIndex.do',
             image:
               'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2692422993,3522337247&fm=26&gp=0.jpg',
           },
