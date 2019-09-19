@@ -17,7 +17,9 @@ class webIndex extends React.Component {
     welcomeState: true,
   };
 
-  componentDidMount(): void {}
+  componentDidMount(): void {
+    sessionStorage.setItem('firstComeIn', '1');
+  }
 
   handleChange = value => {
     if (value === '欢迎页') {
