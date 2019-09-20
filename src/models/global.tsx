@@ -267,6 +267,14 @@ const GlobalModel: GlobalModelType = {
             image:
               'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2692422993,3522337247&fm=26&gp=0.jpg',
           },
+          {
+            state: 'real',
+            name: '盐城电商平台',
+            collected: false,
+            url: 'http://www.yanfu100.com/',
+            image:
+              'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4181801201,3735995705&fm=26&gp=0.jpg',
+          },
         ],
       },
       {
