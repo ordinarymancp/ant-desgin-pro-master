@@ -286,7 +286,7 @@ class applicatioScenarioContent extends React.Component {
               alt=""
               style={{ float: 'left', height: '100%', width: '20%' }}
             />
-            <div style={{ float: 'left', width: '80%', padding: '14px' }}>
+            <div style={{ float: 'left', width: '80%', padding: '14px', fontSize: '14px' }}>
               <h3>{match.params.name}解决方案</h3>
               {description}
             </div>
