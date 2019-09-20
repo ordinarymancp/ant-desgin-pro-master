@@ -144,7 +144,7 @@ class applicatioScenarioIndex extends React.Component {
         }}
       >
         <div
-          style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
+          style={{ position: 'fixed', height: '100%', width: '0.5%', right: 0, zIndex: '999' }}
           onMouseOver={this.movein}
           onMouseOut={this.moveout}
         >
@@ -160,7 +160,7 @@ class applicatioScenarioIndex extends React.Component {
                 justifyContent: 'space-between',
                 bottom: '0',
                 position: 'fixed',
-                right: '2%',
+                right: '0.5%',
                 bottom: '12%',
                 background: 'rgba(0,0,0,0.3)',
                 padding: '10px 20px',
@@ -189,31 +189,7 @@ class applicatioScenarioIndex extends React.Component {
             <div className={styles.xunfuButtonThird}></div>
           </div>
         </div>
-        <div
-          style={{
-            width: '15%',
-            height: '100%',
-            boxSizing: 'border-box',
-            padding: '1% 0 5% 0',
-            right: '0',
-            position: 'fixed',
-            zIndex: '99',
-          }}
-        >
-          {/*<div style={{ width: '100%', height: '23%' }}>*/}
-          {/*  <div style={{ width: '100%', margin: '0 auto' }}>*/}
-          {/*    <div className={styles.navbarWrap}>*/}
-          {/*      <div className={styles.buttonStyle} style={{fontWeight: '900'}}>主页</div>*/}
-          {/*    </div>*/}
-          {/*    <div className={styles.navbarWrap}>*/}
-          {/*      <div className={styles.buttonStyle} style={{ fontWeight: '300'}}>{currentModel}</div>*/}
-          {/*    </div>*/}
-          {/*    <div className={styles.navbarWrap}>*/}
-          {/*      <div className={styles.buttonStyle} style={{ fontWeight: 'lighter'}}>{content}</div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-        </div>
+
         <div style={{ width: '100%', height: '100%', position: 'relative', float: 'left' }}>
           <div style={{ display: `${canHidden ? 'block' : 'none'}` }}>
             <PageLoading />

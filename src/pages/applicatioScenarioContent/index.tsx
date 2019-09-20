@@ -230,7 +230,7 @@ class applicatioScenarioContent extends React.Component {
         style={{
           boxSizing: 'border-box',
           padding: '1% 7%',
-          background: `rgb(212, 212, 212)`,
+          background: `rgb(239, 239, 239)`,
           backgroundSize: '100% 100%',
         }}
       >
@@ -265,9 +265,9 @@ class applicatioScenarioContent extends React.Component {
               <div className={styles.buttonWrap}>
                 <MenuItem content="加入收藏" handleClick={this.findAndSet} />
               </div>
-              <div className={styles.buttonWrap}>
-                <MenuItem content="切换" handleClick={this.gotoAnother} />
-              </div>
+              {/*<div className={styles.buttonWrap}>*/}
+              {/*  <MenuItem content="切换" handleClick={this.gotoAnother} />*/}
+              {/*</div>*/}
               <div className={styles.buttonWrap}>
                 <MenuItem content="返回" handleClick={this.goBack} />
               </div>
@@ -316,7 +316,8 @@ class applicatioScenarioContent extends React.Component {
                 marginBottom: '0',
                 padding: '0 10px',
                 borderBottom: '1px solid #d9d9d9',
-                background: '#4d8fff',
+                background: '#0fc18a',
+                color: "white"
               }}
             >
               建设内容简要
@@ -342,7 +343,8 @@ class applicatioScenarioContent extends React.Component {
                 lineHeight: '50px',
                 padding: '0 10px',
                 borderBottom: '1px solid #d9d9d9',
-                background: '#4d8fff',
+                background: '#0fc18a',
+                color: "white"
               }}
             >
               成功案例
