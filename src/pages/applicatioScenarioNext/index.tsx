@@ -50,17 +50,17 @@ class applicatioScenarioNext extends React.Component {
   //   }
   // }
   routerButtonClick = (url: any, name, bool) => {
-    if(bool){
+    if (bool) {
       router.push('/applicatioScenarioContent/' + name);
-    }else{
+    } else {
       const { dispatch } = this.props;
       dispatch({
         type: 'global/setIframeUrl',
         payload: { iframeUrl: url },
       });
-      if(name === '区域经济大脑'){
-        window.open(url)
-      }else{
+      if (name === '区域经济大脑') {
+        window.open(url);
+      } else {
         router.push('/index/applicatioScenarioIndex/' + name);
       }
     }
@@ -74,7 +74,11 @@ class applicatioScenarioNext extends React.Component {
   };
 
   gotoIndex = () => {
-    router.push('/applicatioScenario');
+    router.push('/applicatioScenario/');
+  };
+
+  gotoVideo = url => {
+    router.push('/applicatioVideo/' + url);
   };
 
   render() {
@@ -115,12 +119,14 @@ class applicatioScenarioNext extends React.Component {
                   state: buttonGroup[index].state,
                   opacityTime: parseInt(index) * 100,
                   collected: buttonGroup[index].collected,
-                  handleClick: this.routerButtonClick.bind(
-                    this,
-                    buttonGroup[index].url,
-                    buttonGroup[index].name,
-                    buttonGroup[index].gotoContent,
-                  ),
+                  handleClick: buttonGroup[index].url
+                    ? this.routerButtonClick.bind(
+                        this,
+                        buttonGroup[index].url,
+                        buttonGroup[index].name,
+                        buttonGroup[index].gotoContent,
+                      )
+                    : this.gotoVideo.bind(this, buttonGroup[index].videoUrl),
                   src: buttonGroup[index].image,
                   ischildrenCard: true,
                 };

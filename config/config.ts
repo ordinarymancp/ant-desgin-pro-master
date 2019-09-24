@@ -171,6 +171,12 @@ export default {
           name: 'cloudSpace',
           component: './cloudSpace/index',
         },
+        {
+          path: '/applicatioVideo/:name',
+          name: 'applicatioVideo',
+          component: './applicatioVideo/index',
+          hideInMenu: true,
+        },
         //收藏夹
         {
           path: '/favorites',
