@@ -216,28 +216,32 @@ const GlobalModel: GlobalModelType = {
             name: '园区访客来访',
             collected: false,
             url: 'https://219.233.175.82:58830/visitor-web/#/',
-            image: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1039610337,414040631&fm=26&gp=0.jpg',
+            image:
+              'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1039610337,414040631&fm=26&gp=0.jpg',
           },
           {
             state: 'solution',
             name: '室外停车引导服务',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/parking',
-            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=470403f622bc17c72abc3b4909f62822&imgtype=0&src=http%3A%2F%2Fimg8.iqilu.com%2Fcamimgs%2F2018%2F04%2F03%2Fa0e5382ae96ed06260b6f582ec38cec9.jpg',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=470403f622bc17c72abc3b4909f62822&imgtype=0&src=http%3A%2F%2Fimg8.iqilu.com%2Fcamimgs%2F2018%2F04%2F03%2Fa0e5382ae96ed06260b6f582ec38cec9.jpg',
           },
           {
             state: 'solution',
             name: '园区安全防范',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/pksecurity',
-            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=8828deeda6366b149bd292b2e0751ecb&imgtype=0&src=http%3A%2F%2F13355794.s21i-13.faiusr.com%2F2%2FABUIABACGAAg6qeyywUosL-ZqgYwnQs4hAc.jpg',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=8828deeda6366b149bd292b2e0751ecb&imgtype=0&src=http%3A%2F%2F13355794.s21i-13.faiusr.com%2F2%2FABUIABACGAAg6qeyywUosL-ZqgYwnQs4hAc.jpg',
           },
           {
             state: 'solution',
             name: '会议全过程服务',
             collected: false,
             url: 'https://219.233.175.82:58443/office-portal/officepc/index.html',
-            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487193&di=331cc7d4badcd1da99c56aacb3db646e&imgtype=0&src=http%3A%2F%2Fwww.guang-an.gov.cn%2Fls-integration%2Fxxgk%2FArticles%2F39142181%2F2018%2F10%2F08%2F20181008111609620846.jpg',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487193&di=331cc7d4badcd1da99c56aacb3db646e&imgtype=0&src=http%3A%2F%2Fwww.guang-an.gov.cn%2Fls-integration%2Fxxgk%2FArticles%2F39142181%2F2018%2F10%2F08%2F20181008111609620846.jpg',
           },
           {
             state: 'solution',
@@ -245,14 +249,16 @@ const GlobalModel: GlobalModelType = {
             collected: false,
             url:
               'http://219.233.175.82:58090/portal-web/passFlowPc/index.html?tdsourcetag=s_pcqq_aiomsg',
-            image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686563230&di=d8b64b0205a4af61317150a7d7a0c3e6&imgtype=0&src=http%3A%2F%2Fnewpic.jxnews.com.cn%2F0%2F12%2F45%2F34%2F12453438_210849.jpg',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686563230&di=d8b64b0205a4af61317150a7d7a0c3e6&imgtype=0&src=http%3A%2F%2Fnewpic.jxnews.com.cn%2F0%2F12%2F45%2F34%2F12453438_210849.jpg',
           },
           {
             state: 'solution',
             name: '重点轨迹监控',
             collected: false,
             url: 'http://219.233.175.82:58090/visual/personTrace',
-            image: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1043027965,3810702774&fm=11&gp=0.jpg',
+            image:
+              'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1043027965,3810702774&fm=11&gp=0.jpg',
           },
         ],
       },
@@ -371,40 +377,61 @@ const GlobalModel: GlobalModelType = {
           //       },
           //     ],
           //   }),
-          // },
+          // },y
+
           {
             state: 'real',
             name: '智慧教育',
             collected: false,
             gotoContent: true,
             image:
-              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686356176&di=1919da215dd8219d2b8e1d5d0b5adcb0&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180702%2F7a22310e18554d988e35b281c6877715.jpg',
+              'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=359920737,1339844403&fm=26&gp=0.jpg',
+            url: '1',
             content: JSON.stringify({
               pdfname: '2',
-              description: '随着智能手机、平板电脑、笔记本电脑等自带设备的不断普及,许多学校已经开始提倡甚至鼓励学生携带自带设备进课堂。这不仅促进了信息技术与教学的深度融合,还促进了教育信息化的发展。搭建基于BYOD的一对一数字化学习环境；构建具有信息资源多样性和情境整合性等特征的基于BYOD的一对一数字化教学与学习模式。  ',
+              description:
+                '随着智能手机、平板电脑、笔记本电脑等自带设备的不断普及,许多学校已经开始提倡甚至鼓励学生携带自带设备进课堂。这不仅促进了信息技术与教学的深度融合,还促进了教育信息化的发展。搭建基于BYOD的一对一数字化学习环境；构建具有信息资源多样性和情境整合性等特征的基于BYOD的一对一数字化教学与学习模式。  ',
               example: [
                 {
                   title: '湖北武汉 汉阳区  楚才中学',
-                  content: '智慧课堂项目应用在八年级7班和8班两个班级。常态化教学以来，通过老师们的不断探索和创新教学， 在本学期期末考试中，电子书包班取得了优异成绩，平均分排名第一、二名。',
+                  content:
+                    '智慧课堂项目应用在八年级7班和8班两个班级。常态化教学以来，通过老师们的不断探索和创新教学， 在本学期期末考试中，电子书包班取得了优异成绩，平均分排名第一、二名。',
                 },
                 {
                   title: '湖北天门 实验初级中学',
-                  content: '智慧课堂项目应用在七年级10个班。七年级电子书包班的老师借助平台不断学习、不断摸索，使用电子书包进行常态化教学。 对比全年级入校成绩，以及期中与期末成绩，前100名分布比例由67%提高到98%，增长46%，进步十分明显。',
+                  content:
+                    '智慧课堂项目应用在七年级10个班。七年级电子书包班的老师借助平台不断学习、不断摸索，使用电子书包进行常态化教学。 对比全年级入校成绩，以及期中与期末成绩，前100名分布比例由67%提高到98%，增长46%，进步十分明显。',
                 },
                 {
                   title: '河南省 沁阳市 实验中学',
-                  content: '实验中学始建于1987年，连年中招上线人数沁阳第一，连续三年荣获焦作市教育质量一等奖。学校已通过BYOD模式，开设七年级4个班、八年级2个班共6个智慧课堂实验班级。教师经过在备课授课、家校互动、网络教研方面的不断摸索，促进学生使用电子书包网络学习空间进行预习、作业、自测等学习活动，逐步养成自主学习的良好习惯。',
+                  content:
+                    '实验中学始建于1987年，连年中招上线人数沁阳第一，连续三年荣获焦作市教育质量一等奖。学校已通过BYOD模式，开设七年级4个班、八年级2个班共6个智慧课堂实验班级。教师经过在备课授课、家校互动、网络教研方面的不断摸索，促进学生使用电子书包网络学习空间进行预习、作业、自测等学习活动，逐步养成自主学习的良好习惯。',
                 },
                 {
                   title: '重庆 天宝实验学校',
-                  content: '2018年9月份，全校初一新生采用BYOD方式建立11个电子书包班。全教学环节应用了教学助手、智慧课堂、电子书包和家校帮，教师在课前使用教学助手备课，课中使用互动课堂+电子书包进行课堂互动，课后学生通过电子书包完成作业，教师移动端批改。',
+                  content:
+                    '2018年9月份，全校初一新生采用BYOD方式建立11个电子书包班。全教学环节应用了教学助手、智慧课堂、电子书包和家校帮，教师在课前使用教学助手备课，课中使用互动课堂+电子书包进行课堂互动，课后学生通过电子书包完成作业，教师移动端批改。',
                 },
                 {
                   title: '武汉华师一附中',
-                  content: '通过介入华师一附中周练、月考、期中/末等考试，采集学业数据，为学生提供专家级教师式评价服务，帮助学生诊断学情，规划最优学习路径。',
+                  content:
+                    '通过介入华师一附中周练、月考、期中/末等考试，采集学业数据，为学生提供专家级教师式评价服务，帮助学生诊断学情，规划最优学习路径。',
                 },
               ],
             }),
+          },
+        ],
+      },
+      {
+        name: '智慧医疗',
+        solutionSonGroup: [
+          {
+            state: 'real',
+            name: '商汤医疗教育',
+            collected: false,
+            videoUrl: 'shangtangvideo.mp4',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568281004&di=72a4a7c0cddae495441b151b1c10d571&imgtype=jpg&er=1&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn17%2F400%2Fw1200h800%2F20181118%2F190f-hnyuqhh8774163.jpg',
           },
         ],
       },
@@ -414,9 +441,9 @@ const GlobalModel: GlobalModelType = {
   effects: {
     *fetchVideo(_, { call, put }) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      console.log(_.url)
+      console.log(_.url);
       const data = yield call(() => {
-        files(_.url)
+        files(_.url);
       });
       // console.log(_)
       // yield put({

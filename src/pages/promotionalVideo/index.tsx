@@ -25,7 +25,8 @@ class promotionalVideo extends React.Component {
     videoList: [],
     visible: false,
     isplay: true,
-    orginPath: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',
+    orginPath:
+      'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',
   };
 
   // eslint-disable-next-line react/sort-comp
@@ -44,7 +45,8 @@ class promotionalVideo extends React.Component {
         //   videoPath: window.URL.createObjectURL(videoPath),
         // })
       } else {
-        const videoFileStream = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
+        const videoFileStream =
+          'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4';
         this.videoReload(videoFileStream, true);
       }
     } else {
@@ -55,7 +57,8 @@ class promotionalVideo extends React.Component {
     }
     if (localStorage.getItem('cloudSpace')) {
       const { videoList } = JSON.parse(localStorage.getItem('cloudSpace') as string).cloudSpace;
-      const defaultVideo = 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 '
+      const defaultVideo =
+        'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4 ';
       this.setState({
         // eslint-disable-next-line react/no-unused-state
         videoList: [defaultVideo, ...videoList],
@@ -116,9 +119,9 @@ class promotionalVideo extends React.Component {
         isplay: true,
       });
       if (checkedPath !== orginPath) {
-        console.log(checkedPath,orginPath)
+        console.log(checkedPath, orginPath);
         this.videoReload('http://192.168.1.102:3000/video?name=' + checkedPath, true);
-      } else{
+      } else {
         this.videoReload(orginPath, true);
       }
       notification.open({
@@ -154,7 +157,7 @@ class promotionalVideo extends React.Component {
   render() {
     const { videoList, checkedPath, isplay } = this.state;
     return (
-      <div>
+      <div style={{ marginTop: '120px' }}>
         <div style={{ width: '60%', height: '500px', margin: '20px  auto', position: 'relative' }}>
           <div className={styles.leftTopBorder} />
           <div className={styles.leftTopOverBorder} />
@@ -177,6 +180,7 @@ class promotionalVideo extends React.Component {
             <VideoButton icon="设置" handleClick={this.showModal} />
           </div>
           <video
+            playsinline
             id="myVideo1"
             className="video-js  vjs-big-play-centered vjs-fluid"
             style={{ height: '100%' }}

@@ -67,6 +67,10 @@ class favorites extends React.Component {
     router.push('/index');
   };
 
+  gotoVideo = url => {
+    router.push('/applicatioVideo/' + url);
+  };
+
   render() {
     const { buttonGroup, searchResult, startIndex, endIndex } = this.state;
     return (
@@ -104,11 +108,15 @@ class favorites extends React.Component {
                     ischildrenCard={true}
                     opacityTime={parseInt(index) * 100}
                     state={buttonGroup[index].state}
-                    handleClick={this.routerButtonClick.bind(
-                      this,
-                      buttonGroup[index].url,
-                      buttonGroup[index].name,
-                    )}
+                    handleClick={
+                      buttonGroup[index].url
+                        ? this.routerButtonClick.bind(
+                            this,
+                            buttonGroup[index].url,
+                            buttonGroup[index].name,
+                          )
+                        : this.gotoVideo.bind(this, buttonGroup[index].videoUrl)
+                    }
                     src={buttonGroup[index].image}
                   />
                 );
