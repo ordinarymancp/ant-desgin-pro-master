@@ -115,7 +115,7 @@ class favorites extends React.Component {
                             buttonGroup[index].url,
                             buttonGroup[index].name,
                           )
-                        : this.gotoVideo.bind(this, buttonGroup[index].videoUrl)
+                        : this.gotoVideo.bind(this, buttonGroup[index].name)
                     }
                     src={buttonGroup[index].image}
                   />

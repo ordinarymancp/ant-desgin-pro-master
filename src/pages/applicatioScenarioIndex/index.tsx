@@ -76,7 +76,7 @@ class applicatioScenarioIndex extends React.Component {
               localStorage.setItem('iframeUrl', iframeUrlString);
               location.reload();
             }else{
-              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].videoUrl);
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].name);
               location.reload();
             }
           } else {
@@ -107,7 +107,7 @@ class applicatioScenarioIndex extends React.Component {
               localStorage.setItem('iframeUrl', iframeUrlString);
               location.reload();
             }else{
-              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].videoUrl);
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].name);
               location.reload();
             }
           } else {

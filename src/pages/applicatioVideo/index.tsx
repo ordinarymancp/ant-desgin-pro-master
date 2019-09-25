@@ -27,14 +27,15 @@ class applicatioVideo extends React.Component {
     //   nextTitle: titleGroup[1],
     // })
     const { match } = this.props;
-    const video = require('../../../public/video/' + match.params.name);
-    this.videoReload(video, true);
     const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
     solutionGroup.forEach(item => {
       item.solutionSonGroup.forEach(items => {
-        if (items.videoUrl === match.params.name) {
+        if (items.name === match.params.name) {
           this.setState({
             content: items.name,
+            videoUrl: items.videoUrl,
+          },() => {
+            this.videoReload(items.videoUrl, true);
           });
         }
       });
@@ -51,6 +52,7 @@ class applicatioVideo extends React.Component {
     mousemoveState: true,
     globalClientY: 999,
     canplay: true,
+    videoUrl: ''
   };
 
   componentWillUnmount() {
@@ -113,7 +115,7 @@ class applicatioVideo extends React.Component {
               localStorage.setItem('iframeUrl', iframeUrlString);
               location.reload();
             }else{
-              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].videoUrl);
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].name);
               location.reload();
             }
           } else {
@@ -144,7 +146,7 @@ class applicatioVideo extends React.Component {
               localStorage.setItem('iframeUrl', iframeUrlString);
               location.reload();
             }else{
-              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].videoUrl);
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].name);
               location.reload();
             }
           } else {
@@ -193,7 +195,6 @@ class applicatioVideo extends React.Component {
     // const {preTitle, nextTitle} = this.state;
     const { iframeUrl, canHidden, hiddenState } = this.state;
     const { match } = this.props;
-    const video = require('../../../public/video/' + match.params.name);
     return (
       <div
         style={{
@@ -243,7 +244,7 @@ class applicatioVideo extends React.Component {
                   content="重放"
                   handleClick={this.videoReload.bind(
                     this,
-                    video,
+                    this.state.videoUrl,
                     true,
                   )}
                 />
