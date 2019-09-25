@@ -27,14 +27,15 @@ class applicatioVideo extends React.Component {
     //   nextTitle: titleGroup[1],
     // })
     const { match } = this.props;
-    const video = require('../../../public/video/' + match.params.name);
-    this.videoReload(video, true);
     const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
     solutionGroup.forEach(item => {
       item.solutionSonGroup.forEach(items => {
-        if (items.videoUrl === match.params.name) {
+        if (items.name === match.params.name) {
           this.setState({
             content: items.name,
+            videoUrl: items.videoUrl,
+          },() => {
+            this.videoReload(items.videoUrl, true);
           });
         }
       });
@@ -51,6 +52,7 @@ class applicatioVideo extends React.Component {
     mousemoveState: true,
     globalClientY: 999,
     canplay: true,
+    videoUrl: ''
   };
 
   componentWillUnmount() {
@@ -100,15 +102,24 @@ class applicatioVideo extends React.Component {
       item.solutionSonGroup.forEach((items, index) => {
         if (items.name === content) {
           if (item.solutionSonGroup[index + 1]) {
-            const { dispatch } = this.props;
-            router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
-            const iframeUrlString = JSON.stringify({
-              iframeUrl: item.solutionSonGroup[index + 1].url,
-            });
-            localStorage.setItem('iframeUrl', iframeUrlString);
-            location.reload();
+            if(item.solutionSonGroup[index + 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index + 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index + 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].name);
+              location.reload();
+            }
           } else {
-            message.warning('这是最后一个场景');
+            message.warning('这是第一个场景');
           }
         }
       });
@@ -122,17 +133,22 @@ class applicatioVideo extends React.Component {
       item.solutionSonGroup.forEach((items, index) => {
         if (items.name === content) {
           if (item.solutionSonGroup[index - 1]) {
-            const { dispatch } = this.props;
-            dispatch({
-              type: 'global/setIframeUrl',
-              payload: { iframeUrl: item.solutionSonGroup[index - 1].url },
-            });
-            router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
-            const iframeUrlString = JSON.stringify({
-              iframeUrl: item.solutionSonGroup[index - 1].url,
-            });
-            localStorage.setItem('iframeUrl', iframeUrlString);
-            location.reload();
+            if(item.solutionSonGroup[index - 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index - 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index - 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].name);
+              location.reload();
+            }
           } else {
             message.warning('这是第一个场景');
           }
@@ -178,6 +194,7 @@ class applicatioVideo extends React.Component {
   render() {
     // const {preTitle, nextTitle} = this.state;
     const { iframeUrl, canHidden, hiddenState } = this.state;
+    const { match } = this.props;
     return (
       <div
         style={{
@@ -227,7 +244,7 @@ class applicatioVideo extends React.Component {
                   content="重放"
                   handleClick={this.videoReload.bind(
                     this,
-                    'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/3634e7365285890793317258780/WoZ3aMAHBD4A.mp4',
+                    this.state.videoUrl,
                     true,
                   )}
                 />
@@ -258,20 +275,14 @@ class applicatioVideo extends React.Component {
             onMouseMove={e => {
               if (this.state.mousemoveState) {
                 this.setState({ globalClientY: e.clientY });
-                if (e.clientY < 150) {
+                if (e.clientY < 50) {
                   this.setState({ zindex: 1 });
-                  return false;
+                }else{
+                  this.setState({ zindex: 99 });
                 }
-                if (e.clientY < this.state.globalClientY) {
-                  clearTimeout(this.timer);
-                  this.setState({ mousemoveState: false, zindex: 1 });
-                  setTimeout(() => {
-                    this.setState({ zindex: 99, mousemoveState: true });
-                  }, 3000);
-                  this.timer = setTimeout(() => {
-                    this.setState({ mousemoveState: true });
-                  }, 100);
-                }
+                this.timer = setTimeout(() => {
+                  this.setState({ mousemoveState: true });
+                }, 100);
               }
             }}
           >

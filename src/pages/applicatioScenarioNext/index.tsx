@@ -126,7 +126,7 @@ class applicatioScenarioNext extends React.Component {
                         buttonGroup[index].name,
                         buttonGroup[index].gotoContent,
                       )
-                    : this.gotoVideo.bind(this, buttonGroup[index].videoUrl),
+                    : this.gotoVideo.bind(this, buttonGroup[index].name),
                   src: buttonGroup[index].image,
                   ischildrenCard: true,
                 };
