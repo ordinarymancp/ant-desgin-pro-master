@@ -1,0 +1,85 @@
+.bt {
+  width: 180px;
+  height: 60px;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 50px;
+  color: #ffff;
+  text-align: center;
+  border: 2px solid #ffff;
+  position: absolute;
+  bottom: 30px;
+  left: 70px;
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  padding-top: 18px;
+}
+
+.nav li {
+  flex: 1;
+  height: 50px;
+  line-height: 50px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.enpty {
+  height: 3px;
+  background: #ccc;
+}
+.tit {
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+    color: rgba(0, 91, 172,1);
+    margin-bottom: 10px;
+}
+.witcontent{
+    padding: 0 10px;
+    font-size: 18px;
+}
+
+// 总体架构
+.titnav{
+    display: flex;
+}
+
+.footer {
+    position: absolute;
+    top: 35px;
+    left: 220px;
+  }
+  .footer div{
+      display: inline-block;
+    width: 180px;
+    height: 60px;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 50px;
+    color: #ffff;
+    text-align: center;
+    border: 2px solid #ffff;
+    cursor: pointer;
+  }
+
+
+  .tab{
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 3px solid #ccc;
+  }
+  .tabson{
+      padding: 20px 0px 10px 40px;
+  }
+  .tabson:nth-child(1){
+      flex: 1;
+      height: 600px;
+  }
+  .tabson:nth-child(2){
+    flex: 1;
+    height: 600px;
+}
