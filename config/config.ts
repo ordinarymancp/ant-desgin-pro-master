@@ -135,6 +135,12 @@ export default {
           name: 'promotionalVideo',
           component: './promotionalVideo/index',
         },
+        {
+          path: '/wit',
+          name: 'wit',
+          component: './Wit/wit',
+          hideInMenu: true,
+        },
         //应用场景一级目录
         {
           path: '/applicatioScenario',

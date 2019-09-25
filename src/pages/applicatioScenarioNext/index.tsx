@@ -51,7 +51,7 @@ class applicatioScenarioNext extends React.Component {
   // }
   routerButtonClick = (url: any, name, bool) => {
     if (bool) {
-      router.push('/applicatioScenarioContent/' + name);
+      router.push('/wit');
     } else {
       const { dispatch } = this.props;
       dispatch({
