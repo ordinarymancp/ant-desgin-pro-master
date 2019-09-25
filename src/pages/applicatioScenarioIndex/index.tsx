@@ -63,19 +63,24 @@ class applicatioScenarioIndex extends React.Component {
       item.solutionSonGroup.forEach((items, index) => {
         if (items.name === content) {
           if (item.solutionSonGroup[index + 1]) {
-            const { dispatch } = this.props;
-            dispatch({
-              type: 'global/setIframeUrl',
-              payload: { iframeUrl: item.solutionSonGroup[index + 1].url },
-            });
-            router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
-            const iframeUrlString = JSON.stringify({
-              iframeUrl: item.solutionSonGroup[index + 1].url,
-            });
-            localStorage.setItem('iframeUrl', iframeUrlString);
-            location.reload();
+            if(item.solutionSonGroup[index + 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index + 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index + 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].videoUrl);
+              location.reload();
+            }
           } else {
-            message.warning('这是最后一个场景');
+            message.warning('这是第一个场景');
           }
         }
       });
@@ -89,17 +94,22 @@ class applicatioScenarioIndex extends React.Component {
       item.solutionSonGroup.forEach((items, index) => {
         if (items.name === content) {
           if (item.solutionSonGroup[index - 1]) {
-            const { dispatch } = this.props;
-            dispatch({
-              type: 'global/setIframeUrl',
-              payload: { iframeUrl: item.solutionSonGroup[index - 1].url },
-            });
-            router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
-            const iframeUrlString = JSON.stringify({
-              iframeUrl: item.solutionSonGroup[index - 1].url,
-            });
-            localStorage.setItem('iframeUrl', iframeUrlString);
-            location.reload();
+            if(item.solutionSonGroup[index - 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index - 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index - 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].videoUrl);
+              location.reload();
+            }
           } else {
             message.warning('这是第一个场景');
           }
