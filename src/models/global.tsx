@@ -431,7 +431,7 @@ const GlobalModel: GlobalModelType = {
           // },y
 
           {
-            state: 'real',
+            state: 'simulation',
             name: '智慧教育',
             collected: false,
             gotoContent: true,

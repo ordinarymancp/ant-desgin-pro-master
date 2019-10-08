@@ -38,6 +38,8 @@ class Addpeople extends React.Component {
       GroupBChecked: 0,
       hiddenState: true,
       content: '',
+      activeIndex: 1,
+      coverHidden: true,
     };
 
     componentDidMount() {
@@ -186,9 +188,12 @@ class Addpeople extends React.Component {
   };
 
     render() {
-      const { tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState } = this.state;
+      const { tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState, activeIndex, coverHidden } = this.state;
         return (
             <div style={{width: '100%', height: '100%', background: 'white'}}>
+              <div style={{position: 'fixed', height: '100%', width: '100%',background: 'rgba(0,0,0,0.2)', zIndex: '999'}} hidden={coverHidden} onClick={() => {this.setState({coverHidden: true})}}>
+                <img src={require(`../../../src/assets/ppt${activeIndex}.jpg`)} style={{ position: 'absolute', margin: 'auto', left: '0', right: '0', top: '0', bottom: '0', width: '920px', height: '690px'}}/>
+              </div>
               <div
                 style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
                 onMouseOver={this.movein}
@@ -233,7 +238,8 @@ class Addpeople extends React.Component {
               </div>
                 <header style={{ position: 'relative' }}>
                   <img src="https://img.alicdn.com/tfs/TB1RR6rz6TpK1RjSZKPXXa3UpXa-1920-648.jpg" alt="" style={{ width: '100%', height: 500, zIndex: '-1', transform: `matrix(1, 0, 0, 1, 0, ${this.state.scrollTop * 0.6})` }} />
-                    <div className={s.bt}>
+                  <div className={s.titleContent}>智慧教育解决方案</div>
+                  <div className={s.bt}>
                         <span>咨询我们</span>
                     </div>
                 </header>
@@ -288,7 +294,7 @@ class Addpeople extends React.Component {
                                 }
                               </div>
                               <div className={s.tabRight}>
-                                <img src={example2} alt="" style={{width: '100%', height: `600px`}}/>
+                                <img src={require(`../../../src/assets/ppt${GroupAChecked + 1}.jpg`)} alt="" style={{width: '700px', height: '530px', marginTop: '35px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupAChecked + 1})}}/>
                               </div>
                             </div>
                         </div>
@@ -331,7 +337,7 @@ class Addpeople extends React.Component {
                             }
                           </div>
                           <div className={s.tabRight}>
-                            <img src={example2} alt="" style={{width: '100%', height: `${97 * 6}px`}}/>
+                            <img src={require(`../../../src/assets/ppt${GroupBChecked + 7}.jpg`)} alt="" style={{width: '700px', height: '530px', marginTop: '35px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + 7})}}/>
                           </div>
                         </div>
                       </div>
