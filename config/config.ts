@@ -136,7 +136,7 @@ export default {
           component: './promotionalVideo/index',
         },
         {
-          path: '/wit',
+          path: '/wit/:name',
           name: 'wit',
           component: './Wit/wit',
           hideInMenu: true,

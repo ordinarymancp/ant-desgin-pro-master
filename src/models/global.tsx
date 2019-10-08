@@ -161,7 +161,7 @@ const GlobalModel: GlobalModelType = {
           },
           {
             state: 'solution',
-            name: '人脸布控2',
+            name: '人脸布控',
             collected: false,
             videoUrl: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/c50aabae5285890794329442503/ocAP3Aa0ajYA.mp4',
             image:
@@ -179,7 +179,7 @@ const GlobalModel: GlobalModelType = {
             state: 'solution',
             name: '地铁站场景-结构化',
             collected: false,
-            videoUrl: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/cc2dd31d5285890794329761739/OTDQykaCLQQA.mp4',
+            videoUrl: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/cc1ef05b5285890794329757291/fa2U3Ow4smUA.mp4',
             image: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2320083312,3519048626&fm=15&gp=0.jpg',
           },
           {
@@ -478,7 +478,7 @@ const GlobalModel: GlobalModelType = {
         solutionSonGroup: [
           {
             state: 'solution',
-            name: '智慧分析',
+            name: '医学图诊断',
             collected: false,
             videoUrl: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/cbd2bf4d5285890794329710423/padUAFPgcOIA.mp4',
             image:

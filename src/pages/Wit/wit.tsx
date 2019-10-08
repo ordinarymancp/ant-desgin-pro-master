@@ -10,13 +10,16 @@ import example5 from '@/assets/example5.png'
 
 // import Zmage from 'react-zmage'
 import {
-    Form,
-    Button,
-    Input,
-    Card,
-    DatePicker,
-    Tabs
+  Form,
+  Button,
+  Input,
+  Card,
+  DatePicker,
+  Tabs, message,
 } from 'antd';
+import styles from '@/pages/applicatioScenarioContent/index.scss';
+import MenuItem from '@/components/MenuItem';
+import router from 'umi/router';
 const FormItem = Form.Item;
 const Password = Input.Password;
 const { TabPane } = Tabs;
@@ -26,29 +29,235 @@ const { TabPane } = Tabs;
 }))
 @Form.create()
 class Addpeople extends React.Component {
+    state = {
+      scrollTop: 0,
+      timer: true,
+      tabGroupA: ['教育云-支持服务运营中心', '教育公共服务管理平台', '教育云资源平台', '人人通网络学习空间平台', '云课堂教学服务平台', '校园综合管理平台'],
+      GroupAChecked: 0,
+      tabGroupB: ['张家口教育云一期', '泾川县教育公共服务平台', '基础教育资源公共平台'],
+      GroupBChecked: 0,
+      hiddenState: true,
+      content: '',
+    };
+
+    componentDidMount() {
+      const { match } = this.props;
+      this.setState({ content: match.params.name });
+      window.addEventListener('scroll', this.bindHandleScroll)
+      document.onkeydown = (e) => {
+        if(e.keyCode === 38){
+          this.goPre()
+        }else if(e.keyCode === 40){
+          this.goNext()
+        }
+      }
+    }
+
+    bindHandleScroll = (event)=>{
+      // 滚动的高度
+      if(this.state.timer){
+        const scrollTop = (event.srcElement ? event.srcElement.documentElement.scrollTop : false)
+          || window.pageYOffset
+          || (event.srcElement ? event.srcElement.body.scrollTop : 0);
+        // 判断用户当前是否进行了横向滚动，如果用户发生了横向滚动，则设置元素为static
+        const scrollLeft = (event.srcElement ? event.srcElement.documentElement.scrollLeft : false)
+          || window.pageXOffset
+          || (event.srcElement ? event.srcElement.body.scrollLeft : 0);
+        this.setState({
+          // timer: false,
+          scrollTop: scrollTop,
+        })
+        // setTimeout(() => {
+        //   this.setState({
+        //     timer: true,
+        //   })
+        // },30)
+      }
+    }
+
+    //在componentWillUnmount，进行scroll事件的注销
+    componentWillUnmount(){
+      window.removeEventListener('scroll', this.bindHandleScroll);
+      document.onkeydown = null
+    }
+
+    buttonClick = () => {
+      this.setState({
+        hiddenState: !this.state.hiddenState,
+      });
+    };
+
+    movein = () => {
+      this.setState({
+        hiddenState: false,
+      });
+    };
+
+    moveout = () => {
+      this.setState({
+        hiddenState: true,
+      });
+    };
+
+  findAndSet = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach(items => {
+        if (items.name === content) {
+          items.collected = true;
+          message.info('收藏成功', [1]);
+        }
+      });
+    });
+    localStorage.setItem('solutionGroup', JSON.stringify({ solutionGroup }));
+  };
+
+  goNext = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach((items, index) => {
+        if (items.name === content) {
+          if (item.solutionSonGroup[index + 1]) {
+            if(item.solutionSonGroup[index + 1].gotoContent){
+              router.push('/wit/' + item.solutionSonGroup[index + 1].name);
+            } else if(item.solutionSonGroup[index + 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index + 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index + 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].name);
+              location.reload();
+            }
+          } else {
+            message.warning('这是最后一个场景');
+          }
+        }
+      });
+    });
+  };
+
+  goPre = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach((items, index) => {
+        if (items.name === content) {
+          if (item.solutionSonGroup[index - 1]) {
+            console.log(item.solutionSonGroup[index - 1])
+            if(item.solutionSonGroup[index - 1].gotoContent){
+              router.push('/wit/' + item.solutionSonGroup[index + 1].name);
+            } else if(item.solutionSonGroup[index - 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index - 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index - 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].name);
+              location.reload();
+            }
+          } else {
+            message.warning('这是第一个场景');
+          }
+        }
+      });
+    });
+  };
+
+  goBack = () => {
+    const currentModel = localStorage.getItem('currentMosel');
+    router.push('/applicatioScenarioNext/' + currentModel);
+  };
 
     render() {
+      const { tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState } = this.state;
         return (
-            <div style={{width: '100%', height: '100%', background: 'white', marginTop: '64px'}}>
+            <div style={{width: '100%', height: '100%', background: 'white'}}>
+              <div
+                style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
+                onMouseOver={this.movein}
+                onMouseOut={this.moveout}
+              >
+                <div
+                  style={{ width: '30%', height: '100%', background: 'rgba(0,0,0,0.3)', float: 'right' }}
+                >
+                  <div
+                    hidden={hiddenState}
+                    style={{
+                      height: '47%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      position: 'fixed',
+                      right: '0',
+                      bottom: '12%',
+                      background: 'rgba(0,0,0,0.3)',
+                      padding: '10px 20px',
+                    }}
+                  >
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="上个场景" handleClick={this.goPre} />
+                    </div>
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="下个场景" handleClick={this.goNext} />
+                    </div>
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="加入收藏" handleClick={this.findAndSet} />
+                    </div>
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="返回" handleClick={this.goBack} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.xuanfuBurron} onClick={this.buttonClick}>
+                <div className={styles.xunfuButtonSecond}>
+                  <div className={styles.xunfuButtonThird}></div>
+                </div>
+              </div>
                 <header style={{ position: 'relative' }}>
-                    <img src={imgs} alt="" style={{ width: '100%', height: 350 }} />
+                  <img src="https://img.alicdn.com/tfs/TB1RR6rz6TpK1RjSZKPXXa3UpXa-1920-648.jpg" alt="" style={{ width: '100%', height: 500, zIndex: '-1', transform: `matrix(1, 0, 0, 1, 0, ${this.state.scrollTop * 0.6})` }} />
                     <div className={s.bt}>
-                        <span>资讯我们</span>
+                        <span>咨询我们</span>
                     </div>
                 </header>
-                <nav style={{ paddingLeft: 40 }}>
+                <nav style={ {position: 'relative', background: 'white', zIndex: '3', width: '100%'}}>
                     <ul className={s.nav}>
-                        <li><a href="#overview">概述</a></li>
-                        <li><a href="#product">产品架构</a></li>
+                        <li><a href="#overviews">概述</a></li>
+                        <li><a href="#product">总体架构</a></li>
                         <li><a href="#introduction">方案介绍</a></li>
                         <li><a href="#manage">运营管理</a></li>
                         <li><a href="#example">应用案例</a></li>
                     </ul>
                 </nav>
-                <div className={s.enpty}></div>
-                <div className={s.content}>
+              {this.state.scrollTop > 500 ? <nav style={{position: 'fixed', background: 'white', top: '0px', zIndex: 99,width: '100%'}}>
+                <ul className={s.nav}>
+                  <li><a href="#overviews">概述</a></li>
+                  <li><a href="#product">总体架构</a></li>
+                  <li><a href="#introduction">方案介绍</a></li>
+                  <li><a href="#manage">运营管理</a></li>
+                  <li><a href="#example">应用案例</a></li>
+                </ul>
+              </nav>: ''}
+                <div id="overviews" className={s.content} style={{ zIndex: '3', position: 'relative', background: 'white'}}>
                     {/* 教育建设 */}
-                    <div className={s.wit} id="overview">
+                    <div className={s.wit}>
                         <h1 className={s.tit}>智慧教育建设内容</h1>
                         <div className={s.witcontent}>
                           智慧教育采用教育云的建设模式，包括“云”和“端”两部分。其中“云”主要包括1个云核心基础支撑平台、1个
@@ -58,7 +267,7 @@ class Addpeople extends React.Component {
                         </div>
                     </div>
                     {/* 总体架构 */}
-                    <div id="product">
+                    <div id="product" className={s.wit}>
                         <h1 className={s.tit}>总体架构</h1>
                         <div className={s.witcontent}>
                             <div className={s.titnav}>
@@ -67,35 +276,27 @@ class Addpeople extends React.Component {
                         </div>
                     </div>
                     {/* 方案介绍 */}
-                    <div className={s.scheme} id="introduction">
+                    <div className={s.wit} id="introduction">
                         <h1 className={s.tit}>方案介绍</h1>
-                        <div className={s.scheme_content}>
-                            <Tabs defaultActiveKey="1" tabPosition='left' size='default' >
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>教育云-支持服务运营中心</h1>} key="1">
-                                  <img src={example2} alt="" style={{width: '100%', height: '450px'}}/>
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>教育公共服务管理平台</h1>} key="2" >
-                                    Content of Tab Pane 2
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>教育云资源平台</h1>} key="3" >
-                                    Content of Tab Pane 3
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>人人通网络学习空间平台</h1>} key="4">
-                                    Content of Tab Pane 1
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>云课堂教学服务平台</h1>} key="5">
-                                    Content of Tab Pane 2
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>校园综合管理平台</h1>} key="6">
-                                    Content of Tab Pane 3
-                                </TabPane>
-                            </Tabs>
+                        <div className={s.witcontent}>
+                            <div style={{width: '100%'}} className={s.tabContent}>
+                              <div className={s.tabLeft}>
+                                {
+                                  tabGroupA.map((item,index) => {
+                                    return <div className={`${s.tabItem} ${GroupAChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupA.length}px`,lineHeight: `${600 / tabGroupA.length}px`}} onClick={() => {this.setState({GroupAChecked: index})}}>{item}</div>
+                                  })
+                                }
+                              </div>
+                              <div className={s.tabRight}>
+                                <img src={example2} alt="" style={{width: '100%', height: `600px`}}/>
+                              </div>
+                            </div>
                         </div>
                     </div>
                     {/* 运营管理 */}
-                    <div className={s.run} id="manage">
+                    <div className={s.wit} id="manage">
                         <h1 className={s.tit}>运营管理</h1>
-                        <div className={s.runcont}>
+                        <div className={s.witcontent}>
                             <div style={{ paddingLeft: 15, paddingRight: 15, }}>
                                 <p style={{ marginTop: 20, fontSize: 18 }}>在建设好智慧教育系统的同时，通过高效的运营，既充分发挥出了智慧教育系统的优势，又为社会创造了经济效益和社会效益。
                                   通过教育云运营，切实发挥智慧教育系统的作用，扩大优质资源覆盖面，缩小城乡、重点学校和非重点学校之间的差别，加强教
@@ -104,37 +305,42 @@ class Addpeople extends React.Component {
                                   比如政府委托第三方，或由SPV公司建立。</p>
                                 <div className={s.tab}>
                                     <div className={s.tabson}>
-                                      <img src={example3} alt="" style={{width: '100%', height: '100%'}}/>
+                                      <div className={s.tabCon}>
+                                        <img src={example3} alt="" style={{width: '100%', height: '100%'}}/>
+                                      </div>
                                     </div>
-                                    <div className={s.tabson}>
+                                  <div className={s.tabson}>
+                                    <div className={s.tabCon}>
                                       <img src={example4} alt="" style={{width: '100%', height: '100%'}}/>
                                     </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {/* 应用案例 */}
-                    <div className={s.ap} id="example">
-                        <h1 className={s.tit}>应用案例</h1>
-                        <div className={s.aocont}>
-                            <Tabs defaultActiveKey="1" tabPosition='left' size='default' >
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>张家口教育云一期</h1>} key="1">
-                                  <img src={example5} alt="" style={{width: '100%', height: '700px'}}/>
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>泾川县教育公共服务平台</h1>} key="2" >
-                                    Content of Tab Pane 2
-                                </TabPane>
-                                <TabPane tab={<h1 style={{ fontSize: 23, fontWeight: 700 }}>基础教育资源公共平台</h1>} key="3" >
-                                    Content of Tab Pane 3
-                                </TabPane>
-                            </Tabs>
+                    <div className={s.wit} id="example">
+                      <h1 className={s.tit}>应用案例</h1>
+                      <div className={s.witcontent}>
+                        <div style={{width: '100%'}} className={s.tabContent}>
+                          <div className={s.tabLeft}>
+                            {
+                              tabGroupB.map((item,index) => {
+                                return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupB.length}px`, lineHeight: `${600 / tabGroupB.length}px`}} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
+                              })
+                            }
+                          </div>
+                          <div className={s.tabRight}>
+                            <img src={example2} alt="" style={{width: '100%', height: `${97 * 6}px`}}/>
+                          </div>
                         </div>
+                      </div>
                     </div>
                 </div>
                 <footer style={{position:'relative'}}>
-                <img src={imgs} alt="" style={{ width: '100%', height: 350 }} />
+                <img src="https://img.alicdn.com/tfs/TB1BRbTz4jaK1RjSZKzXXXVwXXa-1920-292.jpg" alt="" style={{ width: '100%', height: 200 }} />
                 <div className={s.footer}>
-                        <div>资讯我们</div>
+                        <div>咨询我们</div>
                     </div>
                 </footer>
             </div>

@@ -12,7 +12,19 @@ import router from 'umi/router';
 
 // eslint-disable-next-line react/prefer-stateless-function,@typescript-eslint/class-name-casing
 class applicatioScenario extends React.Component {
+  componentDidMount(): void {
+    const { solutionGroup } = this.props;
+    let count = 0
+    solutionGroup.map(item => {
+      item.solutionSonGroup.map(items => {
+        count++
+      })
+    })
+    this.setState({count: count});
+  }
+
   state = {
+    count: 0,
     searchResult: '',
     applicatioScenarioGroup: [
       '城市治理',
@@ -58,7 +70,7 @@ class applicatioScenario extends React.Component {
   };
 
   render() {
-    const { applicatioScenarioGroup, searchResult, imageList } = this.state;
+    const { applicatioScenarioGroup, searchResult, imageList, count } = this.state;
     const { solutionGroup } = this.props;
     return (
       <div className="overview">
@@ -71,7 +83,7 @@ class applicatioScenario extends React.Component {
               fontWeight: 'bold',
             }}
           >
-            智慧应用 <span style={{ fontSize: '14px' }}>(23)</span>
+            智慧应用 <span style={{ fontSize: '14px' }}>({count})</span>
             <span className={styles.gotoIndex} onClick={this.gotoIndex}>
               前往主页
             </span>
