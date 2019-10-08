@@ -478,7 +478,7 @@ const GlobalModel: GlobalModelType = {
         solutionSonGroup: [
           {
             state: 'solution',
-            name: '智慧分析',
+            name: '医学图诊断',
             collected: false,
             videoUrl: 'http://1300104663.vod2.myqcloud.com/85f6033avodcq1300104663/cbd2bf4d5285890794329710423/padUAFPgcOIA.mp4',
             image:
