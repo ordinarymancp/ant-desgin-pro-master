@@ -43,7 +43,7 @@
     font-size: 32px;
     line-height: 48px;
     text-align: center;
-    font-weight: 200;
+    font-weight: 800;
     color: #333;
 }
 .wit{
@@ -51,6 +51,14 @@
 }
 .wit:nth-child(2n){
   background: #f9f9f9;
+}
+.titleContent{
+  position: absolute;
+  left: 70px;
+  bottom: 150px;
+  font-size: 48px;
+  color: #fff;
+  line-height: 72px;
 }
 .witcontent{
   margin: 0 auto;
@@ -61,7 +69,6 @@
   padding: 0 88px;
   font-size: 16px;
   line-height: 28px;
-  text-align: center;
   overflow: hidden;
 }
 .tabContent{
@@ -70,14 +77,14 @@
   overflow: hidden;
 }
 .tabLeft{
-  width: 30%;
+  width: 25%;
   float: left;
   height: 600px;
 }
 .tabRight{
   box-sizing: border-box;
   padding: 3px;
-  width: 70%;
+  width: 75%;
   float: left;
   overflow: hidden;
   height: 600px;
@@ -87,11 +94,12 @@
   font-size: 18px;
   line-height: 38px;
   color: #373d41;
-  padding: 0 30px;
+  padding: 0 15px;
   border-left: 3px solid transparent;
   cursor: pointer;
   background-color: #f9f9f9;
   text-indent: 0;
+  border-bottom: 1px solid #eaeaea;
 }
 .tabItemActive{
   color: #0fc18a;
