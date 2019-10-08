@@ -66,11 +66,13 @@
 }
 .tabContent{
   border: 1px solid #eaeaea;
-  box-shadow: 0 2px 10px rgba(0,0,0,.06)
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  overflow: hidden;
 }
 .tabLeft{
   width: 30%;
   float: left;
+  height: 600px;
 }
 .tabRight{
   box-sizing: border-box;
@@ -78,13 +80,14 @@
   width: 70%;
   float: left;
   overflow: hidden;
+  height: 600px;
 }
 .tabItem{
   text-align: center;
   font-size: 18px;
   line-height: 38px;
   color: #373d41;
-  padding: 30px;
+  padding: 0 30px;
   border-left: 3px solid transparent;
   cursor: pointer;
   background-color: #f9f9f9;
@@ -153,4 +156,51 @@
     flex: 1;
     height: 450px;
     text-indent: 0;
+}
+.xuanfuBurron{
+  width: vw(80);
+  height: vw(80);
+  background: #929292;
+  border-radius: vw(80);
+  position: fixed;
+  right: 2%;
+  bottom: 2%;
+  z-index: 997;
+  opacity: 0.5  ;
+}
+.xunfuButtonSecond{
+  width: vw(60);
+  height: vw(60);
+  border-radius: vw(60);
+  z-index: 998;
+  background: #c0c0c0;
+  margin: vw(10);
+  overflow: hidden;
+  border: 1px solid #9f9f9f;
+  box-sizing: border-box;
+}
+.xunfuButtonThird{
+  width: vw(40);
+  height: vw(40);
+  border-radius: vw(40);
+  z-index: 999;
+  background: #d8d8d8;
+  margin: vw(10);
+  border: 1px solid rgba(159, 159, 159, 0.67);
+  box-sizing: border-box;
+}
+.buttonWrap{
+  width:vw(120);
+  height:vw(120);
+  position: relative;
+  margin: 0 auto;
+}
+.topSpan{
+  width: 100%;
+  height: vw(42);
+  line-height: vw(42);
+  display: block;
+  padding: 0 10px;
+  border-bottom: 1px solid #d9d9d9;
+  cursor: pointer;
 }

@@ -10,13 +10,16 @@ import example5 from '@/assets/example5.png'
 
 // import Zmage from 'react-zmage'
 import {
-    Form,
-    Button,
-    Input,
-    Card,
-    DatePicker,
-    Tabs
+  Form,
+  Button,
+  Input,
+  Card,
+  DatePicker,
+  Tabs, message,
 } from 'antd';
+import styles from '@/pages/applicatioScenarioContent/index.scss';
+import MenuItem from '@/components/MenuItem';
+import router from 'umi/router';
 const FormItem = Form.Item;
 const Password = Input.Password;
 const { TabPane } = Tabs;
@@ -33,10 +36,21 @@ class Addpeople extends React.Component {
       GroupAChecked: 0,
       tabGroupB: ['张家口教育云一期', '泾川县教育公共服务平台', '基础教育资源公共平台'],
       GroupBChecked: 0,
+      hiddenState: true,
+      content: '',
     };
 
     componentDidMount() {
+      const { match } = this.props;
+      this.setState({ content: match.params.name });
       window.addEventListener('scroll', this.bindHandleScroll)
+      document.onkeydown = (e) => {
+        if(e.keyCode === 38){
+          this.goPre()
+        }else if(e.keyCode === 40){
+          this.goNext()
+        }
+      }
     }
 
     bindHandleScroll = (event)=>{
@@ -53,7 +67,6 @@ class Addpeople extends React.Component {
           // timer: false,
           scrollTop: scrollTop,
         })
-        console.log(scrollTop)
         // setTimeout(() => {
         //   this.setState({
         //     timer: true,
@@ -65,14 +78,161 @@ class Addpeople extends React.Component {
     //在componentWillUnmount，进行scroll事件的注销
     componentWillUnmount(){
       window.removeEventListener('scroll', this.bindHandleScroll);
+      document.onkeydown = null
     }
 
+    buttonClick = () => {
+      this.setState({
+        hiddenState: !this.state.hiddenState,
+      });
+    };
+
+    movein = () => {
+      this.setState({
+        hiddenState: false,
+      });
+    };
+
+    moveout = () => {
+      this.setState({
+        hiddenState: true,
+      });
+    };
+
+  findAndSet = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach(items => {
+        if (items.name === content) {
+          items.collected = true;
+          message.info('收藏成功', [1]);
+        }
+      });
+    });
+    localStorage.setItem('solutionGroup', JSON.stringify({ solutionGroup }));
+  };
+
+  goNext = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach((items, index) => {
+        if (items.name === content) {
+          if (item.solutionSonGroup[index + 1]) {
+            if(item.solutionSonGroup[index + 1].gotoContent){
+              router.push('/wit/' + item.solutionSonGroup[index + 1].name);
+            } else if(item.solutionSonGroup[index + 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index + 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index + 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index + 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index + 1].name);
+              location.reload();
+            }
+          } else {
+            message.warning('这是最后一个场景');
+          }
+        }
+      });
+    });
+  };
+
+  goPre = () => {
+    const { content } = this.state;
+    const { solutionGroup } = JSON.parse(localStorage.getItem('solutionGroup'));
+    solutionGroup.forEach(item => {
+      item.solutionSonGroup.forEach((items, index) => {
+        if (items.name === content) {
+          if (item.solutionSonGroup[index - 1]) {
+            console.log(item.solutionSonGroup[index - 1])
+            if(item.solutionSonGroup[index - 1].gotoContent){
+              router.push('/wit/' + item.solutionSonGroup[index + 1].name);
+            } else if(item.solutionSonGroup[index - 1].url) {
+              const {dispatch} = this.props;
+              dispatch({
+                type: 'global/setIframeUrl',
+                payload: {iframeUrl: item.solutionSonGroup[index - 1].url},
+              });
+              router.push('/index/applicatioScenarioIndex/' + item.solutionSonGroup[index - 1].name);
+              const iframeUrlString = JSON.stringify({
+                iframeUrl: item.solutionSonGroup[index - 1].url,
+              });
+              localStorage.setItem('iframeUrl', iframeUrlString);
+              location.reload();
+            }else{
+              router.push('/applicatioVideo/' + item.solutionSonGroup[index - 1].name);
+              location.reload();
+            }
+          } else {
+            message.warning('这是第一个场景');
+          }
+        }
+      });
+    });
+  };
+
+  goBack = () => {
+    const currentModel = localStorage.getItem('currentMosel');
+    router.push('/applicatioScenarioNext/' + currentModel);
+  };
+
     render() {
-      const { tabGroupA, GroupAChecked, tabGroupB, GroupBChecked } = this.state;
+      const { tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState } = this.state;
         return (
             <div style={{width: '100%', height: '100%', background: 'white'}}>
+              <div
+                style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
+                onMouseOver={this.movein}
+                onMouseOut={this.moveout}
+              >
+                <div
+                  style={{ width: '30%', height: '100%', background: 'rgba(0,0,0,0.3)', float: 'right' }}
+                >
+                  <div
+                    hidden={hiddenState}
+                    style={{
+                      height: '47%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      position: 'fixed',
+                      right: '0',
+                      bottom: '12%',
+                      background: 'rgba(0,0,0,0.3)',
+                      padding: '10px 20px',
+                    }}
+                  >
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="上个场景" handleClick={this.goPre} />
+                    </div>
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="下个场景" handleClick={this.goNext} />
+                    </div>
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="加入收藏" handleClick={this.findAndSet} />
+                    </div>
+                    <div className={styles.buttonWrap}>
+                      <MenuItem content="返回" handleClick={this.goBack} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.xuanfuBurron} onClick={this.buttonClick}>
+                <div className={styles.xunfuButtonSecond}>
+                  <div className={styles.xunfuButtonThird}></div>
+                </div>
+              </div>
                 <header style={{ position: 'relative' }}>
-                  <img src="https://img.alicdn.com/tfs/TB1D3N3gKSSBuNjy0FlXXbBpVXa-1920-648.jpg" alt="" style={{ width: '100%', height: 500, zIndex: '-1', transform: `matrix(1, 0, 0, 1, 0, ${this.state.scrollTop * 0.6})` }} />
+                  <img src="https://img.alicdn.com/tfs/TB1RR6rz6TpK1RjSZKPXXa3UpXa-1920-648.jpg" alt="" style={{ width: '100%', height: 500, zIndex: '-1', transform: `matrix(1, 0, 0, 1, 0, ${this.state.scrollTop * 0.6})` }} />
                     <div className={s.bt}>
                         <span>咨询我们</span>
                     </div>
@@ -80,7 +240,7 @@ class Addpeople extends React.Component {
                 <nav style={ {position: 'relative', background: 'white', zIndex: '3', width: '100%'}}>
                     <ul className={s.nav}>
                         <li><a href="#overviews">概述</a></li>
-                        <li><a href="#product">产品架构</a></li>
+                        <li><a href="#product">总体架构</a></li>
                         <li><a href="#introduction">方案介绍</a></li>
                         <li><a href="#manage">运营管理</a></li>
                         <li><a href="#example">应用案例</a></li>
@@ -123,12 +283,12 @@ class Addpeople extends React.Component {
                               <div className={s.tabLeft}>
                                 {
                                   tabGroupA.map((item,index) => {
-                                    return <div className={`${s.tabItem} ${GroupAChecked === index ? s.tabItemActive : ''}`} onClick={() => {this.setState({GroupAChecked: index})}}>{item}</div>
+                                    return <div className={`${s.tabItem} ${GroupAChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupA.length}px`,lineHeight: `${600 / tabGroupA.length}px`}} onClick={() => {this.setState({GroupAChecked: index})}}>{item}</div>
                                   })
                                 }
                               </div>
                               <div className={s.tabRight}>
-                                <img src={example2} alt="" style={{width: '100%', height: `${97 * 6}px`}}/>
+                                <img src={example2} alt="" style={{width: '100%', height: `600px`}}/>
                               </div>
                             </div>
                         </div>
@@ -166,7 +326,7 @@ class Addpeople extends React.Component {
                           <div className={s.tabLeft}>
                             {
                               tabGroupB.map((item,index) => {
-                                return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
+                                return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupB.length}px`, lineHeight: `${600 / tabGroupB.length}px`}} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
                               })
                             }
                           </div>
@@ -178,7 +338,7 @@ class Addpeople extends React.Component {
                     </div>
                 </div>
                 <footer style={{position:'relative'}}>
-                <img src="https://img.alicdn.com/tfs/TB16w4Lf3mTBuNjy1XbXXaMrVXa-1920-292.jpg" alt="" style={{ width: '100%', height: 200 }} />
+                <img src="https://img.alicdn.com/tfs/TB1BRbTz4jaK1RjSZKzXXXVwXXa-1920-292.jpg" alt="" style={{ width: '100%', height: 200 }} />
                 <div className={s.footer}>
                         <div>咨询我们</div>
                     </div>

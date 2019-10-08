@@ -14,6 +14,14 @@ import { message } from 'antd';
 // eslint-disable-next-line react/prefer-stateless-function
 class applicatioScenarioIndex extends React.Component {
   componentDidMount(): void {
+    document.onkeydown = (e) => {
+      console.log(111)
+      if(e.keyCode === 38){
+        this.goPre()
+      }else if(e.keyCode === 40){
+        this.goNext()
+      }
+    }
     // const titleGroup = this.props.match.params.name.split('&');
     // this.setState({
     //   preTitle: titleGroup[0],
@@ -40,6 +48,15 @@ class applicatioScenarioIndex extends React.Component {
     hiddenState: true,
   };
 
+  keydown = (e) => {
+    console.log(111)
+    if(e.keyCode === 38){
+      this.goPre()
+    }else if(e.keyCode === 40){
+      this.goNext()
+    }
+  }
+
   hiddenLoading = () => {
     this.setState({ canHidden: false });
   };
@@ -63,7 +80,9 @@ class applicatioScenarioIndex extends React.Component {
       item.solutionSonGroup.forEach((items, index) => {
         if (items.name === content) {
           if (item.solutionSonGroup[index + 1]) {
-            if(item.solutionSonGroup[index + 1].url) {
+            if(item.solutionSonGroup[index + 1].gotoContent){
+              router.push('/wit/' + item.solutionSonGroup[index + 1].name);
+            } else if(item.solutionSonGroup[index + 1].url) {
               const {dispatch} = this.props;
               dispatch({
                 type: 'global/setIframeUrl',
@@ -94,7 +113,9 @@ class applicatioScenarioIndex extends React.Component {
       item.solutionSonGroup.forEach((items, index) => {
         if (items.name === content) {
           if (item.solutionSonGroup[index - 1]) {
-            if(item.solutionSonGroup[index - 1].url) {
+            if(item.solutionSonGroup[index - 1].gotoContent){
+              router.push('/wit/' + item.solutionSonGroup[index + 1].name);
+            } else if(item.solutionSonGroup[index - 1].url) {
               const {dispatch} = this.props;
               dispatch({
                 type: 'global/setIframeUrl',
@@ -111,7 +132,7 @@ class applicatioScenarioIndex extends React.Component {
               location.reload();
             }
           } else {
-            message.warning('这是第一个场景');
+            message.warning('这是最后一个场景');
           }
         }
       });
@@ -141,6 +162,11 @@ class applicatioScenarioIndex extends React.Component {
     });
   };
 
+  componentWillUnmount(): void {
+    console.log('come out')
+    document.onkeydown = null;
+  }
+
   render() {
     // const {preTitle, nextTitle} = this.state;
     const { iframeUrl, canHidden, hiddenState } = this.state;
@@ -152,6 +178,7 @@ class applicatioScenarioIndex extends React.Component {
           background: 'rgba(15, 10, 11, 1)',
           overflow: 'hidden',
         }}
+        onKeyDown={this.keydown}
       >
         <div
           style={{ position: 'fixed', height: '100%', width: '0.5%', right: 0, zIndex: '999' }}

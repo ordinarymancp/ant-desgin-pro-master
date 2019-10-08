@@ -54,13 +54,17 @@ class favorites extends React.Component {
     });
   };
 
-  routerButtonClick = (url, name) => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'global/setIframeUrl',
-      payload: { iframeUrl: url },
-    });
-    router.push('/index/applicatioScenarioIndex/' + name);
+  routerButtonClick = (url, name, bool) => {
+    if (bool) {
+      router.push('/wit/' + name);
+    } else {
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'global/setIframeUrl',
+        payload: { iframeUrl: url },
+      });
+      router.push('/index/applicatioScenarioIndex/' + name);
+    }
   };
 
   gotoIndex = () => {
@@ -114,6 +118,7 @@ class favorites extends React.Component {
                             this,
                             buttonGroup[index].url,
                             buttonGroup[index].name,
+                            buttonGroup[index].gotoContent,
                           )
                         : this.gotoVideo.bind(this, buttonGroup[index].name)
                     }
