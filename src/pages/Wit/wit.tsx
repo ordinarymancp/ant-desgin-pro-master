@@ -3,10 +3,8 @@ import { connect } from 'dva';
 import s from './index.scss'
 import imgs from '@/assets/66.jpg'
 import example1 from '@/assets/example1.png'
-import example2 from '@/assets/example2.png'
 import example3 from '@/assets/example3.png'
 import example4 from '@/assets/example4.png'
-import example5 from '@/assets/example5.png'
 
 // import Zmage from 'react-zmage'
 import {
@@ -294,7 +292,7 @@ class Addpeople extends React.Component {
                                 }
                               </div>
                               <div className={s.tabRight}>
-                                <img src={require(`../../../src/assets/ppt${GroupAChecked + 1}.jpg`)} alt="" style={{width: '700px', height: '530px', marginTop: '35px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupAChecked + 1})}}/>
+                                <img src={require(`../../../src/assets/ppt${GroupAChecked + 1}.jpg`)} alt="" style={{width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupAChecked + 1})}}/>
                               </div>
                             </div>
                         </div>
@@ -337,7 +335,7 @@ class Addpeople extends React.Component {
                             }
                           </div>
                           <div className={s.tabRight}>
-                            <img src={require(`../../../src/assets/ppt${GroupBChecked + 7}.jpg`)} alt="" style={{width: '700px', height: '530px', marginTop: '35px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + 7})}}/>
+                            <img src={require(`../../../src/assets/ppt${GroupBChecked + 7}.jpg`)} alt="" style={{width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + 7})}}/>
                           </div>
                         </div>
                       </div>
