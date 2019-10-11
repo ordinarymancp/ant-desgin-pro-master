@@ -286,12 +286,15 @@ class applicatioVideo extends React.Component {
               }
             }}
           >
-            <div style={{ width: '100%', height: '100%' }}>
+            <div style={{ width: '100%', height: '10%',position: 'absolute', top: '0',background: 'black', color: 'white', textAlign: 'center', lineHeight: '2' }}>
+              <span style={{fontSize: '25px', fontWeight: '600', color: 'white'}}>{this.props.match.params.name}</span>
+            </div>
+            <div style={{ width: '100%', height: '90%',position: 'absolute', top: '10%' }}>
               <video
                 playsinline
                 id="myVideo1"
                 className="video-js  vjs-big-play-centered "
-                style={{ height: '100%', width: '100%' }}
+                style={{ height: '100%', width: '100%'}}
               >
                 <p className="vjs-no-js">您的浏览器不支持HTML5，请升级浏览器。</p>
                 <track kind="captions" />
