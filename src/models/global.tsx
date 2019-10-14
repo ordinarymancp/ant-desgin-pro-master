@@ -374,6 +374,7 @@ const GlobalModel: GlobalModelType = {
             name: '教育云',
             collected: false,
             gotoContent: true,
+            pos: true,
             image:
               'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=359920737,1339844403&fm=26&gp=0.jpg',
             url: '1',
