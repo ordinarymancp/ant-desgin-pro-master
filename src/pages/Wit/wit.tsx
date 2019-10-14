@@ -42,6 +42,8 @@ class Addpeople extends React.Component {
       info: '',
       managerA: '',
       managerB: '',
+      manage: true,
+      topImage: '',
     };
 
     componentDidMount() {
@@ -66,6 +68,8 @@ class Addpeople extends React.Component {
               info: items.info,
               managerB: items.managerB || '',
               managerA: items.managerA || '',
+              manage: !(items.manage === false),
+              topImage: items.topImage,
             });
           }
         });
@@ -205,7 +209,7 @@ class Addpeople extends React.Component {
   };
 
     render() {
-      const { tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState, activeIndex, coverHidden, imagePath, info, managerB, managerA } = this.state;
+      const { manage, topImage, tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState, activeIndex, coverHidden, imagePath, info, managerB, managerA } = this.state;
         return (
             <div style={{width: '100%', height: '100%', background: 'white'}}>
               <div style={{position: 'fixed', height: '100%', width: '100%',background: 'rgba(0,0,0,0.2)', zIndex: '999'}} hidden={coverHidden} onClick={() => {this.setState({coverHidden: true})}}>
@@ -254,7 +258,7 @@ class Addpeople extends React.Component {
                 </div>
               </div>
                 <header style={{ position: 'relative' }}>
-                  <img src="https://img.alicdn.com/tfs/TB1RR6rz6TpK1RjSZKPXXa3UpXa-1920-648.jpg" alt="" style={{ width: '100%', height: 500, zIndex: '-1', transform: `matrix(1, 0, 0, 1, 0, ${this.state.scrollTop * 0.6})` }} />
+                  <img src={topImage ? topImage : 'https://img.alicdn.com/tfs/TB1RR6rz6TpK1RjSZKPXXa3UpXa-1920-648.jpg'} alt="" style={{ width: '100%', height: 500, zIndex: '-1', transform: `matrix(1, 0, 0, 1, 0, ${this.state.scrollTop * 0.6})` }} />
                   <div className={s.titleContent}>{this.props.match.params.name}解决方案</div>
                   <div className={s.bt}>
                         <span>咨询我们</span>
@@ -314,45 +318,47 @@ class Addpeople extends React.Component {
                         </div>
                     </div>
                     {/* 运营管理 */}
-                    <div className={s.wit} id="manage">
-                        <h1 className={s.tit}>运营管理</h1>
-                        <div className={s.witcontent}>
-                            <div style={{ paddingLeft: 15, paddingRight: 15, }}>
-                                <p style={{ marginTop: 20, fontSize: 18 }}>{managerA}</p>
-                                <p style={{ marginTop: 15, fontSize: 18, fontWeight: 700 }}>{managerB}</p>
-                                <div className={s.tab}>
-                                    <div className={s.tabson}>
-                                      <div className={s.tabCon}>
-                                        <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '100%', height: '100%'}}/>
-                                      </div>
-                                    </div>
-                                  <div className={s.tabson}>
-                                    <div className={s.tabCon}>
-                                      <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example4.jpg`) : ''} alt="" style={{width: '100%', height: '100%'}}/>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* 应用案例 */}
-                    <div className={s.wit} id="example">
-                      <h1 className={s.tit}>应用案例</h1>
+                  {
+                    manage ?  <div className={s.wit} id="manage">
+                      <h1 className={s.tit}>运营管理</h1>
                       <div className={s.witcontent}>
-                        <div style={{width: '100%'}} className={s.tabContent}>
-                          <div className={s.tabLeft}>
-                            {
-                              tabGroupB.map((item,index) => {
-                                return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupB.length}px`, lineHeight: `${600 / tabGroupB.length}px`}} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
-                              })
-                            }
-                          </div>
-                          <div className={s.tabRight}>
-                            <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${GroupBChecked + tabGroupA.length + 1 }.jpg`) : ''} alt="" style={{width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + tabGroupA.length + 1})}}/>
+                        <div style={{ paddingLeft: 15, paddingRight: 15, }}>
+                          <p style={{ marginTop: 20, fontSize: 18 }}>{managerA}</p>
+                          <p style={{ marginTop: 15, fontSize: 18, fontWeight: 700 }}>{managerB}</p>
+                          <div className={s.tab}>
+                            <div className={s.tabson}>
+                              <div className={s.tabCon}>
+                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '100%', height: '100%'}}/>
+                              </div>
+                            </div>
+                            <div className={s.tabson}>
+                              <div className={s.tabCon}>
+                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example4.jpg`) : ''} alt="" style={{width: '100%', height: '100%'}}/>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
+                    </div> : ''
+                  }
+                    {/* 应用案例 */}
+                  {tabGroupB.length > 0 ?  <div className={s.wit} id="example">
+                    <h1 className={s.tit}>应用案例</h1>
+                    <div className={s.witcontent}>
+                      <div style={{width: '100%'}} className={s.tabContent}>
+                        <div className={s.tabLeft}>
+                          {
+                            tabGroupB.map((item,index) => {
+                              return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupB.length}px`, lineHeight: `${600 / tabGroupB.length}px`}} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
+                            })
+                          }
+                        </div>
+                        <div className={s.tabRight}>
+                          <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${GroupBChecked + tabGroupA.length + 1 }.jpg`) : ''} alt="" style={{width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + tabGroupA.length + 1})}}/>
+                        </div>
+                      </div>
                     </div>
+                  </div> : ''}
                 </div>
                 <footer style={{position:'relative'}}>
                 <img src="https://img.alicdn.com/tfs/TB1BRbTz4jaK1RjSZKzXXXVwXXa-1920-292.jpg" alt="" style={{ width: '100%', height: 200 }} />
