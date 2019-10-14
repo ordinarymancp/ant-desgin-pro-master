@@ -44,6 +44,7 @@ class Addpeople extends React.Component {
       managerB: '',
       manage: true,
       topImage: '',
+      pos: false,
     };
 
     componentDidMount() {
@@ -70,6 +71,7 @@ class Addpeople extends React.Component {
               managerA: items.managerA || '',
               manage: !(items.manage === false),
               topImage: items.topImage,
+              pos: !!items.pos,
             });
           }
         });
@@ -209,11 +211,12 @@ class Addpeople extends React.Component {
   };
 
     render() {
-      const { manage, topImage, tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState, activeIndex, coverHidden, imagePath, info, managerB, managerA } = this.state;
-        return (
+      const { pos, manage, topImage, tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState, activeIndex, coverHidden, imagePath, info, managerB, managerA } = this.state;
+      console.log(pos)
+      return (
             <div style={{width: '100%', height: '100%', background: 'white'}}>
               <div style={{position: 'fixed', height: '100%', width: '100%',background: 'rgba(0,0,0,0.2)', zIndex: '999'}} hidden={coverHidden} onClick={() => {this.setState({coverHidden: true})}}>
-                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${activeIndex}.jpg`) : ''} style={{ position: 'absolute', margin: 'auto', left: '0', right: '0', top: '0', bottom: '0', width: '920px', height: '690px'}}/>
+                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${activeIndex}.jpg`) : ''} style={!pos ? { position: 'absolute', margin: 'auto', left: '0', right: '0', top: '0', bottom: '0', width: '960px', height: '540px'} : { position: 'absolute', margin: 'auto', left: '0', right: '0', top: '0', bottom: '0', width: '920px', height: '690px'}}/>
               </div>
               <div
                 style={{ position: 'fixed', height: '100%', width: '3%', right: 0, zIndex: '999' }}
@@ -304,15 +307,15 @@ class Addpeople extends React.Component {
                         <h1 className={s.tit}>方案介绍</h1>
                         <div className={s.witcontent}>
                             <div style={{width: '100%'}} className={s.tabContent}>
-                              <div className={s.tabLeft}>
+                              <div className={s.tabLeft} style={!pos ? {height: '450px'} : {}}>
                                 {
                                   tabGroupA.map((item,index) => {
-                                    return <div className={`${s.tabItem} ${GroupAChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupA.length}px`,lineHeight: `${600 / tabGroupA.length}px`}} onClick={() => {this.setState({GroupAChecked: index})}}>{item}</div>
+                                    return <div className={`${s.tabItem} ${GroupAChecked === index ? s.tabItemActive : ''}`} style={{height: `${(!pos ? 450 : 600) / tabGroupA.length}px`,lineHeight: `${(!pos ? 450 : 600) / tabGroupA.length}px`}} onClick={() => {this.setState({GroupAChecked: index})}}>{item}</div>
                                   })
                                 }
                               </div>
-                              <div className={s.tabRight}>
-                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${GroupAChecked + 1}.jpg`) : ''} alt="" style={{width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupAChecked + 1})}}/>
+                              <div className={s.tabRight} style={!pos ? {height: '450px'} : {}}>
+                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${GroupAChecked + 1}.jpg`) : ''} alt="" style={!pos ? {width: '800px', height: '450px'} : {width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupAChecked + 1})}}/>
                               </div>
                             </div>
                         </div>
@@ -326,14 +329,14 @@ class Addpeople extends React.Component {
                           <p style={{ marginTop: 20, fontSize: 18 }}>{managerA}</p>
                           <p style={{ marginTop: 15, fontSize: 18, fontWeight: 700 }}>{managerB}</p>
                           <div className={s.tab}>
-                            <div className={s.tabson}>
+                            <div className={!pos ? s.tabsons : s.tabson}>
                               <div className={s.tabCon}>
-                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '100%', height: '100%'}}/>
+                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '100%', height: '100%', textIndent: '0'}}/>
                               </div>
                             </div>
-                            <div className={s.tabson}>
+                            <div className={!pos ? s.tabsons : s.tabson}>
                               <div className={s.tabCon}>
-                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example4.jpg`) : ''} alt="" style={{width: '100%', height: '100%'}}/>
+                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example4.jpg`) : ''} alt="" style={{width: '100%', height: '100%', textIndent: '0'}}/>
                               </div>
                             </div>
                           </div>
@@ -346,15 +349,15 @@ class Addpeople extends React.Component {
                     <h1 className={s.tit}>应用案例</h1>
                     <div className={s.witcontent}>
                       <div style={{width: '100%'}} className={s.tabContent}>
-                        <div className={s.tabLeft}>
+                        <div className={s.tabLeft} style={!pos ? {height: '450px'} : {}}>
                           {
                             tabGroupB.map((item,index) => {
-                              return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} style={{height: `${600 / tabGroupB.length}px`, lineHeight: `${600 / tabGroupB.length}px`}} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
+                              return <div className={`${s.tabItem} ${GroupBChecked === index ? s.tabItemActive : ''}`} style={{height: `${(!pos ? 450 : 600) / tabGroupB.length}px`, lineHeight: `${(!pos ? 450 : 600) / tabGroupB.length}px`}} onClick={() => {this.setState({GroupBChecked: index})}}>{item}</div>
                             })
                           }
                         </div>
-                        <div className={s.tabRight}>
-                          <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${GroupBChecked + tabGroupA.length + 1 }.jpg`) : ''} alt="" style={{width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + tabGroupA.length + 1})}}/>
+                        <div className={s.tabRight} style={!pos ? {height: '450px'} : {}}>
+                          <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/ppt${GroupBChecked + tabGroupA.length + 1 }.jpg`) : ''} alt="" style={!pos ? {width: '800px', height: '450px'} : {width: '800px', height: '600px'}} onClick={() => {this.setState({coverHidden: false, activeIndex: GroupBChecked + tabGroupA.length + 1})}}/>
                         </div>
                       </div>
                     </div>

@@ -63,7 +63,7 @@
 .witcontent{
   margin: 0 auto;
   margin-top: 28px;
-  text-indent: 2em;
+  //text-indent: 2em;
   max-width: 1270px;
   color: rgba(51,51,51,.75);
   padding: 0 50px;
@@ -143,6 +143,12 @@
     width: 564px;
     height: 424px;
     padding: 0 4px;
+    box-sizing: border-box;
+    float: left;
+  }
+  .tabsons{
+    width: 560px;
+    height: 315px;
     box-sizing: border-box;
     float: left;
   }
