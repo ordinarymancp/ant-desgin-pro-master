@@ -119,7 +119,7 @@ class applicatioVideo extends React.Component {
               location.reload();
             }
           } else {
-            message.warning('这是第一个场景');
+            message.warning('这是最后一个场景');
           }
         }
       });
