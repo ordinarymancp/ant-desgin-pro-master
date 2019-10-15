@@ -363,7 +363,7 @@ class Addpeople extends React.Component {
                     </div>
                   </div> : ''}
                 </div>
-                <footer style={{position:'relative'}}>
+                <footer style={{position: 'relative'}}>
                 <img src="https://img.alicdn.com/tfs/TB1BRbTz4jaK1RjSZKzXXXVwXXa-1920-292.jpg" alt="" style={{ width: '100%', height: 200 }} />
                 <div className={s.footer}>
                         <div>咨询我们</div>
