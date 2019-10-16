@@ -34,6 +34,7 @@ class Addpeople extends React.Component {
       GroupAChecked: 0,
       tabGroupB: [],
       GroupBChecked: 0,
+      manageGroupChecked: 0,
       hiddenState: true,
       content: '',
       activeIndex: 1,
@@ -45,6 +46,8 @@ class Addpeople extends React.Component {
       manage: true,
       topImage: '',
       pos: false,
+      titleGroup: [],
+      manageGroup: [],
     };
 
     componentDidMount() {
@@ -72,6 +75,8 @@ class Addpeople extends React.Component {
               manage: !(items.manage === false),
               topImage: items.topImage,
               pos: !!items.pos,
+              titleGroup: items.titleGroup,
+              manageGroup: items.manageGroup || [],
             });
           }
         });
@@ -211,7 +216,7 @@ class Addpeople extends React.Component {
   };
 
     render() {
-      const { pos, manage, topImage, tabGroupA, GroupAChecked, tabGroupB, GroupBChecked, hiddenState, activeIndex, coverHidden, imagePath, info, managerB, managerA } = this.state;
+      const { pos, manage, topImage, tabGroupA, manageGroupChecked, GroupAChecked, manageGroup, tabGroupB, GroupBChecked, titleGroup, hiddenState, activeIndex, coverHidden, imagePath, info, managerB, managerA } = this.state;
       console.log(pos)
       return (
             <div style={{width: '100%', height: '100%', background: 'white'}}>
@@ -269,33 +274,33 @@ class Addpeople extends React.Component {
                 </header>
                 <nav style={ {position: 'relative', background: 'white', zIndex: '3', width: '100%'}}>
                     <ul className={s.nav}>
-                        <li><a href="#overviews" style={{fontWeight: 800}}>概述</a></li>
-                        <li><a href="#product" style={{fontWeight: 800}}>总体架构</a></li>
-                        <li><a href="#introduction" style={{fontWeight: 800}}>方案介绍</a></li>
-                        <li><a href="#manage" style={{fontWeight: 800}}>运营管理</a></li>
-                        <li><a href="#example" style={{fontWeight: 800}}>应用案例</a></li>
+                        <li><a href="#overviews" style={{fontWeight: 800}}>{titleGroup[0] || ''}</a></li>
+                        <li><a href="#product" style={{fontWeight: 800}}>{titleGroup[1] || ''}</a></li>
+                        <li><a href="#introduction" style={{fontWeight: 800}}>{titleGroup[2] || ''}</a></li>
+                        <li><a href="#manage" style={{fontWeight: 800}}>{titleGroup[3] || ''}</a></li>
+                        <li><a href="#example" style={{fontWeight: 800}}>{titleGroup[4] || ''}</a></li>
                     </ul>
                 </nav>
               {this.state.scrollTop > 500 ? <nav style={{position: 'fixed', background: 'white', top: '0px', zIndex: 99,width: '100%'}}>
                 <ul className={s.nav}>
-                  <li><a href="#overviews" style={{fontWeight: 800}}>概述</a></li>
-                  <li><a href="#product" style={{fontWeight: 800}}>总体架构</a></li>
-                  <li><a href="#introduction" style={{fontWeight: 800}}>方案介绍</a></li>
-                  <li><a href="#manage" style={{fontWeight: 800}}>运营管理</a></li>
-                  <li><a href="#example" style={{fontWeight: 800}}>应用案例</a></li>
+                  <li><a href="#overviews" style={{fontWeight: 800}}>{titleGroup[0] || ''}</a></li>
+                  <li><a href="#product" style={{fontWeight: 800}}>{titleGroup[1] || ''}</a></li>
+                  <li><a href="#introduction" style={{fontWeight: 800}}>{titleGroup[2] || ''}</a></li>
+                  <li><a href="#manage" style={{fontWeight: 800}}>{titleGroup[3] || ''}</a></li>
+                  <li><a href="#example" style={{fontWeight: 800}}>{titleGroup[4] || ''}</a></li>
                 </ul>
               </nav>: ''}
                 <div id="overviews" className={s.content} style={{ zIndex: '3', position: 'relative', background: 'white'}}>
                     {/* 教育建设 */}
                     <div className={s.wit}>
-                        <h1 className={s.tit}>{this.props.match.params.name}建设内容</h1>
+                        <h1 className={s.tit}>{this.props.match.params.name}{titleGroup[0] || ''}</h1>
                         <div className={s.witcontent}>
                           {info}
                         </div>
                     </div>
                     {/* 总体架构 */}
                     <div id="product" className={s.wit}>
-                        <h1 className={s.tit}>总体架构</h1>
+                        <h1 className={s.tit}>{titleGroup[1] || ''}</h1>
                         <div className={s.witcontent}>
                             <div className={s.titnav}>
                               <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example1.jpg`) : ''} alt="" style={{width: '95%', height: '700px', margin: '0 auto'}}/>
@@ -304,7 +309,7 @@ class Addpeople extends React.Component {
                     </div>
                     {/* 方案介绍 */}
                     <div className={s.wit} id="introduction">
-                        <h1 className={s.tit}>方案介绍</h1>
+                        <h1 className={s.tit}>{titleGroup[2] || ''}</h1>
                         <div className={s.witcontent}>
                             <div style={{width: '100%'}} className={s.tabContent}>
                               <div className={s.tabLeft} style={!pos ? {height: '450px'} : {}}>
@@ -323,30 +328,52 @@ class Addpeople extends React.Component {
                     {/* 运营管理 */}
                   {
                     manage ?  <div className={s.wit} id="manage">
-                      <h1 className={s.tit}>运营管理</h1>
+                      <h1 className={s.tit}>{titleGroup[3] || ''}</h1>
                       <div className={s.witcontent}>
-                        <div style={{ paddingLeft: 15, paddingRight: 15, }}>
-                          <p style={{ marginTop: 20, fontSize: 18 }}>{managerA}</p>
-                          <p style={{ marginTop: 15, fontSize: 18, fontWeight: 700 }}>{managerB}</p>
-                          <div className={s.tab}>
-                            <div className={!pos ? s.tabsons : s.tabson}>
-                              <div className={s.tabCon}>
-                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '100%', height: '100%', textIndent: '0'}}/>
+                        {
+                          manageGroup.length > 0 ? manageGroup.length > 1 ?
+                            <div className={s.witcontent}>
+                              <div style={{width: '100%'}} className={s.tabContent}>
+                                <div className={s.tabLeft} style={!pos ? {height: '450px'} : {}}>
+                                  {
+                                    manageGroup.map((item,index) => {
+                                      return <div className={`${s.tabItem} ${manageGroupChecked === index ? s.tabItemActive : ''}`} style={{height: `${(!pos ? 450 : 600) / manageGroup.length}px`, lineHeight: `${(!pos ? 450 : 600) / manageGroup.length}px`}} onClick={() => {this.setState({manageGroupChecked: index})}}>{item}</div>
+                                    })
+                                  }
+                                </div>
+                                <div className={s.tabRight} style={!pos ? {height: '450px'} : {}}>
+                                  <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example${manageGroupChecked + 3 }.jpg`) : ''} alt="" style={!pos ? {width: '800px', height: '450px'} : {width: '800px', height: '600px'}}/>
+                                </div>
                               </div>
-                            </div>
-                            <div className={!pos ? s.tabsons : s.tabson}>
-                              <div className={s.tabCon}>
-                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example4.jpg`) : ''} alt="" style={{width: '100%', height: '100%', textIndent: '0'}}/>
+                            </div> :
+                            <div className={s.witcontent}>
+                              <div className={s.titnav}>
+                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '1270px', height: '690px', margin: '0 auto'}}/>
+                              </div>
+                            </div> :
+                            <div style={{ paddingLeft: 15, paddingRight: 15, }}>
+                            <p style={{ marginTop: 20, fontSize: 18 }}>{managerA}</p>
+                            <p style={{ marginTop: 15, fontSize: 18, fontWeight: 700 }}>{managerB}</p>
+                            <div className={s.tab}>
+                              <div className={!pos ? s.tabsons : s.tabson}>
+                                <div className={s.tabCon}>
+                                  <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '100%', height: '100%', textIndent: '0'}}/>
+                                </div>
+                              </div>
+                              <div className={!pos ? s.tabsons : s.tabson}>
+                                <div className={s.tabCon}>
+                                  <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example4.jpg`) : ''} alt="" style={{width: '100%', height: '100%', textIndent: '0'}}/>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        }
                       </div>
                     </div> : ''
                   }
                     {/* 应用案例 */}
                   {tabGroupB.length > 0 ?  <div className={s.wit} id="example">
-                    <h1 className={s.tit}>应用案例</h1>
+                    <h1 className={s.tit}>{titleGroup[4] || ''}</h1>
                     <div className={s.witcontent}>
                       <div style={{width: '100%'}} className={s.tabContent}>
                         <div className={s.tabLeft} style={!pos ? {height: '450px'} : {}}>
