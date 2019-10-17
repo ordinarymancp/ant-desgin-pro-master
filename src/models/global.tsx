@@ -404,6 +404,21 @@ const GlobalModel: GlobalModelType = {
           },
           {
             state: 'simulation',
+            name: '智慧课堂',
+            collected: false,
+            gotoContent: true,
+            image:
+              'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=359920737,1339844403&fm=26&gp=0.jpg',
+            url: '1',
+            titleGroup: ['概述', '总体架构', '方案介绍', '运营管理', '应用案例'],
+            info: '随着智能手机、平板电脑、笔记本电脑等自带设备的不断普及,许多学校已经开始提倡甚至鼓励学生携带自带设备进课堂。这不仅促进了信息技术与教学的深度融合,还促进了教育信息化的发展。搭建基于BYOD的一对一数字化学习环境；构建具有信息资源多样性和情境整合性等特征的基于BYOD的一对一数字化教学与学习模式。其实质在于转变师生在教学资源建设与应用中的角色,实现BYOD与教育教学的有效融合,从而优化教学效果。',
+            imagePath: 'wisdomClass',
+            tabGroupA: ['智慧教学', '用户价值', '收益分析'],
+            manageGroup: ['应用优势', '资源优势', '工具优势', '终端优势', '管控优势', '阅卷终端优势', '多维度学勤分析', '提分辅导个性化', '教研支撑优势', '服务优势'],
+            tabGroupB: ['楚才中学', '天门实验初级中学', '河南沁阳实验中学', '重庆天宝实验中学'],
+          },
+          {
+            state: 'simulation',
             name: '云班牌',
             collected: false,
             gotoContent: true,
