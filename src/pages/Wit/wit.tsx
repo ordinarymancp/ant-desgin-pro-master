@@ -346,11 +346,9 @@ class Addpeople extends React.Component {
                                 </div>
                               </div>
                             </div> :
-                            <div className={s.witcontent}>
-                              <div className={s.titnav}>
-                                <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '1270px', height: '690px', margin: '0 auto'}}/>
-                              </div>
-                            </div> :
+                            <div className={s.titnav}>
+                              <img src={imagePath !== '' ? require(`../../../src/assets/${imagePath}/example3.jpg`) : ''} alt="" style={{width: '1170px', height: '658px', margin: '0 auto'}}/>
+                            </div>:
                             <div style={{ paddingLeft: 15, paddingRight: 15, }}>
                             <p style={{ marginTop: 20, fontSize: 18 }}>{managerA}</p>
                             <p style={{ marginTop: 15, fontSize: 18, fontWeight: 700 }}>{managerB}</p>
