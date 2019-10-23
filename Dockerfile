@@ -5,6 +5,7 @@ WORKDIR /var/static
 
 COPY dist/ ./dist
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./docker/cert /etc/nginx/cert
 
 WORKDIR /var/static/dist
 
