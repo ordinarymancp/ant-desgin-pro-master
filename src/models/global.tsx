@@ -117,6 +117,14 @@ const GlobalModel: GlobalModelType = {
             image:
               'https://www.kingwins.com.cn/Uploads/Editor/2018-03-07/5a9fe3dca44fe.jpg',
           },
+          {
+            state: 'solution',
+            name: '城市运营中心',
+            collected: false,
+            url: 'http://192.168.204.65:8020/LDSmart/index-city-index.html',
+            image:
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572597383&di=c3d0c665db95c9cb9309349c67231ee8&imgtype=jpg&er=1&src=http%3A%2F%2Fe-file.huawei.com%2F-%2Fmedia%2FEBG%2FVideo%2Fimages%2Flarge%2Fcn%2F2018%2FHuawei-Smart-City-Intelligent-Operation-Center-IOC-Solution-cn.jpg%3Fh%3D540%26amp%3Bla%3Dzh%26amp%3Bw%3D960',
+          },
         ],
       },
       {
