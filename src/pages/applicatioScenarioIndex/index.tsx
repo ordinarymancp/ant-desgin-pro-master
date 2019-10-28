@@ -232,7 +232,7 @@ class applicatioScenarioIndex extends React.Component {
             <PageLoading />
           </div>
           <iframe
-            src={iframeUrl}
+            src={'/index/Redirect'}
             frameBorder="none"
             onLoad={this.hiddenLoading}
             style={{

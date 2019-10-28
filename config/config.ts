@@ -99,6 +99,11 @@ export default {
           component: './login',
         },
         {
+          path: '/index/Redirect',
+          name: 'Redirect',
+          component: './redirectPage',
+        },
+        {
           path: '/index/welcomeIndex',
           name: 'welcomeIndex',
           component: './welcomeIndex',
