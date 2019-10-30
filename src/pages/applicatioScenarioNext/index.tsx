@@ -58,7 +58,7 @@ class applicatioScenarioNext extends React.Component {
         type: 'global/setIframeUrl',
         payload: { iframeUrl: url },
       });
-      if (name === '区域经济大脑' || name === '地理信息服务平台' || name === '城市运营中心') {
+      if (name === '区域经济大脑' || name === '地理信息服务平台' || name === '城市运营中心' || name === '创富港智慧园区' || name === '盐城电商平台') {
         window.open(url);
       } else {
         router.push('/index/applicatioScenarioIndex/' + name);

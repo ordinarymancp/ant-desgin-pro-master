@@ -321,7 +321,7 @@ const GlobalModel: GlobalModelType = {
             state: 'solution',
             name: '室外停车引导服务',
             collected: false,
-            url: 'http://219.233.175.82:58090/visual/parking',
+            url: 'https://www.iservice.ltd:58090/visual/parking',
             image:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=470403f622bc17c72abc3b4909f62822&imgtype=0&src=http%3A%2F%2Fimg8.iqilu.com%2Fcamimgs%2F2018%2F04%2F03%2Fa0e5382ae96ed06260b6f582ec38cec9.jpg',
           },
@@ -329,7 +329,7 @@ const GlobalModel: GlobalModelType = {
             state: 'solution',
             name: '园区安全防范',
             collected: false,
-            url: 'http://219.233.175.82:58090/visual/pksecurity',
+            url: 'https://www.iservice.ltd:58090/visual/pksecurity',
             image:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686487195&di=8828deeda6366b149bd292b2e0751ecb&imgtype=0&src=http%3A%2F%2F13355794.s21i-13.faiusr.com%2F2%2FABUIABACGAAg6qeyywUosL-ZqgYwnQs4hAc.jpg',
           },
@@ -346,7 +346,7 @@ const GlobalModel: GlobalModelType = {
             name: '食堂就餐疏导',
             collected: false,
             url:
-              'http://219.233.175.82:58090/portal-web/passFlowPc/index.html?tdsourcetag=s_pcqq_aiomsg',
+              'https://www.iservice.ltd:58090/portal-web/passFlowPc/index.html?tdsourcetag=s_pcqq_aiomsg',
             image:
               'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567686563230&di=d8b64b0205a4af61317150a7d7a0c3e6&imgtype=0&src=http%3A%2F%2Fnewpic.jxnews.com.cn%2F0%2F12%2F45%2F34%2F12453438_210849.jpg',
           },
@@ -354,7 +354,7 @@ const GlobalModel: GlobalModelType = {
             state: 'solution',
             name: '重点轨迹监控',
             collected: false,
-            url: 'http://219.233.175.82:58090/visual/personTrace',
+            url: 'https://www.iservice.ltd:58090/visual/personTrace',
             image:
               'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1043027965,3810702774&fm=11&gp=0.jpg',
           },
